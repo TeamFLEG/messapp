@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "703069721052",
+    "project_id": "messapp-bcb17",
+    "storage_bucket": "messapp-bcb17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703069721052:android:5edbecc4231c7483d13f19",
+        "android_client_info": {
+          "package_name": "com.teamfleg.messapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703069721052-kvub8hejuukm38ji2h79ulb4dvc3el06.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamfleg",
+            "certificate_hash": "e13bb65afdf634a15710bd05191ba296b6825399"
+          }
+        },
+        {
+          "client_id": "703069721052-49m3ch269hub9thj0n10bgbpvqav0dvf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACFOB_AVrsBHfF9GIObn3_l7CdxdQvdCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703069721052-49m3ch269hub9thj0n10bgbpvqav0dvf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
