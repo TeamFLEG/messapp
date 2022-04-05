@@ -33,6 +33,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                 User? user =
                     await Authentication.signInWithGoogle(context: context);
 
+                print(user);
                 final emailID = FirebaseAuth.instance.currentUser?.email;
 
                 setState(() {
