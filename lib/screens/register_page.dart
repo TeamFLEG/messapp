@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/utils/authentication.dart';
 
+import '../widgets/google_sign_in_button.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -132,12 +134,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: const Text("SignUp"),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text("Sign up with Google"),
-                  ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 18.0),
+                  child: GoogleSignInButton(),
                 )
               ]),
         ),
