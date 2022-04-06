@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/utils/authentication.dart';
 import 'register_page.dart';
+import 'mess_select.dart';
 import '../widgets/google_sign_in_button.dart';
 
 class LoginPage extends StatefulWidget {
@@ -145,8 +146,24 @@ class _LoginPageState extends State<LoginPage> {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.0),
                   child: GoogleSignInButton()
-                )
-              ]),
+                ),
+
+                Padding( //Temporary button for routing
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                            const MessSelect(),
+                          ),
+                        );
+                      }, child: const Text("Temp Button"),
+                    ),
+                ),
+              ],
+          ),
         ),
       ),
     );
