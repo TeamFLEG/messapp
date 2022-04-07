@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../utils/authentication.dart';
-import '../widgets/custom_snack_bar.dart';
+import '../widgets/snack_bar_message.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({Key? key}) : super(key: key);
@@ -34,7 +34,6 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                     await Authentication.signInWithGoogle(context: context);
 
                 print(user);
-                final emailID = FirebaseAuth.instance.currentUser?.email;
 
                 setState(() {
                   _isSigningIn = false;
@@ -42,8 +41,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
 
                 if (user != null) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    CustomSnackBar.customSnackBar(
-                      content: 'User with email id $emailID logged in',
+                    SnackBarMessage.customSnackBar(
+                      content: 'User logged in',
                     ),
                   );
                 }

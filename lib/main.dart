@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 // Firebase imports
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:messapp/screens/auth_page.dart';
+import 'package:messapp/screens/forgot_password_page.dart';
+import 'package:messapp/screens/mess_select.dart';
 import 'firebase_options.dart';
 // Login import
-import 'package:messapp/screens/login_page.dart';
+import 'package:messapp/screens/user_profile.dart';
 // Color palette import
 import 'theme/palette.dart';
 
@@ -15,6 +19,8 @@ void main() async {
   runApp(const MyApp());
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -22,12 +28,45 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "MessApp",
-      theme: ThemeData(
-        primarySwatch: Palette.myMaroon,
-        fontFamily: 'Raleway'
-      ),
-      home: const LoginPage(),
+      theme: ThemeData(primarySwatch: Palette.myMaroon, fontFamily: 'Raleway'),
+      navigatorKey: navigatorKey,
+      initialRoute: '/',
+      routes: {
+        '/login': (context) => const AuthPage(),
+        '/dashboard': (context) => const UserProfile(),
+        '/mess-select': (context) => const MessSelect(),
+        '/forgotPassword': (context) => const ForgotPasswordPage(),
+      },
+      home: const MainPage(),
     );
   }
 }
 
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text(
+                  "Something went wrong connecting to server. Please try again later."),
+            );
+          } else if (snapshot.hasData) {
+            return const UserProfile();
+          } else {
+            return const AuthPage();
+          }
+        },
+      ),
+    );
+  }
+}

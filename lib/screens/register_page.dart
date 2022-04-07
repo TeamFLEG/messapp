@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/utils/authentication.dart';
@@ -5,7 +6,10 @@ import 'package:messapp/utils/authentication.dart';
 import '../widgets/google_sign_in_button.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({Key? key, required this.onClickedSignIn})
+      : super(key: key);
+
+  final Function() onClickedSignIn;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -51,14 +55,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: <TextSpan>[
                           const TextSpan(text: "Already a member / "),
                           TextSpan(
-                              style: const TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold),
-                              text: "Login",
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.pop(context);
-                                }),
+                            style: const TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                            text: "Login",
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = widget.onClickedSignIn,
+                          ),
                         ]),
                   ),
                 ),
@@ -71,9 +74,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     labelText: "Email",
                   ),
                   keyboardType: TextInputType.emailAddress,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (String? value) {
-                    if (value != null && value.isEmpty) {
-                      return 'Email field cannot be empty';
+                    if (value != null && !EmailValidator.validate(value)) {
+                      return 'Enter a valid email';
                     }
                     return null;
                   },
@@ -85,14 +89,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: _passwordController,
                   obscureText: true,
                   enableSuggestions: false,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   autocorrect: false,
                   decoration: const InputDecoration(
                     labelText: "Password",
                   ),
                   keyboardType: TextInputType.visiblePassword,
                   validator: (String? value) {
-                    if (value != null && value.isEmpty) {
-                      return 'Password field cannot be empty';
+                    if (value != null && value.length < 8) {
+                      return 'Password must be minimum 8 characters';
                     }
                     return null;
                   },
@@ -127,8 +132,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        Authentication.registerUser(
-                            _emailController.text, _passwordController.text);
+                        Authentication.registerUser(_emailController.text,
+                            _passwordController.text, context);
                       }
                     },
                     child: const Text("SignUp"),
