@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Form(
         key: _formKey,
         child: Padding(
@@ -96,8 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: "Password",
                 ),
                 validator: (String? value) {
-                  if (value != null && !EmailValidator.validate(value)) {
-                    return 'Enter a valid email';
+                  if (value == null || value.isEmpty) {
+                    return 'This field is required';
                   }
                   return null;
                 },
@@ -131,7 +132,6 @@ class _LoginPageState extends State<LoginPage> {
                     if (_formKey.currentState!.validate()) {
                       Authentication.loginUser(_emailController.text,
                           _passwordController.text, context);
-                      Authentication.loggedInStatus(context);
                     }
                   },
                   child: const Text("Login"),

@@ -7,8 +7,8 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-    print(user);
+    print(FirebaseAuth.instance.currentUser);
+    final name = FirebaseAuth.instance.currentUser!.displayName;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
@@ -19,7 +19,7 @@ class UserProfile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "Hey ${user.email}",
+                  "Hey $name",
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 30.0,

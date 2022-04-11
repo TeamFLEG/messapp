@@ -6,18 +6,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
   // Email Authentication
-  static void registerUser(email, password, BuildContext context) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => (const Center(
-        child: CircularProgressIndicator(),
-      )),
-    );
-
+  static void registerUser(name, email, password, BuildContext context) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      FirebaseAuth.instance.currentUser!.updateDisplayName(name);
+      navigatorKey.currentState!.pushNamed('/mess-select');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -39,23 +33,15 @@ class Authentication {
         ),
       );
     }
-
-    navigatorKey.currentState!.pushNamed('/mess-select');
   }
 
   static Future loginUser(email, password, BuildContext context) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => (const Center(
-        child: CircularProgressIndicator(),
-      )),
-    );
 
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       print(userCredential);
+      navigatorKey.currentState!.pushNamed('/dashboard');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         SnackBarMessage.snackBarMessage(
@@ -68,8 +54,6 @@ class Authentication {
         );
       }
     }
-
-    navigatorKey.currentState!.pushNamed('/dashboard');
   }
 
   static void loggedInStatus(BuildContext context) async {
@@ -89,7 +73,9 @@ class Authentication {
   }
 
   static void logoutUser(BuildContext context) async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
     try {
+      await _googleSignIn.disconnect();
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -102,14 +88,6 @@ class Authentication {
 
   // Google Authentication
   static Future<User?> signInWithGoogle({required BuildContext context}) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => (const Center(
-        child: CircularProgressIndicator(),
-      )),
-    );
-
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
 
@@ -160,17 +138,9 @@ class Authentication {
   }
 
   static Future resetPassword(email, BuildContext context) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => (const Center(
-        child: CircularProgressIndicator(),
-      )),
-    );
-
+    print(email);
     try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: email.text);
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       SnackBarMessage.snackBarMessage(
           content: "Password reset email sent", context: context);
       navigatorKey.currentState!.pushNamed('/login');

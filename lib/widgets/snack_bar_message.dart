@@ -13,7 +13,7 @@ class SnackBarMessage {
   static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBarMessage({required String content, required BuildContext context}) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBarMessage.customSnackBar(
-        content: 'No user found for that email.',
+        content: content,
       ),
     );
   }
