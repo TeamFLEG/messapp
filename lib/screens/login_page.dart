@@ -1,9 +1,10 @@
-import 'package:email_validator/email_validator.dart';
+// import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/utils/authentication.dart';
 import '../widgets/google_sign_in_button.dart';
+import 'package:messapp/screens/admin_dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.onClickedSignUp}) : super(key: key);
@@ -139,7 +140,28 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.0),
-                  child: GoogleSignInButton()),
+                  child: GoogleSignInButton()
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                         const AdminDashboard(),
+                      ),
+                    );
+                    // if (_formKey.currentState!.validate()) {
+                    //   Authentication.loginUser(_emailController.text,
+                    //       _passwordController.text, context);
+                    //   Authentication.loggedInStatus(context);
+                  },
+                  child: const Text("Temp Button"),
+                ),
+              ),
+
             ],
           ),
         ),
