@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/utils/authentication.dart';
 import '../widgets/google_sign_in_button.dart';
-import 'package:messapp/screens/admin_dashboard.dart';
+import 'package:messapp/screens/join_mess.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.onClickedSignUp}) : super(key: key);
@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                         const AdminDashboard(),
+                         const JoinMess(),
                       ),
                     );
                     // if (_formKey.currentState!.validate()) {
