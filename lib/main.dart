@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messapp/screens/auth_page.dart';
+import 'package:messapp/screens/create_mess.dart';
 import 'package:messapp/screens/forgot_password_page.dart';
 import 'package:messapp/screens/mess_select.dart';
 import 'firebase_options.dart';
@@ -61,7 +62,7 @@ class MainPage extends StatelessWidget {
                   "Something went wrong connecting to server. Please try again later."),
             );
           } else if (snapshot.hasData) {
-            return const UserProfile();
+            return const CreateMess();
           } else {
             return const AuthPage();
           }

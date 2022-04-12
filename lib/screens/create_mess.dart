@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:messapp/main.dart';
+import 'package:messapp/models/admin.dart';
+import 'package:messapp/widgets/snack_bar_message.dart';
 
 
 class CreateMess extends StatefulWidget {
@@ -10,12 +14,27 @@ class CreateMess extends StatefulWidget {
 }
 
 class _CreateMessState extends State<CreateMess> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late TextEditingController _messNameController;
+  late TextEditingController _managerNameController;
+  late TextEditingController _phoneController;
+  late TextEditingController _addressController;
+
+  @override
+  void initState() {
+    super.initState();
+    _messNameController = TextEditingController();
+    _managerNameController = TextEditingController();
+    _phoneController = TextEditingController();
+    _addressController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Form(
-        // key: _formKey,
+        key: _formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: Column(
@@ -33,9 +52,9 @@ class _CreateMessState extends State<CreateMess> {
                 height: 30,
               ),
               TextFormField(
-                // controller: _emailController,
+                controller: _messNameController,
                 decoration: InputDecoration(
-                  labelText: "Email",
+                  labelText: "Mess Name",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide.none,
@@ -43,10 +62,9 @@ class _CreateMessState extends State<CreateMess> {
                   filled: true,
                   fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
                 ),
-                keyboardType: TextInputType.emailAddress,
                 validator: (String? value) {
-                  if (value != null && value.isEmpty) {
-                    return 'Email field cannot be empty';
+                  if (value == null || value.isEmpty) {
+                    return 'Mess name field is required';
                   }
                   return null;
                 },
@@ -55,7 +73,7 @@ class _CreateMessState extends State<CreateMess> {
                 height: 15,
               ),
               TextFormField(
-                // controller: _passwordController,
+                controller: _managerNameController,
                 decoration: InputDecoration(
                   labelText: "Mess Manager Name",
                   border: OutlineInputBorder(
@@ -76,7 +94,7 @@ class _CreateMessState extends State<CreateMess> {
                 height: 15,
               ),
               TextFormField(
-                // controller: _passwordController
+                controller: _phoneController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: "Phone number",
@@ -98,6 +116,7 @@ class _CreateMessState extends State<CreateMess> {
                 height: 15,
               ),
               TextField(
+                controller: _addressController,
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
                 decoration: InputDecoration(
@@ -117,7 +136,11 @@ class _CreateMessState extends State<CreateMess> {
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    print("Registration completed");
+                    final messName = _messNameController.text;
+                    final managerName = _managerNameController.text;
+                    final phone = int.parse(_phoneController.text);
+                    final address = _addressController.text;
+                    createAdmin(messName: messName, managerName: managerName, phone: phone, address: address);
                   },
                   child: const Text("Complete Registration"),
                 ),
@@ -127,5 +150,23 @@ class _CreateMessState extends State<CreateMess> {
         ),
       ),
     );
+  }
+
+  Future createAdmin({
+    required String messName,
+    required String managerName,
+    required int phone,
+    required String address
+  }) async {
+    // Referencing to the document
+    final adminDoc = FirebaseFirestore.instance.collection('admin').doc();
+    final admin = Admin(id: adminDoc.id, messName: messName, managerName: managerName, phoneNumber: phone, address: address);
+    final adminJSON = admin.toJSON();
+    try {
+      await adminDoc.set(adminJSON);
+      navigatorKey.currentState!.pushNamed('adminDashboard');
+    } catch (e) {
+      SnackBarMessage.snackBarMessage(content: '$e', context: context);
+    }
   }
 }
