@@ -1,16 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
-import 'package:messapp/models/admin.dart';
+import 'package:messapp/models/users.dart';
 import 'package:messapp/widgets/snack_bar_message.dart';
-
 
 class CreateMess extends StatefulWidget {
   const CreateMess({Key? key}) : super(key: key);
 
   @override
   State<CreateMess> createState() => _CreateMessState();
-
 }
 
 class _CreateMessState extends State<CreateMess> {
@@ -104,10 +103,14 @@ class _CreateMessState extends State<CreateMess> {
                   ),
                   filled: true,
                   fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
-              ),
+                ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Phone number field is required';
+                  String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                  RegExp regExp = RegExp(pattern);
+                  if (value!.isEmpty) {
+                    return 'Please enter mobile number';
+                  } else if (!regExp.hasMatch(value)) {
+                    return 'Please enter valid mobile number';
                   }
                   return null;
                 },
@@ -136,11 +139,11 @@ class _CreateMessState extends State<CreateMess> {
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    final messName = _messNameController.text;
-                    final managerName = _managerNameController.text;
-                    final phone = int.parse(_phoneController.text);
-                    final address = _addressController.text;
-                    createAdmin(messName: messName, managerName: managerName, phone: phone, address: address);
+                    createAdmin(
+                        messName: _messNameController.text,
+                        fullName: _managerNameController.text,
+                        phone: int.parse(_phoneController.text),
+                        address: _addressController.text);
                   },
                   child: const Text("Complete Registration"),
                 ),
@@ -152,15 +155,21 @@ class _CreateMessState extends State<CreateMess> {
     );
   }
 
-  Future createAdmin({
-    required String messName,
-    required String managerName,
-    required int phone,
-    required String address
-  }) async {
+  Future createAdmin(
+      {required String messName,
+      required String fullName,
+      required int phone,
+      required String address}) async {
     // Referencing to the document
     final adminDoc = FirebaseFirestore.instance.collection('admin').doc();
-    final admin = Admin(id: adminDoc.id, messName: messName, managerName: managerName, phoneNumber: phone, address: address);
+    final loggedInUser = FirebaseAuth.instance.currentUser!;
+    final admin = Users(
+        id: adminDoc.id,
+        messName: messName,
+        fullName: fullName,
+        email: loggedInUser.email.toString(),
+        phoneNumber: phone,
+        address: address);
     final adminJSON = admin.toJSON();
     try {
       await adminDoc.set(adminJSON);
