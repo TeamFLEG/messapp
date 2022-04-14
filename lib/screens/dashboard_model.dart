@@ -52,16 +52,6 @@ class DashboardCard extends StatelessWidget {
             Text(
               cardName,
             ),
-            //  Expanded(
-            //   flex: 2,
-            //   child: Padding(
-            //     padding:
-            //     const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-            //     child: Text(
-            //       cardName,
-            //     ),
-            //   ),
-            // ),
 
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 10),

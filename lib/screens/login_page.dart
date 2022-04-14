@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/utils/authentication.dart';
 import '../widgets/google_sign_in_button.dart';
-import 'package:messapp/screens/join_mess.dart';
+import 'package:messapp/widgets/primary_button.dart';
+import 'package:messapp/widgets/main_heading.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.onClickedSignUp}) : super(key: key);
@@ -39,20 +40,9 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const Text(
-                "Hey,",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30.0,
-                ),
-              ),
-              const Text(
-                "Login Now",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30.0,
-                ),
-              ),
+              const MainHead(text: "Hey,"),
+              const MainHead(text: "Login Now"),
+
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 18.0),
                 child: RichText(
@@ -118,7 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                             text: "Reset",
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                navigatorKey.currentState!.pushNamed('/forgotPassword');
+                                navigatorKey.currentState!
+                                    .pushNamed('/forgotPassword');
                               }),
                       ]),
                 ),
@@ -126,42 +117,23 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 30,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: ElevatedButton(
-                  onPressed: () {
+
+              PrimaryButton(
+                  btnName: "Login",
+                  action: () {
                     if (_formKey.currentState!.validate()) {
                       Authentication.loginUser(_emailController.text,
                           _passwordController.text, context);
                     }
-                  },
-                  child: const Text("Login"),
-                ),
-              ),
+                  }),
               const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.0),
-                  child: GoogleSignInButton()
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                         const JoinMess(),
-                      ),
-                    );
-                    // if (_formKey.currentState!.validate()) {
-                    //   Authentication.loginUser(_emailController.text,
-                    //       _passwordController.text, context);
-                    //   Authentication.loggedInStatus(context);
-                  },
-                  child: const Text("Temp Button"),
-                ),
-              ),
-
+                  child: GoogleSignInButton()),
+              PrimaryButton(
+                  btnName: "Temp Button",
+                  action: () {
+                    Navigator.pushNamed(context, '/join-mess');
+                  }),
             ],
           ),
         ),
@@ -176,3 +148,4 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 }
+

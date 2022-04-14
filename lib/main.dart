@@ -7,6 +7,7 @@ import 'package:messapp/screens/auth_page.dart';
 import 'package:messapp/screens/forgot_password_page.dart';
 import 'package:messapp/screens/mess_select.dart';
 import 'package:messapp/screens/user_dashboard.dart';
+import 'package:messapp/screens/join_mess.dart';
 import 'firebase_options.dart';
 // Color palette import
 import 'theme/palette.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/userDashboard': (context) => const UserDashboard(),
         '/mess-select': (context) => const MessSelect(),
         '/forgotPassword': (context) => const ForgotPasswordPage(),
+        '/join-mess': (context) => const JoinMess(),
       },
       home: const MainPage(),
     );

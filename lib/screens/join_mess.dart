@@ -49,13 +49,6 @@ class _JoinMessState extends State<JoinMess> {
                       filled: true,
                       fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (String? value) {
-                      if (value != null && value.isEmpty) {
-                        return 'Email field cannot be empty';
-                      }
-                      return null;
-                    },
                   ),
                   const SizedBox(
                     height: 15,
@@ -66,7 +59,7 @@ class _JoinMessState extends State<JoinMess> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(32, 0, 32, 0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -80,6 +73,10 @@ class _JoinMessState extends State<JoinMess> {
               ),
             ),
           ),
+
+          const SizedBox(
+            height: 15.0,
+          )
         ],
       ),
     );

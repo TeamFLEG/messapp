@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/utils/authentication.dart';
-
+import 'package:messapp/widgets/main_heading.dart';
 import '../widgets/google_sign_in_button.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -44,14 +44,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
-                      "Welcome,",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 30.0,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
+                    const MainHead(text: "Welcome,"),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 18.0),
                       child: RichText(
@@ -149,6 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(
                       height: 30,
                     ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: SizedBox(
@@ -167,6 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
+
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 18.0),
                       child: SizedBox(
