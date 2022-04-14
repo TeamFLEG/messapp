@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 // Firebase imports
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:messapp/screens/admin_dashboard.dart';
 import 'package:messapp/screens/auth_page.dart';
-import 'package:messapp/screens/create_mess.dart';
 import 'package:messapp/screens/forgot_password_page.dart';
 import 'package:messapp/screens/mess_select.dart';
+import 'package:messapp/screens/user_dashboard.dart';
 import 'firebase_options.dart';
-// Login import
-import 'package:messapp/screens/user_profile.dart';
 // Color palette import
 import 'theme/palette.dart';
 
@@ -34,7 +33,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/login': (context) => const AuthPage(),
-        '/dashboard': (context) => const UserProfile(),
+        '/adminDashboard': (context) => const AdminDashboard(),
+        '/userDashboard': (context) => const UserDashboard(),
         '/mess-select': (context) => const MessSelect(),
         '/forgotPassword': (context) => const ForgotPasswordPage(),
       },
@@ -62,7 +62,7 @@ class MainPage extends StatelessWidget {
                   "Something went wrong connecting to server. Please try again later."),
             );
           } else if (snapshot.hasData) {
-            return const CreateMess();
+            return const UserDashboard();
           } else {
             return const AuthPage();
           }

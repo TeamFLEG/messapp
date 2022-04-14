@@ -79,6 +79,7 @@ flutter:
     - assets/join_mess_card-bg.jpeg
     - assets/red_ribbon.png
     - assets/google_logo.png
+    - assets/user.png
     - img_create-mess.jpg
     - img_join-mess.jpg
   # An image asset can refer to one or more resolution-specific "variants", see

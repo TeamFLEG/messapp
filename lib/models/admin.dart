@@ -20,4 +20,12 @@ class Admin {
     'phone': phoneNumber,
     'address': address
   };
+
+  static Admin fromJSON(Map<String, dynamic> json) => Admin(
+    id: json['id'],
+    messName: json['messName'],
+    managerName: json['managerName'],
+    phoneNumber: json['phone'],
+    address: json['address']
+  );
 }

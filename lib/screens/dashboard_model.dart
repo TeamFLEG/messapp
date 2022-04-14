@@ -15,11 +15,11 @@ class DashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 130,
-        height: 160,
+        width: 110,
+        height: 130,
         decoration: BoxDecoration(
           color: cardColor,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
         ),
 
         child: Column(
@@ -33,32 +33,35 @@ class DashboardCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: Container(
-                      width: 30,
-                      height: 30,
+                      width: 40,
+                      height: 40,
                       decoration: BoxDecoration(
                         color: const Color(0xFFEEEEEE),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(7.5),
                       ),
                       child: Icon(
                         cardIcon,
                         color: const Color(0xFF1F688B),
-                        size: 24,
+                        size: 40,
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-             Expanded(
-              flex: 2,
-              child: Padding(
-                padding:
-                const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: Text(
-                  cardName,
-                ),
-              ),
+            Text(
+              cardName,
             ),
+            //  Expanded(
+            //   flex: 2,
+            //   child: Padding(
+            //     padding:
+            //     const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+            //     child: Text(
+            //       cardName,
+            //     ),
+            //   ),
+            // ),
 
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 10),

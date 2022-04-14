@@ -80,7 +80,7 @@ class Authentication {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBarMessage.customSnackBar(
-          content: 'Error signing out. Try again.',
+          content: 'Error signing out. Try again. Error message : $e',
         ),
       );
     }
