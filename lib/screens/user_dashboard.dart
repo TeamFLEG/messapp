@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/screens/dashboard_model.dart';
-import 'package:messapp/utils/authentication.dart';
+// import 'package:messapp/utils/authentication.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _UserDashboardState extends State<UserDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    // final user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
       key: scaffoldKey,
@@ -44,11 +44,12 @@ class _UserDashboardState extends State<UserDashboard> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Authentication.logoutUser(context);
+                        Navigator.pushNamed(context, '/user-settings');
+                        // Authentication.logoutUser(context);
                       },
-                      child: const Text(
-                        "Logout",
-                        textAlign: TextAlign.left,
+                      child: const Icon(
+                        Icons.menu,
+                        color: Colors.black,
                       ),
                     ),
                     // const Icon(IconData(0xe3b3, fontFamily: 'MaterialIcons'))
@@ -72,14 +73,16 @@ class _UserDashboardState extends State<UserDashboard> {
                     alignment: const AlignmentDirectional(0.0, 0.56),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: user.photoURL != null
-                          ? Image.network(
-                              user.photoURL.toString(),
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.contain,
-                            )
-                          : Image.asset(
+                      child:
+                      // user.photoURL != null
+                      //     ? Image.network(
+                      //         user.photoURL.toString(),
+                      //         width: 100,
+                      //         height: 100,
+                      //         fit: BoxFit.contain,
+                      //       )
+                      //     :
+                      Image.asset(
                               'assets/user.png',
                               width: 100,
                               height: 100,
@@ -90,13 +93,13 @@ class _UserDashboardState extends State<UserDashboard> {
                 ],
               ),
               const Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                padding: EdgeInsets.symmetric(vertical: 15.0),
                 child: Center(
                   child: Text(
                     // 'Hi, ${user.displayName}',
                     'Hi, User',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
@@ -156,16 +159,22 @@ class _UserDashboardState extends State<UserDashboard> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children:  [
                       DashboardCard(
                         cardIcon: Icons.menu_book_sharp,
                         cardName: "Menu",
-                        cardColor: Color(0xFF99D5F3),
+                        cardColor: const Color(0xFF99D5F3),
+                        cardAction: () {
+                          Navigator.pushNamed(context, '/mess-menu');
+                        }
                       ),
                       DashboardCard(
                         cardIcon: Icons.payment,
                         cardName: "Payments",
-                        cardColor: Color(0xFFFDCE84),
+                        cardColor: const Color(0xFFFDCE84),
+                        cardAction: () {
+                            Navigator.pushNamed(context, '/user-payment');
+                          },
                       ),
                     ],
                   ),

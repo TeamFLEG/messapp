@@ -14,6 +14,8 @@ import 'package:messapp/screens/user_dashboard.dart';
 import 'package:messapp/screens/join_mess.dart';
 import 'package:messapp/screens/user_settings.dart';
 import 'package:messapp/screens/mess_members.dart';
+import 'package:messapp/screens/mess_menu.dart';
+import 'package:messapp/screens/user_payment.dart';
 
 import 'firebase_options.dart';
 
@@ -43,14 +45,12 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const AuthPage(),
         '/adminDashboard': (context) => const AdminDashboard(),
-        '/userDashboard': (context) => const UserDashboard(),
-        '/messSelect': (context) => const MessSelect(),
+        '/user-dashboard': (context) => const UserDashboard(),
+        '/mess-select': (context) => const MessSelect(),
         '/forgotPassword': (context) => const ForgotPasswordPage(),
-        '/createMess': (context) => const CreateMess(),
-        '/joinMessRegister': (context) => const JoinMessRegisterPage(),
-        '/joinMess': (context) => const JoinMess(),
+        '/join-mess': (context) => const JoinMess(),
         '/userSettings': (context) => const UserSettings(),
-        '/messMembers': (context) => const MessMembers(),
+        '/mess-members': (context) => const MessMembers(),
       },
       home: const SplashScreen(),
     );
