@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/models/mess.dart';
 import 'package:messapp/widgets/mess_card.dart';
-import 'package:messapp/widgets/snack_bar_message.dart';
+// import 'package:messapp/widgets/snack_bar_message.dart';
 
 class JoinMess extends StatefulWidget {
   const JoinMess({Key? key}) : super(key: key);

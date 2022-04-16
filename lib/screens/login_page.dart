@@ -129,9 +129,15 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.symmetric(horizontal: 18.0),
                   child: GoogleSignInButton()),
               PrimaryButton(
-                  btnName: "Temp Button",
+                  btnName: "UserDashboard",
                   action: () {
                     Navigator.pushNamed(context, '/user-dashboard');
+                  }),
+
+              PrimaryButton(
+                  btnName: "AdminDashboard",
+                  action: () {
+                    Navigator.pushNamed(context, '/join-mess');
                   }),
             ],
           ),
