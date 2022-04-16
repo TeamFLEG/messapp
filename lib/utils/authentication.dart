@@ -11,7 +11,7 @@ class Authentication {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       FirebaseAuth.instance.currentUser!.updateDisplayName(name);
-      navigatorKey.currentState!.pushNamed('/mess-select');
+      navigatorKey.currentState!.pushNamed('/messSelect');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(

@@ -34,7 +34,8 @@ class _UserDashboardState extends State<UserDashboard> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        navigatorKey.currentState!.pushNamed('/adminDashboard');
+                        // TODO : add route
+                        navigatorKey.currentState!.pushNamed('/joinMessRegister');
                       },
                       child: const Text(
                         "Back",

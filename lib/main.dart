@@ -6,7 +6,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messapp/screens/admin_dashboard.dart';
 import 'package:messapp/screens/auth_page.dart';
+import 'package:messapp/screens/create_mess.dart';
 import 'package:messapp/screens/forgot_password_page.dart';
+import 'package:messapp/screens/join_mess_register_page.dart';
 import 'package:messapp/screens/mess_select.dart';
 import 'package:messapp/screens/user_dashboard.dart';
 import 'package:messapp/screens/join_mess.dart';
@@ -41,12 +43,14 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const AuthPage(),
         '/adminDashboard': (context) => const AdminDashboard(),
-        '/user-dashboard': (context) => const UserDashboard(),
-        '/mess-select': (context) => const MessSelect(),
+        '/userDashboard': (context) => const UserDashboard(),
+        '/messSelect': (context) => const MessSelect(),
         '/forgotPassword': (context) => const ForgotPasswordPage(),
-        '/join-mess': (context) => const JoinMess(),
+        '/createMess': (context) => const CreateMess(),
+        '/joinMessRegister': (context) => const JoinMessRegisterPage(),
+        '/joinMess': (context) => const JoinMess(),
         '/userSettings': (context) => const UserSettings(),
-        '/mess-members': (context) => const MessMembers(),
+        '/messMembers': (context) => const MessMembers(),
       },
       home: const SplashScreen(),
     );

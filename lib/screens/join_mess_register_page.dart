@@ -2,28 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
-import 'package:messapp/models/admin.dart';
+import 'package:messapp/models/users.dart';
 import 'package:messapp/widgets/snack_bar_message.dart';
 
-class CreateMess extends StatefulWidget {
-  const CreateMess({Key? key}) : super(key: key);
+class JoinMessRegisterPage extends StatefulWidget {
+  const JoinMessRegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<CreateMess> createState() => _CreateMessState();
+  State<JoinMessRegisterPage> createState() => _JoinMessRegisterPageState();
 }
 
-class _CreateMessState extends State<CreateMess> {
+class _JoinMessRegisterPageState extends State<JoinMessRegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late TextEditingController _messNameController;
-  late TextEditingController _managerNameController;
   late TextEditingController _phoneController;
   late TextEditingController _addressController;
 
   @override
   void initState() {
     super.initState();
-    _messNameController = TextEditingController();
-    _managerNameController = TextEditingController();
     _phoneController = TextEditingController();
     _addressController = TextEditingController();
   }
@@ -41,56 +37,23 @@ class _CreateMessState extends State<CreateMess> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               const Text(
-                "Register Mess",
+                "Join Mess",
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 30.0,
                 ),
               ),
               const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Complete the details to continue",
+                style: TextStyle(
+                  fontSize: 15.0,
+                ),
+              ),
+              const SizedBox(
                 height: 30,
-              ),
-              TextFormField(
-                controller: _messNameController,
-                decoration: InputDecoration(
-                  labelText: "Mess Name",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
-                ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Mess name field is required';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                controller: _managerNameController,
-                decoration: InputDecoration(
-                  labelText: "Mess Manager Name",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Mess manager name field is required';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 15,
               ),
               TextFormField(
                 controller: _phoneController,
@@ -139,13 +102,11 @@ class _CreateMessState extends State<CreateMess> {
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    createAdmin(
-                        messName: _messNameController.text,
-                        fullName: _managerNameController.text,
+                    createUser(
                         phone: int.parse(_phoneController.text),
                         address: _addressController.text);
                   },
-                  child: const Text("Complete Registration"),
+                  child: const Text("Complete Process"),
                 ),
               ),
             ],
@@ -155,26 +116,22 @@ class _CreateMessState extends State<CreateMess> {
     );
   }
 
-  Future createAdmin(
-      {required String messName,
-      required String fullName,
-      required int phone,
-      required String address}) async {
+  Future createUser({required int phone, required String address}) async {
     // Referencing to the document
-    final adminDoc = FirebaseFirestore.instance.collection('admin').doc();
+    final userDoc = FirebaseFirestore.instance.collection('user').doc();
     final loggedInUser = FirebaseAuth.instance.currentUser!;
-    final admin = Admin(
-      id: adminDoc.id,
-      messName: messName,
-      fullName: fullName,
+    final user = Users(
+      id: userDoc.id,
+      fullName: loggedInUser.displayName.toString(),
       email: loggedInUser.email.toString(),
       phoneNumber: phone,
       address: address,
+      joinedTS: Timestamp.now(),
     );
-    final adminJSON = admin.toJSON();
+    final adminJSON = user.toJSON();
     try {
-      await adminDoc.set(adminJSON);
-      navigatorKey.currentState!.pushNamed('adminDashboard');
+      await userDoc.set(adminJSON);
+      navigatorKey.currentState!.pushNamed('/joinMess');
     } catch (e) {
       SnackBarMessage.snackBarMessage(content: '$e', context: context);
     }
