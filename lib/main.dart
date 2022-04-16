@@ -11,6 +11,7 @@ import 'package:messapp/screens/mess_select.dart';
 import 'package:messapp/screens/user_dashboard.dart';
 import 'package:messapp/screens/join_mess.dart';
 import 'package:messapp/screens/user_settings.dart';
+import 'package:messapp/screens/mess_members.dart';
 
 import 'firebase_options.dart';
 
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/forgotPassword': (context) => const ForgotPasswordPage(),
         '/join-mess': (context) => const JoinMess(),
         '/userSettings': (context) => const UserSettings(),
+        '/mess-members': (context) => const MessMembers(),
       },
       home: const SplashScreen(),
     );

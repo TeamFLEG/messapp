@@ -113,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                       ]),
                 ),
               ),
+
               const SizedBox(
                 height: 30,
               ),
@@ -130,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
               PrimaryButton(
                   btnName: "Temp Button",
                   action: () {
-                    Navigator.pushNamed(context, '/userSettings');
+                    Navigator.pushNamed(context, '/mess-members');
                   }),
             ],
           ),
