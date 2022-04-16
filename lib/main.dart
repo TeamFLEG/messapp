@@ -13,6 +13,7 @@ import 'package:messapp/screens/join_mess.dart';
 import 'package:messapp/screens/user_settings.dart';
 import 'package:messapp/screens/mess_members.dart';
 import 'package:messapp/screens/mess_menu.dart';
+import 'package:messapp/screens/user_payment.dart';
 
 import 'firebase_options.dart';
 
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/user-settings': (context) => const UserSettings(),
         '/mess-members': (context) => const MessMembers(),
         '/mess-menu': (context) => const MessMenu(),
+        '/user-payment': (context) => const UserPayment(),
       },
       home: const SplashScreen(),
     );

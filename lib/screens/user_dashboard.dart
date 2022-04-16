@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/screens/dashboard_model.dart';
-import 'package:messapp/utils/authentication.dart';
+// import 'package:messapp/utils/authentication.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({Key? key}) : super(key: key);
@@ -167,10 +167,13 @@ class _UserDashboardState extends State<UserDashboard> {
                           Navigator.pushNamed(context, '/mess-menu');
                         }
                       ),
-                      const DashboardCard(
+                      DashboardCard(
                         cardIcon: Icons.payment,
                         cardName: "Payments",
-                        cardColor: Color(0xFFFDCE84),
+                        cardColor: const Color(0xFFFDCE84),
+                        cardAction: () {
+                            Navigator.pushNamed(context, '/user-payment');
+                          },
                       ),
                     ],
                   ),
