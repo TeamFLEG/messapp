@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
               PrimaryButton(
                   btnName: "Temp Button",
                   action: () {
-                    Navigator.pushNamed(context, '/userDashboard');
+                    Navigator.pushNamed(context, '/userSettings');
                   }),
             ],
           ),
