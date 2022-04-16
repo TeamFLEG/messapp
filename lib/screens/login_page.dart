@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               const MainHead(text: "Hey,"),
               const MainHead(text: "Login Now"),
-
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 18.0),
                 child: RichText(
@@ -117,7 +116,6 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 30,
               ),
-
               PrimaryButton(
                   btnName: "Login",
                   action: () {
@@ -132,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
               PrimaryButton(
                   btnName: "Temp Button",
                   action: () {
-                    Navigator.pushNamed(context, '/join-mess');
+                    Navigator.pushNamed(context, '/userDashboard');
                   }),
             ],
           ),
@@ -148,4 +146,3 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 }
-
