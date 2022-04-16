@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/palette.dart';
+import '../../theme/palette.dart';
 
 
 class MessMenu extends StatefulWidget {

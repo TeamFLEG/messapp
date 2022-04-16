@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
               PrimaryButton(
                   btnName: "AdminDashboard",
                   action: () {
-                    Navigator.pushNamed(context, '/join-mess');
+                    Navigator.pushNamed(context, '/admin-dashboard');
                   }),
             ],
           ),
