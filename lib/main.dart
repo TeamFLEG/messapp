@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const AuthPage(),
         '/adminDashboard': (context) => const AdminDashboard(),
-        '/userDashboard': (context) => const UserDashboard(),
+        '/user-dashboard': (context) => const UserDashboard(),
         '/mess-select': (context) => const MessSelect(),
         '/forgotPassword': (context) => const ForgotPasswordPage(),
         '/join-mess': (context) => const JoinMess(),

@@ -17,6 +17,7 @@ class _UserDashboardState extends State<UserDashboard> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -87,11 +88,12 @@ class _UserDashboardState extends State<UserDashboard> {
                   ),
                 ],
               ),
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Center(
                   child: Text(
-                    'Hi, ${user.displayName}',
+                    // 'Hi, ${user.displayName}',
+                    'Hi, User',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 25,
