@@ -53,6 +53,11 @@ class DashboardCard extends StatelessWidget {
           ),
           Text(
             cardName,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Color(0xFF535353),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 10),

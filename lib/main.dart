@@ -9,11 +9,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 //Custom Widgets
 import 'package:messapp/screens/admin/admin_dashboard.dart';
 import 'package:messapp/screens/admin/mess_members.dart';
+import 'package:messapp/screens/edit_profile.dart';
 
 import 'package:messapp/screens/user/mess_menu.dart';
 import 'package:messapp/screens/user/user_payment.dart';
 import 'package:messapp/screens/user/user_dashboard.dart';
 import 'package:messapp/screens/user/user_settings.dart';
+import 'package:messapp/screens/user/user_messcut.dart';
 
 import 'package:messapp/screens/auth_page.dart';
 import 'package:messapp/screens/create_mess.dart';
@@ -57,10 +59,12 @@ class MyApp extends StatelessWidget {
         '/forgotPassword': (context) => const ForgotPasswordPage(),
         '/join-mess': (context) => const JoinMess(),
         '/create-mess': (context) => const CreateMess(),
-        '/userSettings': (context) => const UserSettings(),
+        '/user-settings': (context) => const UserSettings(),
         '/mess-members': (context) => const MessMembers(),
         '/mess-menu': (context) => const MessMenu(),
         '/user-payment': (context) => const UserPayment(),
+        '/user-messcut': (context) => const UserMessCut(),
+        '/edit-profile': (context) => const EditProfile(),
       },
       home: const SplashScreen(),
     );
@@ -102,21 +106,24 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-        splash: Column(
+        splash: Expanded(
+        child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/messapp_logo.png',
+              width: 100,
+              height: 100
             ),
-            const SpinKitWave(
-              color: Palette.myMaroon,
-            )
+            // const SpinKitWave(
+            //   color: Palette.myMaroon,
+            // )
           ],
         ),
-        backgroundColor: Colors.red,
+        ),
         centered: true,
-        splashIconSize: 100,
+        duration: 2000,
         nextScreen: const MainPage());
   }
 }

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/screens/dashboard_model.dart';
+import 'package:messapp/widgets/content_text.dart';
+
 // import 'package:messapp/utils/authentication.dart';
 
 class UserDashboard extends StatefulWidget {
@@ -35,7 +37,8 @@ class _UserDashboardState extends State<UserDashboard> {
                     GestureDetector(
                       onTap: () {
                         // TODO : add route
-                        navigatorKey.currentState!.pushNamed('/joinMessRegister');
+                        // navigatorKey.currentState!.pushNamed('/joinMessRegister');
+                        Navigator.pop(context);
                       },
                       child: const Text(
                         "Back",
@@ -107,50 +110,14 @@ class _UserDashboardState extends State<UserDashboard> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 25),
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: const [
-                        Text(
-                          'Members',
-                        ),
-                        Text(
-                          '102',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: const [
-                        Text(
-                          'Mess Cut',
-                        ),
-                        Text(
-                          '5',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: const [
-                        Text(
-                          'Guest',
-                        ),
-                        Text(
-                          '0',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                      ],
-                    ),
+                  children: const [
+                    ContentText(text: "Mess Id", value: "10"),
+                    ContentText(text: "Mess Cut", value: "5"),
+                    ContentText(text: "Dues", value: "0"),
                   ],
                 ),
               ),
@@ -183,15 +150,24 @@ class _UserDashboardState extends State<UserDashboard> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children:  [
                       DashboardCard(
                           cardIcon: Icons.payment,
-                          cardName: "Mess Details",
-                          cardColor: Color(0xFFFDCE84)),
+                          cardName: "Mess Cut",
+                          cardColor: Color(0xFFFDCE84),
+                          cardAction: () {
+                          Navigator.pushNamed(context, '/user-messcut');
+                        },
+                      ),
+
+
                       DashboardCard(
                           cardIcon: Icons.payment,
                           cardName: "Register",
-                          cardColor: Color(0xFF99D5F3))
+                          cardColor: Color(0xFF99D5F3),
+                          cardAction: () {
+                          Navigator.pushNamed(context, '/register');
+                        },),
                     ],
                   ),
                 ],
@@ -203,3 +179,6 @@ class _UserDashboardState extends State<UserDashboard> {
     );
   }
 }
+
+
+
