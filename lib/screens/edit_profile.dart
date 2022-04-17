@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:messapp/utils/authentication.dart';
-import 'package:messapp/widgets/primary_button.dart';
 
 import '../theme/palette.dart';
 import '../widgets/profile_pic.dart';
@@ -46,38 +44,35 @@ class _EditProfileState extends State<EditProfile> {
               ),
             ],
           ),
+
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 16),
+            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 16),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: 150,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () async {},
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                    ),
-                    child: const Text(
-                      "Change Photo",
-                      style: TextStyle(
-                        color: Palette.myMaroon,
+                  SizedBox(
+                    width: 150,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () async {},
+                      style:  ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                       ),
+
+                      child: const Text("Change Photo",
+                        style: TextStyle(
+                          color: Palette.myMaroon,
+                        ),),
                     ),
                   ),
-                ),
+
+
               ],
             ),
           ),
-          Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: PrimaryButton(
-                action: () => Authentication.deleteUser(context),
-                btnName: 'Delete account',
-              ))
+
+
         ],
       ),
     );
