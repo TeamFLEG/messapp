@@ -18,21 +18,25 @@ class _ProfilePicState extends State<ProfilePic> {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: widget.picRadius ?? 50.0,
-      child:
-      widget.picURL != null
-          ? Image.network(
-              widget.picURL.toString(),
-              width: 100,
-              height: 100,
-              fit: BoxFit.contain,
-            )
-          :
-      Image.asset(
-        'assets/user.png',
-        width: 100,
-        height: 100,
-        fit: BoxFit.contain,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child:       widget.picURL != null
+            ? Image.network(
+          widget.picURL.toString(),
+          width: 100,
+          height: 100,
+          fit: BoxFit.fitWidth,
+        )
+            :
+        Image.asset(
+          'assets/user.png',
+          width: 100,
+          height: 100,
+          fit: BoxFit.contain,
+        ),
       ),
+
+
     );
   }
 }
