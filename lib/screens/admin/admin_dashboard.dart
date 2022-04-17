@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:messapp/screens/dashboard_model.dart';
 import 'package:messapp/widgets/content_text.dart';
 
+import '../../widgets/profile_pic.dart';
+
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
 
@@ -68,25 +70,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, 0.56),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child:
-                      // user.photoURL != null
-                      //     ? Image.network(
-                      //         user.photoURL.toString(),
-                      //         width: 100,
-                      //         height: 100,
-                      //         fit: BoxFit.contain,
-                      //       )
-                      //     :
-                      Image.asset(
-                        'assets/user.png',
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.contain,
-                      ),
+                  const Align(
+                    alignment: AlignmentDirectional(0.0, 0.56),
+                    child: ProfilePic(
+                      //Add URL here for Profile Picture
                     ),
                   ),
                 ],
