@@ -90,6 +90,7 @@ class MainPage extends StatelessWidget {
                   "Something went wrong connecting to server. Please try again later."),
             );
           } else if (snapshot.hasData) {
+            print(snapshot.data);
             return const UserDashboard();
           } else {
             return const AuthPage();

@@ -15,13 +15,20 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: _isSigningIn
-          ? const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-          : OutlinedButton(
+    return _isSigningIn
+        ? const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: Center(
+              child: SizedBox(
+                width: 30,
+                height: 30,
+                child: CircularProgressIndicator(),
+              ),
+            ),
+        )
+        : SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white),
               ),
@@ -70,6 +77,6 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                 ),
               ),
             ),
-    );
+          );
   }
 }
