@@ -20,7 +20,7 @@ class MessSelect extends StatelessWidget {
                   image: AssetImage("assets/img_create-mess.jpg"),
                 ),
                 onTap: () {
-                  navigatorKey.currentState!.pushNamed('/createMess');
+                  navigatorKey.currentState!.pushNamed('/create-mess');
                 }),
           ),
           Padding(
@@ -28,7 +28,7 @@ class MessSelect extends StatelessWidget {
                 const EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
             child: GestureDetector(
                 child: const Image(
-                  image: AssetImage("assets/img_joinMess.jpg"),
+                  image: AssetImage("assets/img_join-mess.jpg"),
                 ),
                 onTap: () {
                   navigatorKey.currentState!.pushNamed('/joinMessRegister');

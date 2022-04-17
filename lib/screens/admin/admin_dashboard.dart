@@ -1,7 +1,8 @@
-// import '../flutter_flow/flutter_flow_theme.dart';
-// import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/screens/dashboard_model.dart';
+import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/content_text.dart';
 
 import '../../widgets/profile_pic.dart';
@@ -15,9 +16,14 @@ class AdminDashboard extends StatefulWidget {
 
 class _AdminDashboardState extends State<AdminDashboard> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  User user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
+    CollectionReference userReference = firestore.collection('admin');
+    DatabaseManager.getUserName();
+    DatabaseManager.getData();
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -73,7 +79,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   const Align(
                     alignment: AlignmentDirectional(0.0, 0.56),
                     child: ProfilePic(
-                      //Add URL here for Profile Picture
+                      //TODO: Add URL here for Profile Picture
                     ),
                   ),
                 ],

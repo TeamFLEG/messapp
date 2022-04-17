@@ -4,7 +4,9 @@ import '../utils/authentication.dart';
 import '../widgets/snack_bar_message.dart';
 
 class GoogleSignInButton extends StatefulWidget {
-  const GoogleSignInButton({Key? key}) : super(key: key);
+  final bool registered;
+  const GoogleSignInButton({Key? key, required this.registered})
+      : super(key: key);
 
   @override
   _GoogleSignInButtonState createState() => _GoogleSignInButtonState();
@@ -17,15 +19,15 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   Widget build(BuildContext context) {
     return _isSigningIn
         ? const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: Center(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            child: Center(
               child: SizedBox(
                 width: 30,
                 height: 30,
                 child: CircularProgressIndicator(),
               ),
             ),
-        )
+          )
         : SizedBox(
             width: double.infinity,
             child: OutlinedButton(
@@ -37,22 +39,11 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                   _isSigningIn = true;
                 });
 
-                User? user =
-                    await Authentication.signInWithGoogle(context: context);
-
-                print(user);
+                await Authentication.signInWithGoogle(context: context, registered: widget.registered);
 
                 setState(() {
                   _isSigningIn = false;
                 });
-
-                if (user != null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBarMessage.customSnackBar(
-                      content: 'User logged in',
-                    ),
-                  );
-                }
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),

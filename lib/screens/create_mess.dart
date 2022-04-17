@@ -140,10 +140,12 @@ class _CreateMessState extends State<CreateMess> {
                 child: ElevatedButton(
                   onPressed: () {
                     createAdmin(
-                        messName: _messNameController.text,
-                        fullName: _managerNameController.text,
-                        phone: int.parse(_phoneController.text),
-                        address: _addressController.text);
+                      messName: _messNameController.text,
+                      fullName: _managerNameController.text,
+                      phone: int.parse(_phoneController.text),
+                      address: _addressController.text,
+                      joinedTS: Timestamp.now(),
+                    );
                   },
                   child: const Text("Complete Registration"),
                 ),
@@ -155,11 +157,13 @@ class _CreateMessState extends State<CreateMess> {
     );
   }
 
-  Future createAdmin(
-      {required String messName,
-      required String fullName,
-      required int phone,
-      required String address}) async {
+  Future createAdmin({
+    required String messName,
+    required String fullName,
+    required int phone,
+    required String address,
+    required Timestamp joinedTS,
+  }) async {
     // Referencing to the document
     final adminDoc = FirebaseFirestore.instance.collection('admin').doc();
     final loggedInUser = FirebaseAuth.instance.currentUser!;
@@ -170,11 +174,12 @@ class _CreateMessState extends State<CreateMess> {
       email: loggedInUser.email.toString(),
       phoneNumber: phone,
       address: address,
+      joinedTS: joinedTS,
     );
     final adminJSON = admin.toJSON();
     try {
       await adminDoc.set(adminJSON);
-      navigatorKey.currentState!.pushNamed('adminDashboard');
+      navigatorKey.currentState!.pushNamed('/admin-dashboard');
     } catch (e) {
       SnackBarMessage.snackBarMessage(content: '$e', context: context);
     }

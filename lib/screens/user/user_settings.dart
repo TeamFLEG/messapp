@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:messapp/utils/authentication.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:messapp/widgets/primary_button.dart';
 
@@ -15,6 +16,7 @@ class _UserSettingsState extends State<UserSettings> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: scaffoldKey,
       // backgroundColor: const Color(0xFF262D34),
@@ -56,7 +58,7 @@ class _UserSettingsState extends State<UserSettings> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +107,7 @@ class _UserSettingsState extends State<UserSettings> {
             child: PrimaryButton(
               btnName: "Log Out",
               action: () {
-                print("None");
+                Authentication.logoutUser(context);
               }
             ),
           ),

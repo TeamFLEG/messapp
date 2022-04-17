@@ -1,6 +1,5 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:messapp/main.dart';
 import 'package:messapp/screens/dashboard_model.dart';
 import 'package:messapp/widgets/content_text.dart';
 
@@ -141,7 +140,7 @@ class _UserDashboardState extends State<UserDashboard> {
                       DashboardCard(
                           cardIcon: Icons.payment,
                           cardName: "Mess Cut",
-                          cardColor: Color(0xFFFDCE84),
+                          cardColor: const Color(0xFFFDCE84),
                           cardAction: () {
                           Navigator.pushNamed(context, '/user-messcut');
                         },
@@ -151,7 +150,7 @@ class _UserDashboardState extends State<UserDashboard> {
                       DashboardCard(
                           cardIcon: Icons.payment,
                           cardName: "Register",
-                          cardColor: Color(0xFF99D5F3),
+                          cardColor: const Color(0xFF99D5F3),
                           cardAction: () {
                           Navigator.pushNamed(context, '/register');
                         },),

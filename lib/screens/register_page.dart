@@ -45,7 +45,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const MainHead(text: "Welcome,"),
-
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 18.0),
                       child: RichText(
@@ -143,7 +142,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(
                       height: 30,
                     ),
-
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: SizedBox(
@@ -162,11 +160,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 18.0),
                       child: SizedBox(
-                          width: double.infinity, child: GoogleSignInButton()),
+                        width: double.infinity,
+                        child: GoogleSignInButton(
+                          registered: false,
+                        ),
+                      ),
                     )
                   ]),
             ),

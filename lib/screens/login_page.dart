@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   text: TextSpan(
                       style: const TextStyle(color: Colors.blueGrey),
                       children: <TextSpan>[
-                        const TextSpan(text: "Forgot password? / "),
+                        const TextSpan(text: "Forgot password? "),
                         TextSpan(
                             style: const TextStyle(
                                 color: Colors.black87,
@@ -108,12 +108,11 @@ class _LoginPageState extends State<LoginPage> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 navigatorKey.currentState!
-                                    .pushNamed('/forgotPassword');
+                                    .pushNamed('/forgot-password');
                               }),
                       ]),
                 ),
               ),
-
               const SizedBox(
                 height: 30,
               ),
@@ -126,14 +125,16 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   }),
               const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18.0),
-                  child: GoogleSignInButton()),
+                padding: EdgeInsets.symmetric(horizontal: 18.0),
+                child: GoogleSignInButton(
+                  registered: true,
+                ),
+              ),
               PrimaryButton(
                   btnName: "UserDashboard",
                   action: () {
                     Navigator.pushNamed(context, '/user-dashboard');
                   }),
-
               PrimaryButton(
                   btnName: "AdminDashboard",
                   action: () {

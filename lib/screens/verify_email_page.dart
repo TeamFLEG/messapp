@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:messapp/screens/user_profile.dart';
+import 'package:messapp/screens/admin/admin_dashboard.dart';
 import 'package:messapp/widgets/snack_bar_message.dart';
 
 class VerifyEmailPage extends StatefulWidget {
@@ -65,7 +65,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   @override
   Widget build(BuildContext context) => isEmailVerified
-      ? const UserProfile()
+      ? const AdminDashboard()
       : Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(18.0),

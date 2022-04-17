@@ -1,3 +1,5 @@
+import 'package:messapp/screens/login_page.dart';
+
 import '../main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/snack_bar_message.dart';
@@ -11,7 +13,7 @@ class Authentication {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       FirebaseAuth.instance.currentUser!.updateDisplayName(name);
-      navigatorKey.currentState!.pushNamed('/messSelect');
+      navigatorKey.currentState!.pushNamed('/mess-select');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -36,12 +38,12 @@ class Authentication {
   }
 
   static Future loginUser(email, password, BuildContext context) async {
-
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       print(userCredential);
-      navigatorKey.currentState!.pushNamed('/dashboard');
+      // TODO: Route based on user role (admin and customer)
+      navigatorKey.currentState!.pushNamed('/admin-dashboard');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         SnackBarMessage.snackBarMessage(
@@ -74,9 +76,16 @@ class Authentication {
 
   static void logoutUser(BuildContext context) async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final Future<bool> isGoogleSignedIn = _googleSignIn.isSignedIn();
+    final bool status;
     try {
-      await _googleSignIn.disconnect();
+      status = await isGoogleSignedIn;
+      print(status);
+      if (status) {
+        await _googleSignIn.disconnect();
+      }
       await FirebaseAuth.instance.signOut();
+      navigatorKey.currentState!.pushNamed('/login');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBarMessage.customSnackBar(
@@ -87,9 +96,9 @@ class Authentication {
   }
 
   // Google Authentication
-  static Future<User?> signInWithGoogle({required BuildContext context}) async {
+  static Future<void> signInWithGoogle(
+      {required BuildContext context, required registered}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
 
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -106,10 +115,12 @@ class Authentication {
       );
 
       try {
-        final UserCredential userCredential =
-            await auth.signInWithCredential(credential);
-
-        user = userCredential.user;
+        await auth.signInWithCredential(credential);
+        if (registered) {
+          navigatorKey.currentState!.pushNamed('/user-dashboard');
+        } else {
+          navigatorKey.currentState!.pushNamed('/mess-select');
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -133,12 +144,19 @@ class Authentication {
         );
       }
     }
+  }
 
-    return user;
+  static Future changePassword(newPassword, BuildContext context) async {
+    try {
+      FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
+    } on FirebaseAuthException catch(e) {
+      SnackBarMessage.snackBarMessage(content: 'Error occurred with error message $e', context: context);
+    } catch(e) {
+      SnackBarMessage.snackBarMessage(content: 'Error occurred with error message $e', context: context);
+    }
   }
 
   static Future resetPassword(email, BuildContext context) async {
-    print(email);
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       SnackBarMessage.snackBarMessage(
@@ -148,6 +166,20 @@ class Authentication {
       SnackBarMessage.snackBarMessage(
           content: "${e.message}", context: context);
       navigatorKey.currentState!.pop();
+    }
+  }
+
+  static void deleteUser(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.currentUser!.delete();
+      navigatorKey.currentState!.pushNamed('/login');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        SnackBarMessage.snackBarMessage(
+            content:
+                'The user must re-authenticate before this operation can be executed.',
+            context: context);
+      }
     }
   }
 }

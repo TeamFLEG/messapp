@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
         '/admin-dashboard': (context) => const AdminDashboard(),
         '/user-dashboard': (context) => const UserDashboard(),
         '/mess-select': (context) => const MessSelect(),
-        '/forgotPassword': (context) => const ForgotPasswordPage(),
+        '/forgot-password': (context) => const ForgotPasswordPage(),
         '/join-mess': (context) => const JoinMess(),
         '/create-mess': (context) => const CreateMess(),
         '/user-settings': (context) => const UserSettings(),
@@ -91,7 +91,7 @@ class MainPage extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             print(snapshot.data);
-            return const UserDashboard();
+            return const AdminDashboard();
           } else {
             return const AuthPage();
           }
