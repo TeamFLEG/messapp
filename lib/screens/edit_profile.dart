@@ -66,11 +66,103 @@ class _EditProfileState extends State<EditProfile> {
                         ),),
                     ),
                   ),
-
-
               ],
             ),
           ),
+
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+            child: TextFormField(
+              // controller: textController1,
+              obscureText: false,
+              decoration: InputDecoration(
+                labelText: 'Name',
+                labelStyle: const TextStyle(
+                  fontFamily: 'Lexend Deca',
+                  color: Color(0xFF95A1AC),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                hintStyle: const TextStyle(
+                  fontFamily: 'Lexend Deca',
+                  color: Color(0xFF95A1AC),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Color(0xFFDBE2E7),
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Color(0xFFDBE2E7),
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+              ),
+              style: const TextStyle(
+                fontFamily: 'Lexend Deca',
+                color: Color(0xFF14181B),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
+            child: TextFormField(
+              // controller: textController1,
+              obscureText: false,
+              decoration: InputDecoration(
+                labelText: 'Name',
+                labelStyle: const TextStyle(
+                  fontFamily: 'Lexend Deca',
+                  color: Color(0xFF95A1AC),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                hintStyle: const TextStyle(
+                  fontFamily: 'Lexend Deca',
+                  color: Color(0xFF95A1AC),
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Color(0xFFDBE2E7),
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Color(0xFFDBE2E7),
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+              ),
+              style: const TextStyle(
+                fontFamily: 'Lexend Deca',
+                color: Color(0xFF14181B),
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+
+
 
 
         ],
