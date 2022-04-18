@@ -28,16 +28,26 @@ import 'package:messapp/utils/database_manager.dart';
 
 import 'package:messapp/screens/user/user_attendance.dart';
 
+import 'package:messapp/screens/admin/admin_statement.dart';
+import 'package:messapp/screens/admin/admin_attendance.dart';
+
 import 'firebase_options.dart';
 
 // Color palette import
 import 'theme/palette.dart';
+
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(const MyApp());
 }
 
@@ -68,6 +78,8 @@ class MyApp extends StatelessWidget {
         '/user-messcut': (context) => const UserMessCut(),
         '/edit-profile': (context) => const EditProfile(),
         '/user-attendance': (context) => const UserAttendance(),
+        '/admin-statement': (context) => const AdminStatement(),
+        '/admin-attendance': (context) => const AdminAttendance(),
       },
       home: const SplashScreen(),
     );

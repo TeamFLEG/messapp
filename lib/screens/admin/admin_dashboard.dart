@@ -21,7 +21,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
-  print(user);
+    print(user);
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -122,10 +122,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           }),
                       DashboardCard(
                         cardIcon: Icons.payment,
-                        cardName: "Payments",
+                        cardName: "Statement",
                         cardColor: const Color(0xFFFDCE84),
                         cardAction: () {
-                          Navigator.pushNamed(context, '/admin-payment');
+                          Navigator.pushNamed(context, '/admin-statement');
                         },
                       ),
                     ],
