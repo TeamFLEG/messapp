@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 
@@ -79,16 +80,47 @@ class MyApp extends StatelessWidget {
         '/edit-profile': (context) => const EditProfile(),
         '/user-attendance': (context) => const UserAttendance(),
         '/admin-statement': (context) => const AdminStatement(),
-        '/admin-attendance': (context) => const AdminAttendance(),
+        // '/admin-attendance': (context) => const AdminAttendance(),
       },
       home: const SplashScreen(),
     );
   }
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  // var role;
   const MainPage({Key? key}) : super(key: key);
 
+  // void initState() async {
+  //   role = await getData(FirebaseAuth.instance.currentUser!.uid);
+  //   print(role);
+  // }
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  Widget _body = const CircularProgressIndicator();
+  @override
+  void initState() {
+    _loginReverter();
+  }
+  void _loginReverter() async {
+    final role = await getData(FirebaseAuth.instance.currentUser!.uid);
+    print(role);
+    if (role == 'admin') {
+      print('Inside admin dashboard');
+      setState(() {
+        _body = const AdminDashboard();
+      });
+    } else if (role == 'user') {
+      print("Inside user dashboard");
+      setState(() {
+        _body = const UserDashboard();
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +137,11 @@ class MainPage extends StatelessWidget {
                   "Something went wrong connecting to server. Please try again later."),
             );
           } else if (snapshot.hasData) {
-            return const RoleSelector();
+            // return widget.role == 'admin'
+            //     ? const AdminDashboard()
+            //     : const UserDashboard();
+            return _body;
+            // return const Center();
           } else {
             return const AuthPage();
           }
@@ -128,20 +164,17 @@ class SplashScreen extends StatelessWidget {
   }
 }
 
-class RoleSelector extends StatelessWidget {
-  const RoleSelector({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-    return FutureBuilder<DocumentSnapshot>(
-        future: FirebaseFirestore.instance.collection('admin').doc(uid).get(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const AdminDashboard();
-          } else {
-            return const UserDashboard();
-          }
-        });
+Future<String> getData(String uid) async {
+  final adminDoc =
+      await FirebaseFirestore.instance.collection('admin').doc(uid).get();
+  final userDoc =
+      await FirebaseFirestore.instance.collection('user').doc(uid).get();
+  if (adminDoc.exists) {
+    print("Its admin");
+    return 'admin';
+  } else if (userDoc.exists) {
+    return 'user';
+  } else {
+    return '';
   }
 }

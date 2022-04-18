@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:messapp/widgets/mess_card.dart';
 
 class Mess {
-  // late int messID;
+  late int messCode;
   late String messName;
-  // late String owner;
+  late DocumentReference adminRef;
   late String location;
-  // late DateTime? joiningDT;
+  late DateTime? joiningDT;
 
   Mess({
     // required this.messID,
