@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:messapp/widgets/profile_pic.dart';
 import '../../theme/palette.dart';
 import '../../widgets/custom_appbar.dart';
+import 'package:external_app_launcher/external_app_launcher.dart';
 
 class UserPayment extends StatefulWidget {
   const UserPayment({Key? key}) : super(key: key);
@@ -90,8 +91,12 @@ class _UserPaymentState extends State<UserPayment> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {
-                                    print("Button clicked");
+                                  onPressed: () async {
+                                    await LaunchApp.openApp(
+                                      androidPackageName:
+                                          'com.google.android.apps.nbu.paisa.user',
+                                      openStore: false,
+                                    );
                                   },
                                   child: const Text("Pay"),
                                 ),

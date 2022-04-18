@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^3.1.11
   animated_splash_screen: ^1.2.0
   flutter_spinkit: ^5.1.0
+  external_app_launcher: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +86,10 @@ flutter:
     - img_create-mess.jpg
     - img_join-mess.jpg
     - assets/messapp_logo.png
+    - assets/mess_menu-bg.jpg
+    - assets/sagar_mess-bg.jpeg
+
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
