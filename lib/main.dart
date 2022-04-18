@@ -24,6 +24,7 @@ import 'package:messapp/screens/forgot_password_page.dart';
 import 'package:messapp/screens/mess_select.dart';
 import 'package:messapp/screens/join_mess.dart';
 import 'package:messapp/utils/database_manager.dart';
+// import 'package:messapp/screens/join_mess_contact.dart';
 // import 'package:messapp/screens/join_mess_register_page.dart';
 
 import 'package:messapp/screens/user/user_attendance.dart';
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
         '/user-dashboard': (context) => const UserDashboard(),
         '/mess-select': (context) => const MessSelect(),
         '/forgot-password': (context) => const ForgotPasswordPage(),
+        
         '/join-mess': (context) => const JoinMess(),
         '/create-mess': (context) => const CreateMess(),
         '/user-settings': (context) => const UserSettings(),
@@ -111,9 +113,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Widget _body = const CircularProgressIndicator();
+  Widget _body = const LoadingPage();
   @override
   void initState() {
+    super.initState();
     _loginReverter();
   }
 
@@ -146,11 +149,7 @@ class _MainPageState extends State<MainPage> {
                   "Something went wrong connecting to server. Please try again later."),
             );
           } else if (snapshot.hasData) {
-            // return widget.role == 'admin'
-            //     ? const AdminDashboard()
-            //     : const UserDashboard();
             return _body;
-            // return const Center();
           } else {
             return const AuthPage();
           }
@@ -186,3 +185,21 @@ Future<String> getData(String uid) async {
     return '';
   }
 }
+
+class LoadingPage extends StatelessWidget {
+  const LoadingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: const [
+        SizedBox(
+            width: 40,
+            child: CircularProgressIndicator()),
+      ],
+    );
+  }
+}
+

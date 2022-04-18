@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:messapp/widgets/snack_bar_message.dart';
 
 class DatabaseManager {
   CollectionReference userRef = FirebaseFirestore.instance.collection('user');
@@ -36,8 +38,21 @@ class DatabaseManager {
         .set({
           'effectiveDays': ed,
           'expense': expense,
+          'perDayCost': (expense/ed).ceil(),
         }, SetOptions(merge: true))
         .then((value) => print("Bill details Added"))
         .catchError((error) => print("Failed to add user: $error"));
+  }
+
+  Future<void> updateProfileDataAdmin(BuildContext context, String name, int phone, String addr) {
+    return adminRef
+        .doc(user.uid)
+        .set({
+      'fullName': name,
+      'phone': phone,
+      'address': addr,
+    }, SetOptions(merge: true))
+        .then((value) => SnackBarMessage.snackBarMessage(content: 'Profile updated successfully', context: context))
+        .catchError((error) => SnackBarMessage.snackBarMessage(content: 'Failed to add user: $error', context: context));
   }
 }
