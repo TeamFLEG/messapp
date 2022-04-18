@@ -30,26 +30,6 @@ class DatabaseManager {
     return username;
   }
 
-  Future<String?> getRole() async {
-    // Check user in user collection
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-    try {
-      // Get reference to Firestore collection
-      await adminRef.doc(uid).get();
-      return 'adminRef';
-    } catch (e) {
-      try {
-        // Get reference to Firestore collection
-        var userRef = FirebaseFirestore.instance.collection('user');
-        await userRef.doc(uid).get();
-        return 'user';
-      } catch (er) {
-        print('user not found');
-      }
-    }
-    return null;
-  }
-
   Future<void> addBillDetails(int ed, int expense) {
     return adminRef
         .doc(user.uid)
