@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:messapp/widgets/profile_pic.dart';
 import '../../theme/palette.dart';
 import '../../widgets/custom_appbar.dart';
-
 
 class UserPayment extends StatefulWidget {
   const UserPayment({Key? key}) : super(key: key);
@@ -41,7 +40,8 @@ class _UserPaymentState extends State<UserPayment> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 16),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24, 24, 24, 16),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -68,7 +68,8 @@ class _UserPaymentState extends State<UserPayment> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                                 child: Text(
                                   'Due Aug 1, 2022',
                                   textAlign: TextAlign.start,
@@ -108,14 +109,14 @@ class _UserPaymentState extends State<UserPayment> {
                       color: Color(0xFFDBE2E7),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: const [
                           Text(
                             'Remaining Payments',
-                            style:
-                            TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Lexend Deca',
                               color: Color(0xFF8B97A2),
                               fontSize: 14,
@@ -126,7 +127,8 @@ class _UserPaymentState extends State<UserPayment> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(24, 4, 24, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24, 4, 24, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: const [
@@ -155,7 +157,8 @@ class _UserPaymentState extends State<UserPayment> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 20),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 20),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -171,11 +174,11 @@ class _UserPaymentState extends State<UserPayment> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    2, 2, 2, 2),
                                 child: Container(
                                   width:
-                                  MediaQuery.of(context).size.width * 0.4,
+                                      MediaQuery.of(context).size.width * 0.4,
                                   height: 16,
                                   decoration: BoxDecoration(
                                     color: const Color(0xFFB12341),
@@ -191,7 +194,6 @@ class _UserPaymentState extends State<UserPayment> {
                   ],
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(24, 16, 24, 0),
                 child: Row(
@@ -209,8 +211,6 @@ class _UserPaymentState extends State<UserPayment> {
                   ],
                 ),
               ),
-
-
               const PaymentCard(),
               const PaymentCard(),
               const PaymentCard(),
@@ -221,8 +221,6 @@ class _UserPaymentState extends State<UserPayment> {
     );
   }
 }
-
-
 
 class PaymentCard extends StatelessWidget {
   const PaymentCard({Key? key}) : super(key: key);
@@ -258,13 +256,8 @@ class PaymentCard extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/masterCard@2x.png',
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.fitWidth,
-                  ),
+                children: const [
+                  ProfilePic(picRadius: 20.0),
                 ],
               ),
             ),
@@ -277,12 +270,11 @@ class PaymentCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          12, 0, 12, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
                           Text(
                             'Mastercard Ending in 4021',
@@ -307,16 +299,14 @@ class PaymentCard extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          12, 0, 12, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0, 4, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                             child: Text(
                               '₹425.24',
                               style: TextStyle(

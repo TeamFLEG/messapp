@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:messapp/utils/authentication.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:messapp/widgets/primary_button.dart';
+import 'package:messapp/widgets/custom_appbar.dart';
 
 import '../../widgets/profile_pic.dart';
 
@@ -18,10 +19,10 @@ class _UserSettingsState extends State<UserSettings> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: scaffoldKey,
-      // backgroundColor: const Color(0xFF262D34),
+      backgroundColor: const Color(0xFFFFFFFF),
+      appBar: const CustomAppBar(head: "User Settings"),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -29,36 +30,16 @@ class _UserSettingsState extends State<UserSettings> {
             width: MediaQuery.of(context).size.width,
             height: 160,
             decoration: const BoxDecoration(
-              // color: Color(0xFFFDCE84),
-            ),
+                // color: Color(0xFFFDCE84),
+                ),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(20, 40, 20, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(20, 40, 0, 0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const ProfilePic(picRadius: 40),
-                  // Card(
-                  //   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  //   color: const Color(0xFF30B2A3),
-                  //   elevation: 0,
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(8),
-                  //   ),
-                  //   child: Padding(
-                  //     padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                  //     child: ClipRRect(
-                  //       borderRadius: BorderRadius.circular(8),
-                  //       child: Image.network(
-                  //         'https://picsum.photos/seed/339/600',
-                  //         width: 80,
-                  //         height: 80,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
@@ -96,46 +77,53 @@ class _UserSettingsState extends State<UserSettings> {
               ),
             ),
           ),
-
-
-          ButtonCard(btnName: "Edit Profile", clicked: (){
-            Navigator.pushNamed(context, '/edit-profile');
-          }),
-          ButtonCard(btnName: "Change Password", clicked: (){print("null");}),
-          ButtonCard(btnName: "Notification Settings", clicked: (){print("null");}),
-          ButtonCard(btnName: "Terms of Services", clicked: (){print("null");}),
-
+          ButtonCard(
+              btnName: "Edit Profile",
+              clicked: () {
+                Navigator.pushNamed(context, '/edit-profile');
+              }),
+          ButtonCard(
+              btnName: "Change Password",
+              clicked: () {
+                print("null");
+              }),
+          ButtonCard(
+              btnName: "Notification Settings",
+              clicked: () {
+                print("null");
+              }),
+          ButtonCard(
+              btnName: "Terms of Services",
+              clicked: () {
+                print("null");
+              }),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 40),
             child: PrimaryButton(
-              btnName: "Log Out",
-              action: () {
-                Authentication.logoutUser(context);
-              }
-            ),
+                btnName: "Log Out",
+                action: () {
+                  Authentication.logoutUser(context);
+                }),
           ),
-
         ],
       ),
     );
   }
 }
 
-
 class ButtonCard extends StatelessWidget {
-  const ButtonCard({Key? key,
-  required this.btnName,
-  required this.clicked}): super(key: key);
+  const ButtonCard({Key? key, required this.btnName, required this.clicked})
+      : super(key: key);
 
   final String btnName;
   final Function clicked;
 
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
+    return GestureDetector(
       onTap: () => clicked(),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -162,11 +150,10 @@ class ButtonCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:  [
+                    children: [
                       Text(
                         btnName,
-                        style:
-                        const TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Lexend Deca',
                           color: Colors.white,
                           fontSize: 14,
@@ -185,9 +172,7 @@ class ButtonCard extends StatelessWidget {
             ),
           ],
         ),
-
       ),
     );
   }
 }
-

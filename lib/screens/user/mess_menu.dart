@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../theme/palette.dart';
 import '../../widgets/custom_appbar.dart';
 
-
 class MessMenu extends StatefulWidget {
   const MessMenu({Key? key}) : super(key: key);
 
@@ -43,37 +42,35 @@ class _MessMenuState extends State<MessMenu> {
                   initialIndex: 0,
                   child: Column(
                     children: const [
-                        TabBar(
-                          isScrollable: true,
-                          labelColor: Palette.myMaroon,
-                          // labelStyle: FlutterFlowTheme.of(context).bodyText1,
-                          indicatorColor: Palette.myAmber,
-                          tabs: [
-                            Tab(
-                              text: 'Sun',
-                            ),
-                            Tab(
-                              text: 'Mon',
-                            ),
-                            Tab(
-                              text: 'Tue',
-                            ),
-                            Tab(
-                              text: 'Wed',
-                            ),
-                            Tab(
-                              text: 'Thu',
-                            ),
-                            Tab(
-                              text: 'Fri',
-                            ),
-                            Tab(
-                              text: 'Sat',
-                            ),
-                          ],
-                        ),
-
-
+                      TabBar(
+                        isScrollable: true,
+                        labelColor: Palette.myMaroon,
+                        // labelStyle: FlutterFlowTheme.of(context).bodyText1,
+                        indicatorColor: Palette.myAmber,
+                        tabs: [
+                          Tab(
+                            text: 'Sun',
+                          ),
+                          Tab(
+                            text: 'Mon',
+                          ),
+                          Tab(
+                            text: 'Tue',
+                          ),
+                          Tab(
+                            text: 'Wed',
+                          ),
+                          Tab(
+                            text: 'Thu',
+                          ),
+                          Tab(
+                            text: 'Fri',
+                          ),
+                          Tab(
+                            text: 'Sat',
+                          ),
+                        ],
+                      ),
                       Expanded(
                         child: TabBarView(
                           children: [
@@ -84,11 +81,9 @@ class _MessMenuState extends State<MessMenu> {
                             MenuSection(),
                             MenuSection(),
                             MenuSection(),
-
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -102,7 +97,7 @@ class _MessMenuState extends State<MessMenu> {
 }
 
 class MenuSection extends StatelessWidget {
-  const MenuSection({Key? key}): super(key: key);
+  const MenuSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,15 +108,13 @@ class MenuSection extends StatelessWidget {
         Divider(
           indent: 40,
           endIndent: 40,
-          color:
-          Palette.myMaroon,
+          color: Palette.myMaroon,
         ),
         MenuCard(foodItem: "Rice&Chicken", mealPeriod: "Lunch"),
         Divider(
           indent: 40,
           endIndent: 40,
-          color:
-          Colors.red,
+          color: Colors.red,
         ),
         MenuCard(foodItem: "Biriyani", mealPeriod: "Dinner"),
       ],
@@ -130,9 +123,8 @@ class MenuSection extends StatelessWidget {
 }
 
 class MenuCard extends StatelessWidget {
-  const MenuCard({Key? key,
-  required this.foodItem,
-  required this.mealPeriod}): super(key: key);
+  const MenuCard({Key? key, required this.foodItem, required this.mealPeriod})
+      : super(key: key);
 
   final String foodItem;
   final String mealPeriod;
@@ -157,62 +149,54 @@ class MenuCard extends StatelessWidget {
             child: Stack(
               children: [
                 ClipRect(
-                    child: ClipRRect(
-                      borderRadius:
-                      BorderRadius.circular(20),
-                      child: Image.asset(
-                        'assets/join_mess_card-bg.jpeg',
-                        width: 300,
-                        height: 130,
-                        fit: BoxFit.cover,
-                      ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      'assets/join_mess_card-bg.jpeg',
+                      width: 300,
+                      height: 130,
+                      fit: BoxFit.cover,
                     ),
+                  ),
                 ),
                 Align(
                   alignment: const AlignmentDirectional(0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment:
-                    MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 0),
                         child: Row(
-                          mainAxisSize:
-                          MainAxisSize.max,
-                          mainAxisAlignment:
-                          MainAxisAlignment
-                              .spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               mealPeriod,
-                              style:
-                              const TextStyle(
-                                fontFamily:
-                                'Raleway',
-                                color: Colors.black,
+                              style: const TextStyle(
+                                fontFamily: 'Raleway',
+                                color: Colors.white,
                               ),
                             ),
                             const Icon(
                               Icons.edit_outlined,
-                              color:
-                              Colors.black,
+                              color: Colors.white,
                               size: 24,
                             ),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Text(
                           foodItem,
                           style: const TextStyle(
                             fontFamily: 'Raleway',
-                            color:
-                            Colors.black,
+                            color: Colors.white,
                             fontSize: 30,
-                            fontWeight:
-                            FontWeight.bold,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -227,4 +211,3 @@ class MenuCard extends StatelessWidget {
     );
   }
 }
-

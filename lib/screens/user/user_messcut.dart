@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:messapp/widgets/primary_button.dart';
-
+import 'package:messapp/widgets/custom_appbar.dart';
 import '../../theme/palette.dart';
 
 class UserMessCut extends StatefulWidget {
@@ -18,40 +18,7 @@ class _UserMessCutState extends State<UserMessCut> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'Mess Cut',
-          style: TextStyle(
-            fontFamily: 'Raleway',
-            color: Color(0xFF090F13),
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: const [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-            child: null,
-            // child: FlutterFlowIconButton(
-            //   borderColor: Colors.transparent,
-            //   borderRadius: 30,
-            //   buttonSize: 48,
-            //   icon: Icon(
-            //     Icons.close_rounded,
-            //     color: Color(0xFF95A1AC),
-            //     size: 30,
-            //   ),
-            //   onPressed: () async {
-            //     Navigator.pop(context);
-            //   },
-            // ),
-          ),
-        ],
-        centerTitle: false,
-        elevation: 0,
-      ),
+      appBar: const CustomAppBar(head: "Mess Cut"),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -83,14 +50,15 @@ class _UserMessCutState extends State<UserMessCut> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 20, 0, 0),
                             child: Container(
                               width: 160,
                               height: 50,
@@ -142,7 +110,8 @@ class _UserMessCutState extends State<UserMessCut> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 35, 0, 24),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 35, 0, 24),
                       child: PrimaryButton(
                         btnName: "Take Mess Cut",
                         action: () {

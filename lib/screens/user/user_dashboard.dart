@@ -76,8 +76,8 @@ class _UserDashboardState extends State<UserDashboard> {
                   const Align(
                     alignment: AlignmentDirectional(0.0, 0.56),
                     child: ProfilePic(
-                      //Add URL here for Profile Picture
-                    ),
+                        //Add URL here for Profile Picture
+                        ),
                   ),
                 ],
               ),
@@ -112,22 +112,21 @@ class _UserDashboardState extends State<UserDashboard> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:  [
+                    children: [
                       DashboardCard(
-                        cardIcon: Icons.menu_book_sharp,
-                        cardName: "Menu",
-                        cardColor: const Color(0xFF99D5F3),
-                        cardAction: () {
-                          Navigator.pushNamed(context, '/mess-menu');
-                        }
-                      ),
+                          cardIcon: Icons.menu_book_sharp,
+                          cardName: "Menu",
+                          cardColor: const Color(0xFF99D5F3),
+                          cardAction: () {
+                            Navigator.pushNamed(context, '/mess-menu');
+                          }),
                       DashboardCard(
                         cardIcon: Icons.payment,
                         cardName: "Payments",
                         cardColor: const Color(0xFFFDCE84),
                         cardAction: () {
-                            Navigator.pushNamed(context, '/user-payment');
-                          },
+                          Navigator.pushNamed(context, '/user-payment');
+                        },
                       ),
                     ],
                   ),
@@ -136,24 +135,23 @@ class _UserDashboardState extends State<UserDashboard> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:  [
+                    children: [
                       DashboardCard(
-                          cardIcon: Icons.payment,
-                          cardName: "Mess Cut",
-                          cardColor: const Color(0xFFFDCE84),
-                          cardAction: () {
+                        cardIcon: Icons.payment,
+                        cardName: "Mess Cut",
+                        cardColor: const Color(0xFFFDCE84),
+                        cardAction: () {
                           Navigator.pushNamed(context, '/user-messcut');
                         },
                       ),
-
-
                       DashboardCard(
-                          cardIcon: Icons.payment,
-                          cardName: "Register",
-                          cardColor: const Color(0xFF99D5F3),
-                          cardAction: () {
-                          Navigator.pushNamed(context, '/register');
-                        },),
+                        cardIcon: Icons.payment,
+                        cardName: "Attendance",
+                        cardColor: const Color(0xFF99D5F3),
+                        cardAction: () {
+                          Navigator.pushNamed(context, '/user-attendance');
+                        },
+                      ),
                     ],
                   ),
                 ],
@@ -165,6 +163,3 @@ class _UserDashboardState extends State<UserDashboard> {
     );
   }
 }
-
-
-

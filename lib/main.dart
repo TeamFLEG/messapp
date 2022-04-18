@@ -24,7 +24,7 @@ import 'package:messapp/screens/mess_select.dart';
 import 'package:messapp/screens/join_mess.dart';
 // import 'package:messapp/screens/join_mess_register_page.dart';
 
-
+import 'package:messapp/screens/user/user_attendance.dart';
 
 import 'firebase_options.dart';
 
@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
         '/user-payment': (context) => const UserPayment(),
         '/user-messcut': (context) => const UserMessCut(),
         '/edit-profile': (context) => const EditProfile(),
+        '/user-attendance': (context) => const UserAttendance(),
       },
       home: const SplashScreen(),
     );
@@ -108,20 +109,16 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
         splash: Expanded(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/messapp_logo.png',
-              width: 100,
-              height: 100
-            ),
-            // const SpinKitWave(
-            //   color: Palette.myMaroon,
-            // )
-          ],
-        ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/messapp_logo.png', width: 100, height: 100),
+              // const SpinKitWave(
+              //   color: Palette.myMaroon,
+              // )
+            ],
+          ),
         ),
         centered: true,
         duration: 2000,
