@@ -21,9 +21,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference userReference = firestore.collection('admin');
-    DatabaseManager.getUserName();
-    DatabaseManager.getData();
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -84,14 +81,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Center(
                   child: Text(
-                    // 'Hi, ${user.displayName}',
-                    'Hi, Bakker',
+                    'Hi, ${user.displayName}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),

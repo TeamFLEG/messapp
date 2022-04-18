@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +23,14 @@ import 'package:messapp/screens/create_mess.dart';
 import 'package:messapp/screens/forgot_password_page.dart';
 import 'package:messapp/screens/mess_select.dart';
 import 'package:messapp/screens/join_mess.dart';
+import 'package:messapp/utils/database_manager.dart';
 // import 'package:messapp/screens/join_mess_register_page.dart';
 
+<<<<<<< HEAD
 import 'package:messapp/screens/user/user_attendance.dart';
 
+=======
+>>>>>>> 2c17c63c4c34ded90dd36d544db71b4116abcc98
 import 'firebase_options.dart';
 
 // Color palette import
@@ -91,8 +96,7 @@ class MainPage extends StatelessWidget {
                   "Something went wrong connecting to server. Please try again later."),
             );
           } else if (snapshot.hasData) {
-            print(snapshot.data);
-            return const AdminDashboard();
+            return const RoleSelector();
           } else {
             return const AuthPage();
           }
@@ -108,6 +112,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
+<<<<<<< HEAD
         splash: Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -120,8 +125,30 @@ class SplashScreen extends StatelessWidget {
             ],
           ),
         ),
+=======
+        splash: Image.asset('assets/messapp_logo.png',
+            width: 500, height: 500),
+>>>>>>> 2c17c63c4c34ded90dd36d544db71b4116abcc98
         centered: true,
         duration: 2000,
         nextScreen: const MainPage());
+  }
+}
+
+class RoleSelector extends StatelessWidget {
+  const RoleSelector({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    return FutureBuilder<DocumentSnapshot>(
+        future: FirebaseFirestore.instance.collection('admin').doc(uid).get(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const AdminDashboard();
+          } else {
+            return const UserDashboard();
+          }
+        });
   }
 }

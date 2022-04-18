@@ -118,8 +118,8 @@ class _JoinMessRegisterPageState extends State<JoinMessRegisterPage> {
 
   Future createUser({required int phone, required String address}) async {
     // Referencing to the document
-    final userDoc = FirebaseFirestore.instance.collection('user').doc();
     final loggedInUser = FirebaseAuth.instance.currentUser!;
+    final userDoc = FirebaseFirestore.instance.collection('user').doc(loggedInUser.uid);
     final user = Users(
       id: userDoc.id,
       fullName: loggedInUser.displayName.toString(),
