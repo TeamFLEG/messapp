@@ -123,15 +123,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
+                      children: [
                         DashboardCard(
                             cardIcon: Icons.payment,
                             cardName: "Mess Details",
-                            cardColor: Color(0xFFFDCE84)),
+                            cardColor: const Color(0xFFFDCE84),
+                            cardAction: () {
+                              Navigator.pushNamed(context, '/meess-details');
+                            }),
                         DashboardCard(
                             cardIcon: Icons.payment,
                             cardName: "Attendance",
-                            cardColor: Color(0xFF99D5F3))
+                            cardColor: const Color(0xFF99D5F3),
+                            cardAction: () {
+                              Navigator.pushNamed(context, '/admin-attendance');
+                            })
                       ],
                     ),
                     const SizedBox(
@@ -152,7 +158,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             cardName: "View Feedbacks",
                             cardColor: const Color(0xFF99D5F3),
                             cardAction: () {
-                              Navigator.pushNamed(context, '/mess-members');
+                              Navigator.pushNamed(context, '/view-feedbacks');
                             }),
                       ],
                     ),

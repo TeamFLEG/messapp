@@ -31,9 +31,11 @@ import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/screens/user/user_attendance.dart';
 
 import 'package:messapp/screens/admin/admin_statement.dart';
-// import 'package:messapp/screens/admin/admin_attendance.dart';
+import 'package:messapp/screens/admin/admin_attendance.dart';
 import 'package:messapp/screens/user/mess_details.dart';
 import 'package:messapp/screens/user/change_pass.dart';
+import 'package:messapp/screens/admin/qr_generation.dart';
+import 'package:messapp/screens/user/qr_scan.dart';
 
 import 'firebase_options.dart';
 
@@ -85,12 +87,13 @@ class MyApp extends StatelessWidget {
         '/edit-profile': (context) => const EditProfile(),
         '/user-attendance': (context) => const UserAttendance(),
         '/admin-statement': (context) => const AdminStatement(),
-        // '/admin-attendance': (context) => const AdminAttendance(),
+        '/admin-attendance': (context) => const AdminAttendance(),
         '/mess-details': (context) => const MessDetails(),
         '/change-pass': (context) => const ChangePass(),
         '/add-transaction': (context) => const AddTransaction(),
         '/update-bill-data': (context) => const UpdateBillData(),
-
+        '/qr-generation': (context) => const QRGenerator(),
+        '/qr-scan': (context) => const QRScan(),
       },
       home: const SplashScreen(),
     );
