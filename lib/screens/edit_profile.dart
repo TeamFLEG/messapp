@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/palette.dart';
+import '../widgets/custom_appbar.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/profile_pic.dart';
 
@@ -15,13 +16,7 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text("Edit Profile"),
-        centerTitle: true,
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+      appBar: const CustomAppBar(head: "Edit Profile"),
       body: Padding(
         padding: const EdgeInsets.only(top: 40.0),
         child: Column(

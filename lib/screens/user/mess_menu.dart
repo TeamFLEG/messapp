@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/palette.dart';
+import '../../widgets/custom_appbar.dart';
 
 
 class MessMenu extends StatefulWidget {
@@ -19,6 +20,7 @@ class _MessMenuState extends State<MessMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      appBar: const CustomAppBar(head: "Menu"),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: GestureDetector(
@@ -26,28 +28,6 @@ class _MessMenuState extends State<MessMenu> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Icon(
-                    Icons.arrow_back_ios_rounded,
-                    color: Palette.myMaroon,
-                    size: 24,
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                    child: Text(
-                      'Menu',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontFamily: 'Raleway',
-                        color: Palette.myMaroon,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                 child: Text(

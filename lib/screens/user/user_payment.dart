@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/palette.dart';
+import '../../widgets/custom_appbar.dart';
 
 
 class UserPayment extends StatefulWidget {
@@ -17,6 +18,7 @@ class _UserPaymentState extends State<UserPayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      appBar: const CustomAppBar(head: "Payments"),
       backgroundColor: const Color(0xFFF1F4F8),
       body: SafeArea(
         child: SingleChildScrollView(

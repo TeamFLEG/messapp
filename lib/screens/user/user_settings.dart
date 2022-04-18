@@ -4,6 +4,8 @@ import 'package:messapp/utils/authentication.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:messapp/widgets/primary_button.dart';
 
+import '../../widgets/profile_pic.dart';
+
 class UserSettings extends StatefulWidget {
   const UserSettings({Key? key}) : super(key: key);
 
@@ -36,26 +38,27 @@ class _UserSettingsState extends State<UserSettings> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    color: const Color(0xFF30B2A3),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          'https://picsum.photos/seed/339/600',
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const ProfilePic(picRadius: 40),
+                  // Card(
+                  //   clipBehavior: Clip.antiAliasWithSaveLayer,
+                  //   color: const Color(0xFF30B2A3),
+                  //   elevation: 0,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(8),
+                  //   ),
+                  //   child: Padding(
+                  //     padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                  //     child: ClipRRect(
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       child: Image.network(
+                  //         'https://picsum.photos/seed/339/600',
+                  //         width: 80,
+                  //         height: 80,
+                  //         fit: BoxFit.cover,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
