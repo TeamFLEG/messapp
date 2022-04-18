@@ -84,6 +84,7 @@ class MyApp extends StatelessWidget {
         // '/admin-attendance': (context) => const AdminAttendance(),
         '/mess-details': (context) => const MessDetails(),
         '/change-pass': (context) => const ChangePass(),
+        '/update-bill-data': (context) => const UpdateBillData(),
       },
       home: const SplashScreen(),
     );
