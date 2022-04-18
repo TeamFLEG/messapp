@@ -13,7 +13,7 @@ class UserAttendance extends StatelessWidget {
         PrimaryButton(
           btnName: "Scan QR code",
           action: () {
-            Navigator.pushNamed(context, '/user-attendance-view');
+            Navigator.pushNamed(context, '/qr-scan');
           },
         ),
       ]),
