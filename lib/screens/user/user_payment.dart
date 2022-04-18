@@ -87,32 +87,13 @@ class _UserPaymentState extends State<UserPayment> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children: const [
-                                // FFButtonWidget(
-                                //   onPressed: () {
-                                //     print('Button pressed ...');
-                                //   },
-                                //   text: 'Pay',
-                                //   options: FFButtonOptions(
-                                //     width: 110,
-                                //     height: 40,
-                                //     color: Color(0xFFB12341),
-                                //     textStyle: FlutterFlowTheme.of(context)
-                                //         .bodyText1
-                                //         .override(
-                                //       fontFamily: 'Lexend Deca',
-                                //       color: Colors.white,
-                                //       fontSize: 14,
-                                //       fontWeight: FontWeight.normal,
-                                //     ),
-                                //     elevation: 2,
-                                //     borderSide: BorderSide(
-                                //       color: Colors.transparent,
-                                //       width: 1,
-                                //     ),
-                                //     borderRadius: 40,
-                                //   ),
-                                // ),
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    print("Button clicked");
+                                  },
+                                  child: const Text("Pay"),
+                                ),
                               ],
                             ),
                           ),
