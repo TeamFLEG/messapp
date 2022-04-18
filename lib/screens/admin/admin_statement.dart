@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:messapp/theme/palette.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/widgets/primary_button.dart';
+import 'package:messapp/screens/admin/add_transaction.dart';
 
 class AdminStatement extends StatefulWidget {
   const AdminStatement({Key? key}) : super(key: key);
@@ -105,7 +106,7 @@ class _AdminStatementState extends State<AdminStatement> {
                       child: PrimaryButton(
                           btnName: "Add Transaction",
                           action: () {
-                            print("button pressed....");
+                            Navigator.pushNamed(context, '/add-transaction');
                           }),
                     ),
                     Padding(

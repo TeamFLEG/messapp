@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 //Custom Widgets
 import 'package:messapp/screens/admin/admin_dashboard.dart';
 import 'package:messapp/screens/admin/mess_members.dart';
+import 'package:messapp/screens/admin/add_transaction.dart';
 import 'package:messapp/screens/edit_profile.dart';
 
 import 'package:messapp/screens/user/mess_menu.dart';
@@ -84,6 +85,8 @@ class MyApp extends StatelessWidget {
         // '/admin-attendance': (context) => const AdminAttendance(),
         '/mess-details': (context) => const MessDetails(),
         '/change-pass': (context) => const ChangePass(),
+        '/add-transaction': (context) => const AddTransaction(),
+
       },
       home: const SplashScreen(),
     );
