@@ -1,4 +1,5 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/screens/dashboard_model.dart';
 import 'package:messapp/widgets/content_text.dart';
@@ -19,7 +20,7 @@ class _UserDashboardState extends State<UserDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    // final user = FirebaseAuth.instance.currentUser!;
+    final user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
       key: scaffoldKey,
@@ -33,20 +34,9 @@ class _UserDashboardState extends State<UserDashboard> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          // TODO : add route
-                          // navigatorKey.currentState!.pushNamed('/joinMessRegister');
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          "Back",
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, '/user-settings');
@@ -82,14 +72,13 @@ class _UserDashboardState extends State<UserDashboard> {
                     ),
                   ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: Center(
                     child: Text(
-                      // 'Hi, ${user.displayName}',
-                      'Hi, User',
+                      'Hi, ${user.displayName}',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),

@@ -21,7 +21,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    print(user);
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -33,20 +32,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        // TODO : add route
-                        // navigatorKey.currentState!.pushNamed('/joinMessRegister');
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        "Back",
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, '/user-settings');
@@ -74,11 +62,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const Align(
-                    alignment: AlignmentDirectional(0.0, 0.56),
+                  Align(
+                    alignment: const AlignmentDirectional(0.0, 0.56),
                     child: ProfilePic(
-                        //TODO: Add URL here for Profile Picture
-                        ),
+                      //TODO: Add URL here for Profile Picture
+                      picURL: user.photoURL,
+                    ),
                   ),
                 ],
               ),
