@@ -1,5 +1,3 @@
-import 'package:messapp/screens/login_page.dart';
-
 import '../main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/snack_bar_message.dart';
@@ -146,7 +144,7 @@ class Authentication {
     }
   }
 
-  static Future changePassword(newPassword, BuildContext context) async {
+  static Future changePassword(String newPassword, BuildContext context) async {
     try {
       FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
     } on FirebaseAuthException catch(e) {

@@ -91,9 +91,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
-                      ContentText(text: "Members", value: "10"),
-                      ContentText(text: "Mess Cut", value: "5"),
-                      ContentText(text: "Guest", value: "0"),
+                      ContentText(text: "Members", value: "0"),
                     ],
                   ),
                 ),

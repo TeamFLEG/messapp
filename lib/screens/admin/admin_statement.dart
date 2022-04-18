@@ -1,8 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:messapp/main.dart';
 import 'package:messapp/theme/palette.dart';
+import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/widgets/primary_button.dart';
 import 'package:messapp/screens/admin/add_transaction.dart';
+
+import '../../utils/authentication.dart';
+import '../../utils/database_manager.dart';
 
 class AdminStatement extends StatefulWidget {
   const AdminStatement({Key? key}) : super(key: key);
@@ -12,8 +18,20 @@ class AdminStatement extends StatefulWidget {
 }
 
 class _AdminStatementState extends State<AdminStatement> {
+  late int effectiveDays;
+  late int expense;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    effectiveDays = 0;
+    expense = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(FirebaseAuth.instance.currentUser!);
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: const CustomAppBar(head: "Your Statement"),
@@ -39,8 +57,8 @@ class _AdminStatementState extends State<AdminStatement> {
                           Expanded(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
-                              children: const [
-                                Padding(
+                              children: [
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 4, 0, 0),
                                   child: Text(
@@ -48,11 +66,11 @@ class _AdminStatementState extends State<AdminStatement> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 8, 0, 0),
                                   child: Text(
-                                    '30',
-                                    style: TextStyle(
+                                    '$effectiveDays',
+                                    style: const TextStyle(
                                       fontFamily: 'Open Sans',
                                       color: Palette.myMaroon,
                                       fontSize: 32,
@@ -73,8 +91,8 @@ class _AdminStatementState extends State<AdminStatement> {
                           Expanded(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
-                              children: const [
-                                Padding(
+                              children: [
+                                const Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 4, 0, 0),
                                   child: Text(
@@ -82,11 +100,11 @@ class _AdminStatementState extends State<AdminStatement> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 8, 0, 0),
                                   child: Text(
-                                    '₹7,456',
-                                    style: TextStyle(
+                                    '₹$expense',
+                                    style: const TextStyle(
                                       fontFamily: 'Open Sans',
                                       color: Palette.myMaroon,
                                       fontSize: 32,
@@ -99,6 +117,15 @@ class _AdminStatementState extends State<AdminStatement> {
                           ),
                         ],
                       ),
+                    ),
+                    Padding(
+                      padding:
+                      const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                      child: PrimaryButton(
+                          btnName: "Update data",
+                          action: () {
+                            navigatorKey.currentState!.pushNamed('/update-bill-data');
+                          }),
                     ),
                     Padding(
                       padding:
@@ -166,6 +193,87 @@ class _AdminStatementState extends State<AdminStatement> {
     );
   }
 }
+
+class UpdateBillData extends StatefulWidget {
+  const UpdateBillData({Key? key}) : super(key: key);
+
+  @override
+  State<UpdateBillData> createState() => _UpdateBillDataState();
+}
+
+class _UpdateBillDataState extends State<UpdateBillData> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late TextEditingController _edController;
+  late TextEditingController _expenseController;
+
+  @override
+  void initState() {
+    super.initState();
+    _edController = TextEditingController();
+    _expenseController = TextEditingController();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Form(
+        key: _formKey,
+        child: SafeArea(
+          child: Column(
+            children: [
+              const CustomAppBar(head: 'Update Bill Details'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _edController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "No of Effective Days",
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (String? value) {
+                        if (value != null && int.parse(value)>0) {
+                          return 'Value must be greater than 0';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _expenseController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "Add Expense",
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (String? value) {
+                        if (value != null && int.parse(value)>0) {
+                          return 'Value must be greater than 0';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        DatabaseManager().addBillDetails(int.parse(_edController.text), int.parse(_expenseController.text));
+                        navigatorKey.currentState!.pop();
+                      },
+                      child: const Text("Update Data"),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 
 class PayCard extends StatelessWidget {
   const PayCard({

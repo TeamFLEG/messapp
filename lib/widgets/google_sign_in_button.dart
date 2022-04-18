@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../utils/authentication.dart';
-import '../widgets/snack_bar_message.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   final bool registered;
