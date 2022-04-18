@@ -26,11 +26,8 @@ import 'package:messapp/screens/join_mess.dart';
 import 'package:messapp/utils/database_manager.dart';
 // import 'package:messapp/screens/join_mess_register_page.dart';
 
-<<<<<<< HEAD
 import 'package:messapp/screens/user/user_attendance.dart';
 
-=======
->>>>>>> 2c17c63c4c34ded90dd36d544db71b4116abcc98
 import 'firebase_options.dart';
 
 // Color palette import
@@ -112,23 +109,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-<<<<<<< HEAD
-        splash: Expanded(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/messapp_logo.png', width: 100, height: 100),
-              // const SpinKitWave(
-              //   color: Palette.myMaroon,
-              // )
-            ],
-          ),
-        ),
-=======
-        splash: Image.asset('assets/messapp_logo.png',
-            width: 500, height: 500),
->>>>>>> 2c17c63c4c34ded90dd36d544db71b4116abcc98
+        splash: Image.asset('assets/messapp_logo.png', width: 500, height: 500),
         centered: true,
         duration: 2000,
         nextScreen: const MainPage());

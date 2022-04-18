@@ -21,6 +21,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
+  print(user);
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -62,7 +63,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ),
               Stack(
                 alignment:
-                const AlignmentDirectional(-0.050000000000000044, 1.0),
+                    const AlignmentDirectional(-0.050000000000000044, 1.0),
                 children: [
                   Align(
                     alignment: const AlignmentDirectional(0, 0),
@@ -76,8 +77,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   const Align(
                     alignment: AlignmentDirectional(0.0, 0.56),
                     child: ProfilePic(
-                      //TODO: Add URL here for Profile Picture
-                    ),
+                        //TODO: Add URL here for Profile Picture
+                        ),
                   ),
                 ],
               ),
@@ -111,15 +112,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:  [
+                    children: [
                       DashboardCard(
                           cardIcon: Icons.menu_book_sharp,
                           cardName: "Menu",
                           cardColor: const Color(0xFF99D5F3),
                           cardAction: () {
                             Navigator.pushNamed(context, '/mess-menu');
-                          }
-                      ),
+                          }),
                       DashboardCard(
                         cardIcon: Icons.payment,
                         cardName: "Payments",
