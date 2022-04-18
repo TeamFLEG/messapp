@@ -5,6 +5,7 @@ import 'package:messapp/theme/palette.dart';
 import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/widgets/primary_button.dart';
+import 'package:messapp/screens/admin/add_transaction.dart';
 
 import '../../utils/authentication.dart';
 import '../../utils/database_manager.dart';
@@ -139,7 +140,7 @@ class _AdminStatementState extends State<AdminStatement> {
                       child: PrimaryButton(
                           btnName: "Add Transaction",
                           action: () {
-                            print("button pressed....");
+                            Navigator.pushNamed(context, '/add-transaction');
                           }),
                     ),
                     Padding(
