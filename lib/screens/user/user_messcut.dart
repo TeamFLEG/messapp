@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/widgets/primary_button.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
@@ -12,7 +14,20 @@ class UserMessCut extends StatefulWidget {
 
 class _UserMessCutState extends State<UserMessCut> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  // int countControllerValue;
+  CollectionReference user = FirebaseFirestore.instance.collection('user');
+
+  int count = 0;
+
+  Future<void> addUser() {
+    // Call the user's CollectionReference to add a new user
+    return user
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
+          'messcut': count,
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,39 +86,49 @@ class _UserMessCutState extends State<UserMessCut> {
                                   width: 1,
                                 ),
                               ),
-                              child: null,
-                              // child: FlutterFlowCountController(
-                              //   decrementIconBuilder: (enabled) => FaIcon(
-                              //     FontAwesomeIcons.minus,
-                              //     color: enabled
-                              //         ? Color(0xDD000000)
-                              //         : Color(0xFFEEEEEE),
-                              //     size: 20,
-                              //   ),
-                              //   incrementIconBuilder: (enabled) => FaIcon(
-                              //     FontAwesomeIcons.plus,
-                              //     color: enabled
-                              //         ? FlutterFlowTheme.of(context)
-                              //         .primaryColor
-                              //         : Color(0xFFEEEEEE),
-                              //     size: 20,
-                              //   ),
-                              //   countBuilder: (count) => Text(
-                              //     count.toString(),
-                              //     style: GoogleFonts.getFont(
-                              //       'Roboto',
-                              //       color: Colors.black,
-                              //       fontWeight: FontWeight.w600,
-                              //       fontSize: 16,
-                              //     ),
-                              //   ),
-                              //   count: countControllerValue ??= 3,
-                              //   updateCount: (count) => setState(
-                              //           () => countControllerValue = count),
-                              //   stepSize: 1,
-                              //   minimum: 3,
-                              //   maximum: 30,
-                              // ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    child: const Icon(
+                                      Icons.remove,
+                                      color: Palette.myMaroon,
+                                      size: 30.0,
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        if (count > 0) {
+                                          count--;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(width: 15.0),
+                                  Text(
+                                    count.toString(),
+                                    style: const TextStyle(
+                                      fontFamily: 'Raleway',
+                                      fontSize: 30.0,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 15.0),
+                                  GestureDetector(
+                                    child: const Icon(
+                                      Icons.add,
+                                      color: Palette.myMaroon,
+                                      size: 30.0,
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        if (count < 30) {
+                                          count++;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -115,6 +140,7 @@ class _UserMessCutState extends State<UserMessCut> {
                       child: PrimaryButton(
                         btnName: "Take Mess Cut",
                         action: () {
+                          addUser();
                           Navigator.pop(context);
                         },
                       ),
