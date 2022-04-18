@@ -165,8 +165,8 @@ class _CreateMessState extends State<CreateMess> {
     required Timestamp joinedTS,
   }) async {
     // Referencing to the document
-    final adminDoc = FirebaseFirestore.instance.collection('admin').doc();
     final loggedInUser = FirebaseAuth.instance.currentUser!;
+    final adminDoc = FirebaseFirestore.instance.collection('admin').doc(loggedInUser.uid);
     final admin = Admin(
       id: adminDoc.id,
       messName: messName,
