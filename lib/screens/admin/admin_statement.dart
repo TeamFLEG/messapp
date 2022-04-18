@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
@@ -31,7 +32,8 @@ class _AdminStatementState extends State<AdminStatement> {
 
   @override
   Widget build(BuildContext context) {
-    print(FirebaseAuth.instance.currentUser!);
+    CollectionReference adminRef = FirebaseFirestore.instance.collection('admin');
+    User user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: const CustomAppBar(head: "Your Statement"),
@@ -47,84 +49,106 @@ class _AdminStatementState extends State<AdminStatement> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Column(
+                    FutureBuilder<DocumentSnapshot>(
+                      future: adminRef.doc(user.uid).get(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text("Something went wrong");
+                        }
+
+                        if (snapshot.hasData && !snapshot.data!.exists) {
+                          return Text("Document does not exist");
+                        }
+
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          Map<String, dynamic> data =
+                              snapshot.data!.data() as Map<String, dynamic>;
+                          return Padding(
+                            padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 0),
-                                  child: Text(
-                                    'No. of working days',
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 0),
+                                        child: Text(
+                                          'No. of working days',
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 0, 0),
+                                        child: Text(
+                                          "${data['effectiveDays']}",
+                                          style: const TextStyle(
+                                            fontFamily: 'Open Sans',
+                                            color: Palette.myMaroon,
+                                            fontSize: 32,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 8, 0, 0),
-                                  child: Text(
-                                    '$effectiveDays',
-                                    style: const TextStyle(
-                                      fontFamily: 'Open Sans',
-                                      color: Palette.myMaroon,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                Container(
+                                  width: 2,
+                                  height: 100,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 0),
+                                        child: Text(
+                                          'Expense',
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 0, 0),
+                                        child: Text(
+                                          "₹${data['expense']}",
+                                          style: const TextStyle(
+                                            fontFamily: 'Open Sans',
+                                            color: Palette.myMaroon,
+                                            fontSize: 32,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                          Container(
-                            width: 2,
-                            height: 100,
-                            decoration: const BoxDecoration(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 0),
-                                  child: Text(
-                                    'Expense',
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 8, 0, 0),
-                                  child: Text(
-                                    '₹$expense',
-                                    style: const TextStyle(
-                                      fontFamily: 'Open Sans',
-                                      color: Palette.myMaroon,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                          );
+                        }
+
+                        return const CircularProgressIndicator();
+                      },
                     ),
+
                     Padding(
                       padding:
-                      const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Update data",
                           action: () {
-                            navigatorKey.currentState!.pushNamed('/update-bill-data');
+                            navigatorKey.currentState!
+                                .pushNamed('/update-bill-data');
                           }),
                     ),
                     Padding(
@@ -212,6 +236,7 @@ class _UpdateBillDataState extends State<UpdateBillData> {
     _edController = TextEditingController();
     _expenseController = TextEditingController();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -234,7 +259,7 @@ class _UpdateBillDataState extends State<UpdateBillData> {
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? value) {
-                        if (value != null && int.parse(value)>0) {
+                        if (value != null && int.parse(value) > 0) {
                           return 'Value must be greater than 0';
                         }
                         return null;
@@ -249,7 +274,7 @@ class _UpdateBillDataState extends State<UpdateBillData> {
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? value) {
-                        if (value != null && int.parse(value)>0) {
+                        if (value != null && int.parse(value) > 0) {
                           return 'Value must be greater than 0';
                         }
                         return null;
@@ -258,7 +283,9 @@ class _UpdateBillDataState extends State<UpdateBillData> {
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        DatabaseManager().addBillDetails(int.parse(_edController.text), int.parse(_expenseController.text));
+                        DatabaseManager().addBillDetails(
+                            int.parse(_edController.text),
+                            int.parse(_expenseController.text));
                         navigatorKey.currentState!.pop();
                       },
                       child: const Text("Update Data"),
@@ -273,7 +300,6 @@ class _UpdateBillDataState extends State<UpdateBillData> {
     );
   }
 }
-
 
 class PayCard extends StatelessWidget {
   const PayCard({

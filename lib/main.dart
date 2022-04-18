@@ -108,9 +108,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Widget _body = const CircularProgressIndicator();
+  Widget _body = const LoadingPage();
   @override
   void initState() {
+    super.initState();
     _loginReverter();
   }
 
@@ -143,11 +144,7 @@ class _MainPageState extends State<MainPage> {
                   "Something went wrong connecting to server. Please try again later."),
             );
           } else if (snapshot.hasData) {
-            // return widget.role == 'admin'
-            //     ? const AdminDashboard()
-            //     : const UserDashboard();
             return _body;
-            // return const Center();
           } else {
             return const AuthPage();
           }
@@ -183,3 +180,21 @@ Future<String> getData(String uid) async {
     return '';
   }
 }
+
+class LoadingPage extends StatelessWidget {
+  const LoadingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: const [
+        SizedBox(
+            width: 40,
+            child: CircularProgressIndicator()),
+      ],
+    );
+  }
+}
+
