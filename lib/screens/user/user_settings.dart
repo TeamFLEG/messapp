@@ -1,7 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:messapp/utils/authentication.dart';
-// import 'package:google_fonts/google_fonts.dart';
 import 'package:messapp/widgets/primary_button.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 
@@ -16,6 +15,7 @@ class UserSettings extends StatefulWidget {
 
 class _UserSettingsState extends State<UserSettings> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  User user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +47,10 @@ class _UserSettingsState extends State<UserSettings> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            '[Username]',
-                            style: TextStyle(
+                            '${user.displayName}',
+                            style: const TextStyle(
                               fontFamily: 'Lexend Deca',
                               color: Colors.black,
                               fontSize: 20,
@@ -58,10 +58,10 @@ class _UserSettingsState extends State<UserSettings> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                             child: Text(
-                              '[Email_Address]',
-                              style: TextStyle(
+                              '${user.email}',
+                              style: const TextStyle(
                                 fontFamily: 'Lexend Deca',
                                 color: Colors.black,
                                 fontSize: 14,

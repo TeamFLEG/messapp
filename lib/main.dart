@@ -1,7 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 
 // Firebase imports
@@ -114,14 +112,11 @@ class _MainPageState extends State<MainPage> {
 
   void _loginReverter() async {
     final role = await getData(FirebaseAuth.instance.currentUser!.uid);
-    print(role);
     if (role == 'admin') {
-      print('Inside admin dashboard');
       setState(() {
         _body = const AdminDashboard();
       });
     } else if (role == 'user') {
-      print("Inside user dashboard");
       setState(() {
         _body = const UserDashboard();
       });
@@ -177,7 +172,6 @@ Future<String> getData(String uid) async {
   final userDoc =
       await FirebaseFirestore.instance.collection('user').doc(uid).get();
   if (adminDoc.exists) {
-    print("Its admin");
     return 'admin';
   } else if (userDoc.exists) {
     return 'user';
