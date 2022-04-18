@@ -26,7 +26,7 @@ class ContentText extends StatelessWidget {
         Text(
           value,
           style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20),
+              fontWeight: FontWeight.bold, fontSize: 30),
         ),
       ],
     );
