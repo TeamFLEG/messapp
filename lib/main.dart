@@ -32,6 +32,7 @@ import 'package:messapp/screens/user/user_attendance.dart';
 import 'package:messapp/screens/admin/admin_statement.dart';
 // import 'package:messapp/screens/admin/admin_attendance.dart';
 import 'package:messapp/screens/user/mess_details.dart';
+import 'package:messapp/screens/user/change_pass.dart';
 
 import 'firebase_options.dart';
 
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
         '/admin-statement': (context) => const AdminStatement(),
         // '/admin-attendance': (context) => const AdminAttendance(),
         '/mess-details': (context) => const MessDetails(),
+        '/change-pass': (context) => const ChangePass(),
       },
       home: const SplashScreen(),
     );

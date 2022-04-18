@@ -85,7 +85,7 @@ class _UserSettingsState extends State<UserSettings> {
           ButtonCard(
               btnName: "Change Password",
               clicked: () {
-                print("null");
+                Navigator.pushNamed(context, '/change-pass');
               }),
           ButtonCard(
               btnName: "Notification Settings",
