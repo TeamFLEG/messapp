@@ -115,7 +115,7 @@ class _UserDashboardState extends State<UserDashboard> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         DashboardCard(
-                            cardIcon: Icons.menu_book_sharp,
+                            cardIcon: Icons.payment,
                             cardName: "Menu",
                             cardColor: const Color(0xFF99D5F3),
                             cardAction: () {
