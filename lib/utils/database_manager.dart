@@ -2,6 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseManager {
+  CollectionReference userRef = FirebaseFirestore.instance.collection('user');
+  CollectionReference adminRef = FirebaseFirestore.instance.collection('admin');
+
+  User user = FirebaseAuth.instance.currentUser!;
+
   static Future<void> getData() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot =
@@ -13,14 +18,10 @@ class DatabaseManager {
     // print(allData);
   }
 
-  static String getUserName() {
+  String getUserName() {
     // Get userdata of specific uid
     late String username = '';
-    FirebaseFirestore.instance
-        .collection('admin')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get()
-        .then((value) {
+    adminRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) {
       username = value['fullName'].toString();
     });
     if (username == '') {
@@ -34,9 +35,8 @@ class DatabaseManager {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     try {
       // Get reference to Firestore collection
-      var adminRef = FirebaseFirestore.instance.collection('admin');
       await adminRef.doc(uid).get();
-      return 'admin';
+      return 'adminRef';
     } catch (e) {
       try {
         // Get reference to Firestore collection
@@ -48,5 +48,16 @@ class DatabaseManager {
       }
     }
     return null;
+  }
+
+  Future<void> addBillDetails(int ed, int expense) {
+    return adminRef
+        .doc(user.uid)
+        .set({
+          'effectiveDays': ed,
+          'expense': expense,
+        })
+        .then((value) => print("Bill details Added"))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 }
