@@ -86,6 +86,7 @@ class MyApp extends StatelessWidget {
         '/mess-details': (context) => const MessDetails(),
         '/change-pass': (context) => const ChangePass(),
         '/add-transaction': (context) => const AddTransaction(),
+        '/update-bill-data': (context) => const UpdateBillData(),
 
       },
       home: const SplashScreen(),

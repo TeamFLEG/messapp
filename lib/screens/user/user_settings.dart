@@ -97,6 +97,11 @@ class _UserSettingsState extends State<UserSettings> {
               clicked: () {
                 print("null");
               }),
+          ButtonCard(
+              btnName: "Delete Account",
+              clicked: () {
+                Authentication.deleteUser(context);
+              }),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 40),
             child: PrimaryButton(

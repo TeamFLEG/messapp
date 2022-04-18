@@ -23,16 +23,10 @@ class _AdminStatementState extends State<AdminStatement> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     effectiveDays = 0;
     expense = 0;
-  }
-
-  void setData(int ed, int exp) {
-    setState(() {
-      effectiveDays = ed;
-      expense = exp;
-    });
   }
 
   @override
@@ -130,7 +124,6 @@ class _AdminStatementState extends State<AdminStatement> {
                       child: PrimaryButton(
                           btnName: "Update data",
                           action: () {
-
                             navigatorKey.currentState!.pushNamed('/update-bill-data');
                           }),
                     ),

@@ -56,7 +56,7 @@ class DatabaseManager {
         .set({
           'effectiveDays': ed,
           'expense': expense,
-        })
+        }, SetOptions(merge: true))
         .then((value) => print("Bill details Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
