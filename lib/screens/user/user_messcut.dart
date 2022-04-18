@@ -25,8 +25,8 @@ class _UserMessCutState extends State<UserMessCut> {
         .set({
           'messcut': count,
         })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+        .then((value) => print("Mess cut Added"))
+        .catchError((error) => print("Failed to add mess cut: $error"));
   }
 
   @override
