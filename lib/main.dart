@@ -11,6 +11,7 @@ import 'package:messapp/screens/admin/admin_dashboard.dart';
 import 'package:messapp/screens/admin/mess_members.dart';
 import 'package:messapp/screens/admin/add_transaction.dart';
 import 'package:messapp/screens/edit_profile.dart';
+import 'package:messapp/screens/join_mess_register_page.dart';
 
 import 'package:messapp/screens/user/mess_menu.dart';
 import 'package:messapp/screens/user/user_payment.dart';
@@ -73,7 +74,7 @@ class MyApp extends StatelessWidget {
         '/user-dashboard': (context) => const UserDashboard(),
         '/mess-select': (context) => const MessSelect(),
         '/forgot-password': (context) => const ForgotPasswordPage(),
-        
+        '/join-mess-register': (context) => const JoinMessRegisterPage(),
         '/join-mess': (context) => const JoinMess(),
         '/create-mess': (context) => const CreateMess(),
         '/user-settings': (context) => const UserSettings(),

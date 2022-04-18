@@ -131,9 +131,13 @@ class _JoinMessRegisterPageState extends State<JoinMessRegisterPage> {
     final adminJSON = user.toJSON();
     try {
       await userDoc.set(adminJSON);
-      navigatorKey.currentState!.pushNamed('/joinMess');
+      navigatorKey.currentState!.pushNamed('/join-mess');
     } catch (e) {
       SnackBarMessage.snackBarMessage(content: '$e', context: context);
     }
+  }
+
+  Future createMess() async {
+
   }
 }

@@ -18,47 +18,47 @@ class _JoinMessState extends State<JoinMess> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Form(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 100,
-                    ),
-                    const Text(
-                      "Join Mess",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 30.0,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    TextFormField(
-                      // controller: _emailController,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search,
-                            color: Color.fromRGBO(53, 53, 53, 1.0)),
-                        hintText: "Join By Mess Name or Mess ID",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        ),
-                        filled: true,
-                        fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Form(
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            //     child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       crossAxisAlignment: CrossAxisAlignment.stretch,
+            //       children: <Widget>[
+            //         const SizedBox(
+            //           height: 100,
+            //         ),
+            //         const Text(
+            //           "Join Mess",
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.w700,
+            //             fontSize: 30.0,
+            //           ),
+            //         ),
+            //         const SizedBox(
+            //           height: 30,
+            //         ),
+            //         TextFormField(
+            //           // controller: _emailController,
+            //           decoration: InputDecoration(
+            //             prefixIcon: const Icon(Icons.search,
+            //                 color: Color.fromRGBO(53, 53, 53, 1.0)),
+            //             hintText: "Join By Mess Name or Mess ID",
+            //             border: OutlineInputBorder(
+            //               borderRadius: BorderRadius.circular(10),
+            //               borderSide: BorderSide.none,
+            //             ),
+            //             filled: true,
+            //             fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
+            //           ),
+            //         ),
+            //         const SizedBox(
+            //           height: 15,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             StreamBuilder<List<Mess>>(
               stream: getMessList(),
               builder: (context, snapshot) {
@@ -67,6 +67,7 @@ class _JoinMessState extends State<JoinMess> {
                       "Something went wrong. Error message : ${snapshot.error}");
                 } else if (snapshot.hasData) {
                   final messData = snapshot.data!;
+                  print(messData.first);
                   return ListView(
                     children: messData.map(buildMessCards).toList(),
                   );

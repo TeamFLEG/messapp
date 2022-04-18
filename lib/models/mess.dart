@@ -1,36 +1,33 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:messapp/widgets/mess_card.dart';
-
 class Mess {
   late int messCode;
   late String messName;
-  late DocumentReference adminRef;
+  late String manager;
   late String location;
   late DateTime? joiningDT;
 
   Mess({
-    // required this.messID,
+    required this.messCode,
     required this.messName,
-    // required this.owner,
+    required this.manager,
     required this.location,
-    // required this.joiningDT,
+    required this.joiningDT,
   });
 
   Map<String, dynamic> toJSON() => {
-        // 'messID': messID,
+        'messID': messCode,
         'messName': messName,
-        // 'owner': owner,
+        'owner': manager,
         'location': location,
-        // 'joiningDT': joiningDT,
+        'joiningDT': joiningDT,
       };
 
   static Mess fromJSON(Map<String, dynamic> json) {
     return Mess(
-      // messID: json['messID'],
+      messCode: json['messCode'],
       messName: json['messName'],
-      // owner: json['owner'],
+      manager: json['manager'],
       location: json['location'],
-      // joiningDT: json['joiningDT'],
+      joiningDT: json['joiningDT'],
     );
   }
 }

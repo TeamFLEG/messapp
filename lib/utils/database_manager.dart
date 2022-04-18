@@ -6,6 +6,7 @@ import 'package:messapp/widgets/snack_bar_message.dart';
 class DatabaseManager {
   CollectionReference userRef = FirebaseFirestore.instance.collection('user');
   CollectionReference adminRef = FirebaseFirestore.instance.collection('admin');
+  CollectionReference messRef = FirebaseFirestore.instance.collection('mess');
 
   User user = FirebaseAuth.instance.currentUser!;
 

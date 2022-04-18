@@ -31,7 +31,7 @@ class MessSelect extends StatelessWidget {
                   image: AssetImage("assets/img_join-mess.jpg"),
                 ),
                 onTap: () {
-                  navigatorKey.currentState!.pushNamed('/joinMessRegister');
+                  navigatorKey.currentState!.pushNamed('/join-mess-register');
                 }),
           ),
         ],
