@@ -130,16 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                   registered: true,
                 ),
               ),
-              PrimaryButton(
-                  btnName: "UserDashboard",
-                  action: () {
-                    Navigator.pushNamed(context, '/user-dashboard');
-                  }),
-              PrimaryButton(
-                  btnName: "AdminDashboard",
-                  action: () {
-                    Navigator.pushNamed(context, '/admin-dashboard');
-                  }),
             ],
           ),
         ),
