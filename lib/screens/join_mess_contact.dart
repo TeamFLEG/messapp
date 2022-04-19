@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:messapp/main.dart';
 import 'package:messapp/theme/palette.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 
@@ -204,6 +205,10 @@ class JoinMessContact extends StatelessWidget {
           ElevatedButton( 
             onPressed: () => print('Button pressed ...'), 
           child: const Text('Call'),
+          ),
+          ElevatedButton(
+            onPressed: () => navigatorKey.currentState!.pushNamed('/user-dashboard'),
+            child: const Text('Go to Dashboard'),
           )
         ],
       ),

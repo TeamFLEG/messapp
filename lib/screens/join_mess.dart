@@ -59,25 +59,31 @@ class _JoinMessState extends State<JoinMess> {
                 ),
               ),
             ),
-            StreamBuilder<List<Mess>>(
-              stream: getMessList(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text(
-                      "Something went wrong. Error message : ${snapshot.error}");
-                } else if (snapshot.hasData) {
-                  final messData = snapshot.data!;
-                  print(messData);
-                  return ListView(
-                    children: messData.map(buildMessCards).toList(),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
+            const Padding(
+              padding: EdgeInsets.all(32.0),
+              child: MessCard(
+                  cardTitle: "Sagar Hostel for Boys", cardSubtitle: "CUSAT"),
             ),
+            // StreamBuilder<List<Mess>>(
+            //   stream: getMessList(),
+            //   builder: (context, snapshot) {
+            //     print(snapshot);
+            //     if (snapshot.hasError) {
+            //       return Text(
+            //           "Something went wrong. Error message : ${snapshot.error}");
+            //     } else if (snapshot.hasData) {
+            //       final messData = snapshot.data!;
+            //       print(messData);
+            //       return ListView(
+            //         children: messData.map(buildMessCards).toList(),
+            //       );
+            //     } else {
+            //       return const Center(
+            //         child: CircularProgressIndicator(),
+            //       );
+            //     }
+            //   },
+            // ),
           ],
         ),
       ),

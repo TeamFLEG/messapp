@@ -11,6 +11,7 @@ import 'package:messapp/screens/admin/admin_dashboard.dart';
 import 'package:messapp/screens/admin/mess_members.dart';
 import 'package:messapp/screens/admin/add_transaction.dart';
 import 'package:messapp/screens/edit_profile.dart';
+import 'package:messapp/screens/join_mess_contact.dart';
 import 'package:messapp/screens/join_mess_register_page.dart';
 
 import 'package:messapp/screens/user/mess_menu.dart';
@@ -94,6 +95,7 @@ class MyApp extends StatelessWidget {
         '/update-bill-data': (context) => const UpdateBillData(),
         '/qr-generation': (context) => const QRGenerator(),
         '/qr-scan': (context) => const QRScan(),
+        '/join-mess-contact': (context) => const JoinMessContact(),
       },
       home: const SplashScreen(),
     );
@@ -169,7 +171,7 @@ class SplashScreen extends StatelessWidget {
         splash: Image.asset('assets/messapp_logo.png', width: 500, height: 500),
         centered: true,
         duration: 2000,
-        nextScreen: const MainPage());
+        nextScreen: const JoinMess());
   }
 }
 
