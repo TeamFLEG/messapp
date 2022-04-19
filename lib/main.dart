@@ -192,15 +192,6 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: const [
-        SizedBox(
-            width: 40,
-            child: CircularProgressIndicator()),
-      ],
-    );
+    return const Center(child: CircularProgressIndicator());
   }
 }
-

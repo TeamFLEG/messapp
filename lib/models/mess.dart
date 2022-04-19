@@ -1,16 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Mess {
-  late int messCode;
+  late String messCode;
   late String messName;
   late String manager;
   late String location;
-  late DateTime? joiningDT;
+  late Timestamp joinedTS;
+  late num phoneNumber;
 
   Mess({
     required this.messCode,
     required this.messName,
     required this.manager,
     required this.location,
-    required this.joiningDT,
+    required this.joinedTS,
+    required this.phoneNumber,
   });
 
   Map<String, dynamic> toJSON() => {
@@ -18,7 +22,8 @@ class Mess {
         'messName': messName,
         'owner': manager,
         'location': location,
-        'joiningDT': joiningDT,
+        'joinedDT': joinedTS,
+        'phoneNumber': phoneNumber,
       };
 
   static Mess fromJSON(Map<String, dynamic> json) {
@@ -27,7 +32,8 @@ class Mess {
       messName: json['messName'],
       manager: json['manager'],
       location: json['location'],
-      joiningDT: json['joiningDT'],
+      joinedTS: json['joinedTS'],
+      phoneNumber: json['phoneNumber'],
     );
   }
 }

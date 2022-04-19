@@ -5,6 +5,8 @@ import 'package:messapp/main.dart';
 import 'package:messapp/models/admin.dart';
 import 'package:messapp/widgets/snack_bar_message.dart';
 
+import '../models/mess.dart';
+
 class CreateMess extends StatefulWidget {
   const CreateMess({Key? key}) : super(key: key);
 
@@ -139,7 +141,7 @@ class _CreateMessState extends State<CreateMess> {
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    createAdmin(
+                    createAdminAndMess(
                       messName: _messNameController.text,
                       fullName: _managerNameController.text,
                       phone: int.parse(_phoneController.text),
@@ -157,7 +159,7 @@ class _CreateMessState extends State<CreateMess> {
     );
   }
 
-  Future createAdmin({
+  Future createAdminAndMess({
     required String messName,
     required String fullName,
     required int phone,
@@ -166,7 +168,10 @@ class _CreateMessState extends State<CreateMess> {
   }) async {
     // Referencing to the document
     final loggedInUser = FirebaseAuth.instance.currentUser!;
-    final adminDoc = FirebaseFirestore.instance.collection('admin').doc(loggedInUser.uid);
+    final adminDoc =
+        FirebaseFirestore.instance.collection('admin').doc(loggedInUser.uid);
+    final messDoc =
+        FirebaseFirestore.instance.collection('mess').doc(loggedInUser.uid);
     final admin = Admin(
       id: adminDoc.id,
       messName: messName,
@@ -176,9 +181,19 @@ class _CreateMessState extends State<CreateMess> {
       address: address,
       joinedTS: joinedTS,
     );
+    final mess = Mess(
+      messCode: loggedInUser.uid,
+      manager: fullName,
+      phoneNumber: phone,
+      location: address,
+      joinedTS: Timestamp.now(),
+      messName: messName,
+    );
     final adminJSON = admin.toJSON();
+    final messJSON = mess.toJSON();
     try {
       await adminDoc.set(adminJSON);
+      await messDoc.set(messJSON);
       navigatorKey.currentState!.pushNamed('/admin-dashboard');
     } catch (e) {
       SnackBarMessage.snackBarMessage(content: '$e', context: context);

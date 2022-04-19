@@ -136,8 +136,4 @@ class _JoinMessRegisterPageState extends State<JoinMessRegisterPage> {
       SnackBarMessage.snackBarMessage(content: '$e', context: context);
     }
   }
-
-  Future createMess() async {
-
-  }
 }

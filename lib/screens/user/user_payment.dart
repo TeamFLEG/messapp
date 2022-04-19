@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/widgets/profile_pic.dart';
 import '../../theme/palette.dart';
@@ -49,8 +51,8 @@ class _UserPaymentState extends State<UserPayment> {
                           Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 'Your Bill',
                                 style: TextStyle(
                                   fontFamily: 'Lexend Deca',
@@ -59,20 +61,47 @@ class _UserPaymentState extends State<UserPayment> {
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
-                              Text(
-                                '₹425.24',
-                                style: TextStyle(
-                                  fontFamily: 'Lexend Deca',
-                                  color: Color(0xFF090F13),
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Padding(
+                              FutureBuilder(
+                                  future: FirebaseFirestore.instance
+                                      .collection('user')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .get(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<DocumentSnapshot>
+                                          snapshot) {
+                                    if (snapshot.hasError) {
+                                      return const Text("Something went wrong");
+                                    }
+
+                                    if (snapshot.hasData &&
+                                        !snapshot.data!.exists) {
+                                      return const Text(
+                                          "Document does not exist");
+                                    }
+
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                      Map<String, dynamic> data = snapshot.data!
+                                          .data() as Map<String, dynamic>;
+                                      return Text(
+                                        '₹${data['billAmount']}',
+                                        style: const TextStyle(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Color(0xFF090F13),
+                                          fontSize: 36,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      );
+                                    }
+
+                                    return const CircularProgressIndicator();
+                                  }),
+                              const Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                                 child: Text(
-                                  'Due Aug 1, 2022',
+                                  'Due May 1, 2022',
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontFamily: 'Lexend Deca',
@@ -136,17 +165,41 @@ class _UserPaymentState extends State<UserPayment> {
                           const EdgeInsetsDirectional.fromSTEB(24, 4, 24, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        children: const [
-                          Text(
-                            '₹1,502',
-                            style: TextStyle(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFF090F13),
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Padding(
+                        children: [
+                          FutureBuilder(
+                              future: FirebaseFirestore.instance
+                                  .collection('user')
+                                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                                  .get(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return const Text("Something went wrong");
+                                }
+
+                                if (snapshot.hasData &&
+                                    !snapshot.data!.exists) {
+                                  return const Text("Document does not exist");
+                                }
+
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
+                                  return Text(
+                                    '₹${data['billAmount']}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFF090F13),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                }
+
+                                return const CircularProgressIndicator();
+                              }),
+                          const Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(2, 0, 0, 0),
                             child: Text(
                               '/ ₹3,000',

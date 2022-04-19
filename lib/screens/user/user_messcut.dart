@@ -24,7 +24,7 @@ class _UserMessCutState extends State<UserMessCut> {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({
           'messcut': count,
-        })
+        },SetOptions(merge: true))
         .then((value) => print("Mess cut Added"))
         .catchError((error) => print("Failed to add mess cut: $error"));
   }

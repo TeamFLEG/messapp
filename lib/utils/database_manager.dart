@@ -33,27 +33,71 @@ class DatabaseManager {
     return username;
   }
 
+  int getPerDayCost() {
+    adminRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) {
+      return int.parse(value['perDayCost']);
+    });
+    return 0;
+  }
+
+  int getMessCut() {
+    adminRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) {
+      return int.parse(value['perDayCost']);
+    });
+    return 0;
+  }
+
+  int getEffectiveDays() {
+    adminRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) {
+      return int.parse(value['effectiveDays']);
+    });
+    return 30;
+  }
+
   Future<void> addBillDetails(int ed, int expense) {
     return adminRef
         .doc(user.uid)
         .set({
           'effectiveDays': ed,
           'expense': expense,
-          'perDayCost': (expense/ed).ceil(),
+          'perDayCost': (expense / ed).ceil(),
         }, SetOptions(merge: true))
         .then((value) => print("Bill details Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> updateProfileDataAdmin(BuildContext context, String name, int phone, String addr) {
+  Future<void> updateProfileDataAdmin(
+      BuildContext context, String name, int phone, String addr) {
     return adminRef
         .doc(user.uid)
         .set({
-      'fullName': name,
-      'phone': phone,
-      'address': addr,
-    }, SetOptions(merge: true))
-        .then((value) => SnackBarMessage.snackBarMessage(content: 'Profile updated successfully', context: context))
-        .catchError((error) => SnackBarMessage.snackBarMessage(content: 'Failed to add user: $error', context: context));
+          'fullName': name,
+          'phone': phone,
+          'address': addr,
+        }, SetOptions(merge: true))
+        .then((value) => SnackBarMessage.snackBarMessage(
+            content: 'Profile updated successfully', context: context))
+        .catchError((error) => SnackBarMessage.snackBarMessage(
+            content: 'Failed to add user: $error', context: context));
+  }
+
+  Future<void> updateBill(BuildContext context) async {
+    int perDayCost = getPerDayCost();
+    int messCut = getMessCut();
+    int effDays = getEffectiveDays();
+    try {
+      var querySnapshots = await userRef.get();
+      for (var doc in querySnapshots.docs) {
+        await doc.reference.update({
+          'billAmount': perDayCost * (effDays - messCut),
+        });
+      }
+      SnackBarMessage.snackBarMessage(
+          content: 'Bill Generated and Send to all users successfully',
+          context: context);
+    } catch (e) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Error occurred $e', context: context);
+    }
   }
 }
