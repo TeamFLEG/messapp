@@ -25,9 +25,7 @@ import 'package:messapp/screens/create_mess.dart';
 import 'package:messapp/screens/forgot_password_page.dart';
 import 'package:messapp/screens/mess_select.dart';
 import 'package:messapp/screens/join_mess.dart';
-import 'package:messapp/utils/database_manager.dart';
-// import 'package:messapp/screens/join_mess_contact.dart';
-// import 'package:messapp/screens/join_mess_register_page.dart';
+// import 'package:messapp/utils/database_manager.dart';
 
 import 'package:messapp/screens/user/user_attendance.dart';
 
@@ -96,6 +94,7 @@ class MyApp extends StatelessWidget {
         '/qr-generation': (context) => const QRGenerator(),
         '/qr-scan': (context) => const QRScan(),
         '/join-mess-contact': (context) => const JoinMessContact(),
+        '/view-feedbacks': (context) => const FeedbackPage(),
       },
       home: const SplashScreen(),
     );

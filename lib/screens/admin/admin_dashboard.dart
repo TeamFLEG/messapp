@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/screens/dashboard_model.dart';
-import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/content_text.dart';
+import 'package:messapp/widgets/custom_appbar.dart';
 
 import '../../widgets/profile_pic.dart';
 
@@ -167,6 +167,26 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class FeedbackPage extends StatelessWidget {
+  const FeedbackPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: const [
+            CustomAppBar(
+              head: "Feedbacks",
+            ),
+            Text('No feedbacks till now! Come back later'),
+          ],
         ),
       ),
     );
