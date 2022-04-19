@@ -74,13 +74,34 @@ class _MessMenuState extends State<MessMenu> {
                       Expanded(
                         child: TabBarView(
                           children: [
-                            MenuSection(),
-                            MenuSection(),
-                            MenuSection(),
-                            MenuSection(),
-                            MenuSection(),
-                            MenuSection(),
-                            MenuSection(),
+                            MenuSection(
+                                mrng: "Bread & Jam",
+                                noon: "Sadhya",
+                                night: "Kanji"),
+                            MenuSection(
+                                mrng: "Idly & Sambar",
+                                noon: "Rice & Fish",
+                                night: "Chicken Biriyani"),
+                            MenuSection(
+                                mrng: "Puttu & Kadala",
+                                noon: "Rice & Chicken",
+                                night: "Poori & Bhaaji"),
+                            MenuSection(
+                                mrng: "Dosa & Sambar",
+                                noon: "Rice & Egg",
+                                night: "Idiyappam & Kadala"),
+                            MenuSection(
+                                mrng: "Poori Masala",
+                                noon: "Rice & Fish",
+                                night: "Chicken Biriyani"),
+                            MenuSection(
+                                mrng: "Idly & Sambar",
+                                noon: "Rice & Egg",
+                                night: "Noolputtu"),
+                            MenuSection(
+                                mrng: "Idly & Sambar",
+                                noon: "Rice & Fish",
+                                night: "Puttu & Fish"),
                           ],
                         ),
                       ),
@@ -97,26 +118,32 @@ class _MessMenuState extends State<MessMenu> {
 }
 
 class MenuSection extends StatelessWidget {
-  const MenuSection({Key? key}) : super(key: key);
+  const MenuSection(
+      {Key? key, required this.mrng, required this.noon, required this.night})
+      : super(key: key);
+
+  final String mrng;
+  final String noon;
+  final String night;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
-      children: const [
-        MenuCard(foodItem: "Dosa", mealPeriod: "Breakfast"),
-        Divider(
+      children: [
+        MenuCard(foodItem: mrng, mealPeriod: "Breakfast"),
+        const Divider(
           indent: 40,
           endIndent: 40,
           color: Palette.myMaroon,
         ),
-        MenuCard(foodItem: "Rice&Chicken", mealPeriod: "Lunch"),
-        Divider(
+        MenuCard(foodItem: noon, mealPeriod: "Lunch"),
+        const Divider(
           indent: 40,
           endIndent: 40,
           color: Colors.red,
         ),
-        MenuCard(foodItem: "Biriyani", mealPeriod: "Dinner"),
+        MenuCard(foodItem: night, mealPeriod: "Dinner"),
       ],
     );
   }
