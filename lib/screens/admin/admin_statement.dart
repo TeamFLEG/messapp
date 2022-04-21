@@ -176,7 +176,7 @@ class _AdminStatementState extends State<AdminStatement> {
                       child: PrimaryButton(
                           btnName: "Generate Bill",
                           action: () {
-                            DatabaseManager().updateBill(context);
+                            DatabaseManager().calculateBill();
                           }),
                     ),
                     const Divider(
