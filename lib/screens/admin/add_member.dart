@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:messapp/utils/database_manager.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/theme/palette.dart';
@@ -38,32 +37,32 @@ class _AddMemberState extends State<AddMember> {
   @override
   Widget build(BuildContext context) => SafeArea(
     child: Scaffold(
-      appBar: const CustomAppBar(head: "Add Member"),
+      appBar: const CustomAppBar(head: "QR Scanner"),
       body: Stack(
         children: <Widget>[
           buildQrView(context),
-          //   Align(
-          //   alignment: const Alignment(0.0, 0.7),
-          //   child: buildResult(),
-          // ),
+            Align(
+            alignment: const Alignment(0.0, 0.7),
+            child: buildResult(),
+          ),
         ],
       ),
     ),
   );
 
-  // Widget buildResult() => Container(
-  //       padding: const EdgeInsets.all(12.0),
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(8),
-  //         color: Palette.myMaroon,
-  //       ),
-  //       child: Text(
-  //           scannedString != null ? 'Result : ${scannedString!.code}' : 'Scan a code',
-  //           maxLines: 3,
-  //       style: const TextStyle(
-  //         color: Colors.white,
-  //       ),),
-  //     );
+  Widget buildResult() => Container(
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Palette.myMaroon,
+        ),
+        child: Text(
+            scannedString != null ? 'Result : ${scannedString!.code}' : 'Scan a code',
+            maxLines: 3,
+        style: const TextStyle(
+          color: Colors.white,
+        ),),
+      );
 
 
 
@@ -85,7 +84,5 @@ class _AddMemberState extends State<AddMember> {
 
     controller.scannedDataStream
         .listen((scannedString) => setState(() => this.scannedString = scannedString));
-
-    DatabaseManager().addMemberToMess(scannedString!.code);
   }
 }
