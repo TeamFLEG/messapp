@@ -101,6 +101,32 @@ class DatabaseManager {
     }
   }
 
+  void calculateBill() async {
+    int messCut;
+    int perDayCost = getPerDayCost();
+    int effDays = getEffectiveDays();
+    print('perDayCost = ' + perDayCost.toString());
+    print('effDays = ' + effDays.toString());
+    // Admin user id
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    // Selects all docs from user collection where messID = admin user id
+    var snapshots = userRef.where('messID', isEqualTo: uid).snapshots();
+    try {
+      await snapshots.forEach((snapshot) async {
+        List<DocumentSnapshot> documents = snapshot.docs;
+        for (var document in documents) {
+          messCut = document['messcut'];
+          print(messCut);
+          await document.reference.update({
+            'billAmount': perDayCost * (effDays - messCut),
+          });
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> addMemberToMess(String? uid) {
     return userRef
         .doc(uid)
