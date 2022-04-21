@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 
 class MessCard extends StatelessWidget {
-  const MessCard({Key? key,
-    required this.cardTitle,
-    required this.cardSubtitle
-  }) : super(key: key);
+  const MessCard(
+      {Key? key,
+      required this.cardTitle,
+      required this.cardSubtitle,
+      required this.messID})
+      : super(key: key);
 
   final String cardTitle;
   final String cardSubtitle;
+  final String messID;
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +51,13 @@ class MessCard extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  children:  [
+                  children: [
                     Expanded(
                       child: Text(
                         cardTitle,
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 19.0,
+                          fontSize: 30.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -77,6 +80,7 @@ class MessCard extends StatelessWidget {
                         cardSubtitle,
                         style: const TextStyle(
                           color: Color(0xFF39D2C0),
+                          fontSize: 18.0,
                         ),
                       ),
                     ),
@@ -89,10 +93,12 @@ class MessCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children:  [
+                    children: [
                       ElevatedButton(
                         onPressed: () {
-                          navigatorKey.currentState!.pushNamed('/join-mess-contact');
+                          navigatorKey.currentState!.pushNamed(
+                              '/join-mess-contact',
+                              arguments: {'messID': messID});
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -114,9 +120,9 @@ class MessCard extends StatelessWidget {
                             )
                           ],
                         ),
-
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(const Color(0xFF39D2C0)),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color(0xFF39D2C0)),
                         ),
                       ),
                     ],

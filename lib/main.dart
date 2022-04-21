@@ -170,7 +170,7 @@ class SplashScreen extends StatelessWidget {
         splash: Image.asset('assets/messapp_logo.png', width: 500, height: 500),
         centered: true,
         duration: 2000,
-        nextScreen: const JoinMess());
+        nextScreen: const MainPage());
   }
 }
 

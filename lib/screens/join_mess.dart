@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/models/mess.dart';
 import 'package:messapp/widgets/mess_card.dart';
-import 'package:messapp/widgets/primary_button.dart';
-// import 'package:messapp/widgets/snack_bar_message.dart';
 
 class JoinMess extends StatefulWidget {
   const JoinMess({Key? key}) : super(key: key);
@@ -77,12 +75,16 @@ class _JoinMessState extends State<JoinMess> {
                             return MessCard(
                               cardTitle: doc['messName'],
                               cardSubtitle: doc['location'],
+                              messID: doc['messID'],
                             );
                           }).toList(),
                         );
                       } else {
                         // or your loading widget here
-                        return Container();
+                        return const SizedBox(
+                            height: 30,
+                            width: 30,
+                            child: CircularProgressIndicator());
                       }
                     },
                   ),
@@ -93,10 +95,6 @@ class _JoinMessState extends State<JoinMess> {
         ),
       ),
     );
-  }
-
-  Widget buildMessCards(Mess mess) {
-    return (MessCard(cardTitle: mess.messName, cardSubtitle: mess.location));
   }
 
   Stream<List<Mess>> getMessList() => FirebaseFirestore.instance
