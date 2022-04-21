@@ -207,7 +207,7 @@ class JoinMessContact extends StatelessWidget {
           child: const Text('Call'),
           ),
           ElevatedButton(
-            onPressed: () => navigatorKey.currentState!.pushNamed('/user-dashboard'),
+            onPressed: () => navigatorKey.currentState!.pushNamed('/admin-dashboard'),
             child: const Text('Go to Dashboard'),
           )
         ],

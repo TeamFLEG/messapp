@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
+import 'package:messapp/theme/palette.dart';
 import 'dart:io';
+
+import '../../theme/palette.dart';
+import '../../theme/palette.dart';
+import '../../theme/palette.dart';
 
 class QRScan extends StatefulWidget {
   const QRScan({Key? key}) : super(key: key);
@@ -39,7 +44,10 @@ class _QRScanState extends State<QRScan> {
           body: Stack(
             children: <Widget>[
               buildQrView(context),
-              Positioned(bottom: 10, child: buildResult()),
+              Align(
+                alignment: const Alignment(0.0, 0.7),
+                child: buildResult(),
+              ),
             ],
           ),
         ),
@@ -49,12 +57,17 @@ class _QRScanState extends State<QRScan> {
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.white,
+          color: Palette.myMaroon,
         ),
         child: Text(
             barcode != null ? 'Result : ${barcode!.code}' : 'Scan a code',
-            maxLines: 3),
+            maxLines: 3,
+        style: const TextStyle(
+          color: Colors.white,
+        ),),
       );
+
+
 
   Widget buildQrView(BuildContext context) => QRView(
         key: qrKey,
