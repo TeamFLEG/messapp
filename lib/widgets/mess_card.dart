@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:messapp/main.dart';
 
 class MessCard extends StatelessWidget {
   const MessCard({Key? key,
@@ -91,7 +92,7 @@ class MessCard extends StatelessWidget {
                     children:  [
                       ElevatedButton(
                         onPressed: () {
-                          print('Button-Reserve pressed ...');
+                          navigatorKey.currentState!.pushNamed('/join-mess-contact');
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,

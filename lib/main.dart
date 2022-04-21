@@ -11,6 +11,7 @@ import 'package:messapp/screens/admin/admin_dashboard.dart';
 import 'package:messapp/screens/admin/mess_members.dart';
 import 'package:messapp/screens/admin/add_transaction.dart';
 import 'package:messapp/screens/edit_profile.dart';
+import 'package:messapp/screens/join_mess_contact.dart';
 import 'package:messapp/screens/join_mess_register_page.dart';
 
 import 'package:messapp/screens/user/mess_menu.dart';
@@ -24,9 +25,7 @@ import 'package:messapp/screens/create_mess.dart';
 import 'package:messapp/screens/forgot_password_page.dart';
 import 'package:messapp/screens/mess_select.dart';
 import 'package:messapp/screens/join_mess.dart';
-import 'package:messapp/utils/database_manager.dart';
-// import 'package:messapp/screens/join_mess_contact.dart';
-// import 'package:messapp/screens/join_mess_register_page.dart';
+// import 'package:messapp/utils/database_manager.dart';
 
 import 'package:messapp/screens/user/user_attendance.dart';
 
@@ -94,6 +93,8 @@ class MyApp extends StatelessWidget {
         '/update-bill-data': (context) => const UpdateBillData(),
         '/qr-generation': (context) => const QRGenerator(),
         '/qr-scan': (context) => const QRScan(),
+        '/join-mess-contact': (context) => const JoinMessContact(),
+        '/view-feedbacks': (context) => const FeedbackPage(),
       },
       home: const SplashScreen(),
     );
@@ -169,7 +170,7 @@ class SplashScreen extends StatelessWidget {
         splash: Image.asset('assets/messapp_logo.png', width: 500, height: 500),
         centered: true,
         duration: 2000,
-        nextScreen: const MainPage());
+        nextScreen: const JoinMess());
   }
 }
 
@@ -192,15 +193,6 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: const [
-        SizedBox(
-            width: 40,
-            child: CircularProgressIndicator()),
-      ],
-    );
+    return const Center(child: CircularProgressIndicator());
   }
 }
-

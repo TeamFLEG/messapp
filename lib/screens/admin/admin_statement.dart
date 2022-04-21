@@ -32,7 +32,8 @@ class _AdminStatementState extends State<AdminStatement> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference adminRef = FirebaseFirestore.instance.collection('admin');
+    CollectionReference adminRef =
+        FirebaseFirestore.instance.collection('admin');
     User user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       // backgroundColor: Colors.white,
@@ -65,8 +66,8 @@ class _AdminStatementState extends State<AdminStatement> {
                           Map<String, dynamic> data =
                               snapshot.data!.data() as Map<String, dynamic>;
                           return Padding(
-                            padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 24, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -83,8 +84,8 @@ class _AdminStatementState extends State<AdminStatement> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 8, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 8, 0, 0),
                                         child: Text(
                                           "${data['effectiveDays']}",
                                           style: const TextStyle(
@@ -117,8 +118,8 @@ class _AdminStatementState extends State<AdminStatement> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 8, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 8, 0, 0),
                                         child: Text(
                                           "₹${data['expense']}",
                                           style: const TextStyle(
@@ -160,22 +161,22 @@ class _AdminStatementState extends State<AdminStatement> {
                             Navigator.pushNamed(context, '/add-transaction');
                           }),
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
-                      child: PrimaryButton(
-                          btnName: "Show all Transactions",
-                          action: () {
-                            print("button pressed....");
-                          }),
-                    ),
+                    // Padding(
+                    //   padding:
+                    //       const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                    //   child: PrimaryButton(
+                    //       btnName: "Show all Transactions",
+                    //       action: () {
+                    //         print("button pressed....");
+                    //       }),
+                    // ),
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Generate Bill",
                           action: () {
-                            print("button pressed....");
+                            DatabaseManager().updateBill(context);
                           }),
                     ),
                     const Divider(
@@ -345,7 +346,7 @@ class PayCard extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
                       name,
                     ),
