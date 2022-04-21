@@ -157,6 +157,7 @@ class _UserDashboardState extends State<UserDashboard> {
                             Navigator.pushNamed(context, '/mess-details');
                           },
                         ),
+
                         DashboardCard(
                           cardIcon: Icons.payment,
                           cardName: "Generate QR",
