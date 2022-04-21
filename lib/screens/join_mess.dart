@@ -27,61 +27,66 @@ class _JoinMessState extends State<JoinMess> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 80.0,
+                    children: const <Widget>[
+                      SizedBox(
+                        height: 75.0,
                       ),
-                      const Text(
+                      Text(
                         "Join Mess",
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 30.0,
                         ),
                       ),
-                      const SizedBox(
-                        height: 30,
+                      SizedBox(
+                        height: 10,
                       ),
-                      TextFormField(
-                        // controller: _emailController,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.search,
-                              color: Color.fromRGBO(53, 53, 53, 1.0)),
-                          hintText: "Join By Mess Name or Mess ID",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                          filled: true,
-                          fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      // TextFormField(
+                      //   // controller: _emailController,
+                      //   decoration: InputDecoration(
+                      //     prefixIcon: const Icon(Icons.search,
+                      //         color: Color.fromRGBO(53, 53, 53, 1.0)),
+                      //     hintText: "Join By Mess Name or Mess ID",
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //       borderSide: BorderSide.none,
+                      //     ),
+                      //     filled: true,
+                      //     fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 15,
+                      // ),
                     ],
                   ),
                 ),
               ),
-              FutureBuilder<QuerySnapshot>(
-                future: FirebaseFirestore.instance.collection('mess').get(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      children: snapshot.data!.docs.map((doc) {
-                        return MessCard(
-                          cardTitle: doc['messName'],
-                          cardSubtitle: doc['location'],
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: FutureBuilder<QuerySnapshot>(
+                    future: FirebaseFirestore.instance.collection('mess').get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView(
+                          shrinkWrap: true,
+                          children: snapshot.data!.docs.map((doc) {
+                            return MessCard(
+                              cardTitle: doc['messName'],
+                              cardSubtitle: doc['location'],
+                            );
+                          }).toList(),
                         );
-                      }).toList(),
-                    );
-                  } else {
-                    // or your loading widget here
-                    return Container();
-                  }
-                },
+                      } else {
+                        // or your loading widget here
+                        return Container();
+                      }
+                    },
+                  ),
+                ),
               ),
             ],
           ),
