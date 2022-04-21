@@ -58,7 +58,8 @@ class _UserSettingsState extends State<UserSettings> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 4, 0, 0),
                             child: Text(
                               '${user.email}',
                               style: const TextStyle(
@@ -95,7 +96,7 @@ class _UserSettingsState extends State<UserSettings> {
           ButtonCard(
               btnName: "Terms of Services",
               clicked: () {
-                print("null");
+                Navigator.pushNamed(context, '/terms-of-services');
               }),
           ButtonCard(
               btnName: "Delete Account",
