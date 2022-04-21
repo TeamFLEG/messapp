@@ -5,17 +5,17 @@ import 'package:messapp/theme/palette.dart';
 import 'dart:io';
 
 
-class QRScan extends StatefulWidget {
-  const QRScan({Key? key}) : super(key: key);
+class AddMember extends StatefulWidget {
+  const AddMember({Key? key}) : super(key: key);
 
   @override
-  State<QRScan> createState() => _QRScanState();
+  State<AddMember> createState() => _AddMemberState();
 }
 
-class _QRScanState extends State<QRScan> {
+class _AddMemberState extends State<AddMember> {
   final qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
-  Barcode? barcode;
+  Barcode? scannedString;
 
   @override
   void dispose() {
@@ -36,19 +36,19 @@ class _QRScanState extends State<QRScan> {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-          appBar: const CustomAppBar(head: "QR Scanner"),
-          body: Stack(
-            children: <Widget>[
-              buildQrView(context),
-              //   Align(
-              //   alignment: const Alignment(0.0, 0.7),
-              //   child: buildResult(),
-              // ),
-            ],
-          ),
-        ),
-      );
+    child: Scaffold(
+      appBar: const CustomAppBar(head: "Add Member"),
+      body: Stack(
+        children: <Widget>[
+          buildQrView(context),
+          //   Align(
+          //   alignment: const Alignment(0.0, 0.7),
+          //   child: buildResult(),
+          // ),
+        ],
+      ),
+    ),
+  );
 
   // Widget buildResult() => Container(
   //       padding: const EdgeInsets.all(12.0),
@@ -57,7 +57,7 @@ class _QRScanState extends State<QRScan> {
   //         color: Palette.myMaroon,
   //       ),
   //       child: Text(
-  //           barcode != null ? 'Result : ${barcode!.code}' : 'Scan a code',
+  //           scannedString != null ? 'Result : ${scannedString!.code}' : 'Scan a code',
   //           maxLines: 3,
   //       style: const TextStyle(
   //         color: Colors.white,
@@ -67,22 +67,22 @@ class _QRScanState extends State<QRScan> {
 
 
   Widget buildQrView(BuildContext context) => QRView(
-        key: qrKey,
-        onQRViewCreated: onQRViewCreated,
-        overlay: QrScannerOverlayShape(
-          borderColor: Theme.of(context).primaryColor,
-          borderRadius: 10,
-          borderLength: 20,
-          borderWidth: 10,
-          cutOutSize: MediaQuery.of(context).size.width * 0.8,
-        ),
-      );
+    key: qrKey,
+    onQRViewCreated: onQRViewCreated,
+    overlay: QrScannerOverlayShape(
+      borderColor: Theme.of(context).primaryColor,
+      borderRadius: 10,
+      borderLength: 20,
+      borderWidth: 10,
+      cutOutSize: MediaQuery.of(context).size.width * 0.8,
+    ),
+  );
 
   void onQRViewCreated(QRViewController controller) {
 
     setState(() => this.controller = controller);
 
     controller.scannedDataStream
-        .listen((barcode) => setState(() => this.barcode = barcode));
+        .listen((scannedString) => setState(() => this.scannedString = scannedString));
   }
 }

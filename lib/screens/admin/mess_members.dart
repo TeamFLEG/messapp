@@ -26,7 +26,7 @@ class _MessMembersState extends State<MessMembers> {
       backgroundColor: const Color(0xFFFFFFFF), //0xFFF1F4F8
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('FloatingAction Button pressed ...');
+          Navigator.pushNamed(context, '/add-member');
         },
         backgroundColor: Palette.myMaroon,
         elevation: 8,

@@ -35,6 +35,7 @@ import 'package:messapp/screens/user/mess_details.dart';
 import 'package:messapp/screens/user/change_pass.dart';
 import 'package:messapp/screens/admin/qr_generation.dart';
 import 'package:messapp/screens/user/qr_scan.dart';
+import 'package:messapp/screens/admin/add_member.dart';
 
 import 'firebase_options.dart';
 
@@ -95,6 +96,7 @@ class MyApp extends StatelessWidget {
         '/qr-scan': (context) => const QRScan(),
         '/join-mess-contact': (context) => const JoinMessContact(),
         '/view-feedbacks': (context) => const FeedbackPage(),
+        '/add-member': (context) => const AddMember(),
       },
       home: const SplashScreen(),
     );
