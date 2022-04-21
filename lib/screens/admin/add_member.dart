@@ -65,7 +65,6 @@ class _AddMemberState extends State<AddMember> {
       );
 
 
-
   Widget buildQrView(BuildContext context) => QRView(
     key: qrKey,
     onQRViewCreated: onQRViewCreated,
