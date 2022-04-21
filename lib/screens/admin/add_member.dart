@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:messapp/utils/database_manager.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/theme/palette.dart';
 import 'dart:io';
-
 
 class AddMember extends StatefulWidget {
   const AddMember({Key? key}) : super(key: key);
@@ -36,19 +36,19 @@ class _AddMemberState extends State<AddMember> {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-    child: Scaffold(
-      appBar: const CustomAppBar(head: "QR Scanner"),
-      body: Stack(
-        children: <Widget>[
-          buildQrView(context),
-            Align(
-            alignment: const Alignment(0.0, 0.7),
-            child: buildResult(),
+        child: Scaffold(
+          appBar: const CustomAppBar(head: "QR Scanner"),
+          body: Stack(
+            children: <Widget>[
+              buildQrView(context),
+              Align(
+                alignment: const Alignment(0.0, 0.7),
+                child: buildResult(),
+              ),
+            ],
           ),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 
   Widget buildResult() => Container(
         padding: const EdgeInsets.all(12.0),
@@ -57,31 +57,35 @@ class _AddMemberState extends State<AddMember> {
           color: Palette.myMaroon,
         ),
         child: Text(
-            scannedString != null ? 'Result : ${scannedString!.code}' : 'Scan a code',
-            maxLines: 3,
-        style: const TextStyle(
-          color: Colors.white,
-        ),),
+          scannedString != null
+              ? 'Result : ${scannedString!.code}'
+              : 'Scan a code',
+          maxLines: 3,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
       );
 
-
   Widget buildQrView(BuildContext context) => QRView(
-    key: qrKey,
-    onQRViewCreated: onQRViewCreated,
-    overlay: QrScannerOverlayShape(
-      borderColor: Theme.of(context).primaryColor,
-      borderRadius: 10,
-      borderLength: 20,
-      borderWidth: 10,
-      cutOutSize: MediaQuery.of(context).size.width * 0.8,
-    ),
-  );
+        key: qrKey,
+        onQRViewCreated: onQRViewCreated,
+        overlay: QrScannerOverlayShape(
+          borderColor: Theme.of(context).primaryColor,
+          borderRadius: 10,
+          borderLength: 20,
+          borderWidth: 10,
+          cutOutSize: MediaQuery.of(context).size.width * 0.8,
+        ),
+      );
 
   void onQRViewCreated(QRViewController controller) {
-
     setState(() => this.controller = controller);
 
-    controller.scannedDataStream
-        .listen((scannedString) => setState(() => this.scannedString = scannedString));
+    controller.scannedDataStream.listen(
+        (scannedString) => setState(() => this.scannedString = scannedString));
+
+    print(scannedString!.code);
+    // DatabaseManager().addMemberToMess(scannedStrin);
   }
 }
