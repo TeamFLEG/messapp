@@ -17,14 +17,12 @@ class _UserMessCutState extends State<UserMessCut> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   CollectionReference user = FirebaseFirestore.instance.collection('user');
 
-  int count = 0;
-
-  Future<void> addUser() {
+  Future<void> addUserMessCut(num messCut) {
     // Call the user's CollectionReference to add a new user
     return user
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({
-          'messcut': count,
+          'messcut': messCut,
         }, SetOptions(merge: true))
         .then((value) => print("Mess cut Added"))
         .catchError((error) => print("Failed to add mess cut: $error"));
@@ -71,7 +69,9 @@ class _UserMessCutState extends State<UserMessCut> {
                         color: Palette.myMaroon,
                       ),
                     ),
-                    SizedBox(height: 16,),
+                    SizedBox(
+                      height: 16,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -86,12 +86,15 @@ class _UserMessCutState extends State<UserMessCut> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16,),
+                    SizedBox(
+                      height: 16,
+                    ),
                     Text(
                       'Mess Cut: ${difference.inDays} days',
-                      style: TextStyle(fontSize: 20,
-                      fontFamily: 'Raleway',),
-                      
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Raleway',
+                      ),
                     ),
                     // const SizedBox(height: 16),
                     // Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +193,7 @@ class _UserMessCutState extends State<UserMessCut> {
                       child: PrimaryButton(
                         btnName: "Take Mess Cut",
                         action: () {
-                          addUser();
+                          addUserMessCut(difference.inDays);
                           Navigator.pop(context);
                         },
                       ),

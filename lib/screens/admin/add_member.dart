@@ -85,7 +85,5 @@ class _AddMemberState extends State<AddMember> {
     controller.scannedDataStream.listen(
         (scannedString) => setState(() => this.scannedString = scannedString));
 
-    print(scannedString!.code);
-    // DatabaseManager().addMemberToMess(scannedStrin);
   }
 }
