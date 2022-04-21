@@ -21,14 +21,6 @@ class _AdminAttendanceState extends State<AdminAttendance> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Attendance Register',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Raleway',
-                  color: Palette.myMaroon,
-                ),
-              ),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -39,7 +31,7 @@ class _AdminAttendanceState extends State<AdminAttendance> {
                           const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/qr-scan');
+                          Navigator.pushNamed(context, '/qr-generation');
                         },
                         child: const Text(
                           'Register',
@@ -49,28 +41,8 @@ class _AdminAttendanceState extends State<AdminAttendance> {
                           ),
                         ),
                       ),
-                      // child: FFButtonWidget(
-                      //   onPressed: () {
-                      //     print('Button pressed ...');
-                      //   },
-                      //   text: 'Generate QR code',
-                      //   options: FFButtonOptions(
-                      //     width: 200,
-                      //     height: 40,
-                      //     color: FlutterFlowTheme.of(context).primaryColor,
-                      //     textStyle:
-                      //         FlutterFlowTheme.of(context).subtitle2.override(
-                      //               fontFamily: 'Poppins',
-                      //               color: Colors.white,
-                      //             ),
-                      //     borderSide: BorderSide(
-                      //       color: Colors.transparent,
-                      //       width: 1,
-                      //     ),
-                      //     borderRadius: 12,
-                      //   ),
-                      // ),
                     ),
+
                   ],
                 ),
               ),
