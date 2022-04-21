@@ -36,6 +36,7 @@ import 'package:messapp/screens/user/change_pass.dart';
 import 'package:messapp/screens/admin/qr_generation.dart';
 import 'package:messapp/screens/user/qr_scan.dart';
 import 'package:messapp/screens/admin/add_member.dart';
+import 'package:messapp/screens/user/generate_uid.dart';
 
 import 'firebase_options.dart';
 
@@ -97,6 +98,7 @@ class MyApp extends StatelessWidget {
         '/join-mess-contact': (context) => const JoinMessContact(),
         '/view-feedbacks': (context) => const FeedbackPage(),
         '/add-member': (context) => const AddMember(),
+        '/generate-uid': (context) => const GenerateUid(),
       },
       home: const SplashScreen(),
     );

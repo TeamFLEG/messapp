@@ -159,10 +159,26 @@ class _UserDashboardState extends State<UserDashboard> {
                         ),
                         DashboardCard(
                           cardIcon: Icons.payment,
-                          cardName: "Feedback",
+                          cardName: "Generate QR",
                           cardColor: const Color(0xFFFDCE84),
                           cardAction: () {
-                            Navigator.pushNamed(context, '/user-attendance');
+                            Navigator.pushNamed(context, '/generate-uid');
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 22.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        DashboardCard(
+                          cardIcon: Icons.payment,
+                          cardName: "Feedbacks",
+                          cardColor: const Color(0xFF99D5F3),
+                          cardAction: () {
+                            Navigator.pushNamed(context, '/feedback');
                           },
                         ),
                       ],
