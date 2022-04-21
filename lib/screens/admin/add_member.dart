@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:messapp/utils/database_manager.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/theme/palette.dart';
@@ -84,5 +85,7 @@ class _AddMemberState extends State<AddMember> {
 
     controller.scannedDataStream
         .listen((scannedString) => setState(() => this.scannedString = scannedString));
+
+    DatabaseManager().addMemberToMess(scannedString!.code);
   }
 }

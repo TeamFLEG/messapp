@@ -100,4 +100,14 @@ class DatabaseManager {
           content: 'Error occurred $e', context: context);
     }
   }
+
+  Future<void> addMemberToMess(String? uid) {
+    return userRef
+        .doc(uid)
+        .set({
+          'messID': user.uid,
+        }, SetOptions(merge: true))
+        .then((value) => print("Member added successfully"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 }
