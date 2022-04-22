@@ -7,18 +7,22 @@ class DatabaseManager {
   CollectionReference userRef = FirebaseFirestore.instance.collection('user');
   CollectionReference adminRef = FirebaseFirestore.instance.collection('admin');
   CollectionReference messRef = FirebaseFirestore.instance.collection('mess');
+  CollectionReference systemRef =
+      FirebaseFirestore.instance.collection('system');
 
   User user = FirebaseAuth.instance.currentUser!;
 
-  static Future<void> getData() async {
+  Future<List<Object?>> getMC() async {
     // Get docs from collection reference
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('admin').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('user')
+        .where('messID', isEqualTo: user.uid)
+        .get();
 
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
 
-    // print(allData);
+    return allData;
   }
 
   String getUserName() {
@@ -33,25 +37,43 @@ class DatabaseManager {
     return username;
   }
 
-  int getPerDayCost() {
-    adminRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) {
-      return int.parse(value['perDayCost']);
+  int getUserCount() {
+    // Get userdata of specific uid
+    late int count = 0;
+    systemRef.doc('userCount').get().then((value) {
+      count = value['count'];
     });
-    return 0;
+    return count;
   }
 
-  int getMessCut() {
-    adminRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) {
-      return int.parse(value['perDayCost']);
-    });
-    return 0;
+  Future<int> getPerDayCost() async {
+    var pdc = 0;
+    try {
+      await adminRef
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get()
+          .then((value) {
+        pdc = value['perDayCost'];
+      });
+    } catch (e) {
+      print(e);
+    }
+    return pdc;
   }
 
-  int getEffectiveDays() {
-    adminRef.doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) {
-      return int.parse(value['effectiveDays']);
-    });
-    return 30;
+  Future<int> getEffectiveDays() async {
+    var efd = 0;
+    try {
+      await adminRef
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get()
+          .then((value) {
+        efd = value['effectiveDays'];
+      });
+    } catch (e) {
+      print(e);
+    }
+    return efd;
   }
 
   Future<void> addBillDetails(int ed, int expense) {
@@ -81,50 +103,20 @@ class DatabaseManager {
             content: 'Failed to add user: $error', context: context));
   }
 
-  Future<void> updateBill(BuildContext context) async {
-    int perDayCost = getPerDayCost();
-    int messCut = getMessCut();
-    int effDays = getEffectiveDays();
-    try {
-      var querySnapshots = await userRef.get();
-      for (var doc in querySnapshots.docs) {
-        await doc.reference.update({
-          'billAmount': perDayCost * (effDays - messCut),
-        });
-      }
-      SnackBarMessage.snackBarMessage(
-          content: 'Bill Generated and Send to all users successfully',
-          context: context);
-    } catch (e) {
-      SnackBarMessage.snackBarMessage(
-          content: 'Error occurred $e', context: context);
-    }
-  }
-
-  void calculateBill() async {
-    int messCut;
-    int perDayCost = getPerDayCost();
-    int effDays = getEffectiveDays();
-    print('perDayCost = ' + perDayCost.toString());
-    print('effDays = ' + effDays.toString());
-    // Admin user id
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-    // Selects all docs from user collection where messID = admin user id
-    var snapshots = userRef.where('messID', isEqualTo: uid).snapshots();
-    try {
-      await snapshots.forEach((snapshot) async {
-        List<DocumentSnapshot> documents = snapshot.docs;
-        for (var document in documents) {
-          messCut = document['messcut'];
-          print(messCut);
-          await document.reference.update({
-            'billAmount': perDayCost * (effDays - messCut),
-          });
-        }
+  generateBill() {
+    userRef
+        .where('messID', isEqualTo: user.uid)
+        .get()
+        .then((querySnapshot) async {
+      int perDayCost = await getPerDayCost();
+      int effDays = await getEffectiveDays();
+      int userCount = getUserCount();
+      querySnapshot.docs.forEach((element) {
+        var messcut = element['messcut'];
+        var result = (perDayCost * (effDays - messcut)) / userCount;
+        userRef.doc(element.id).update({'billAmount': result});
       });
-    } catch (e) {
-      print(e);
-    }
+    });
   }
 
   Future<void> addMemberToMess(String? uid) {
@@ -135,5 +127,38 @@ class DatabaseManager {
         }, SetOptions(merge: true))
         .then((value) => print("Member added successfully"))
         .catchError((error) => print("Failed to add user: $error"));
+  }
+
+  incrementAdmin() {
+    systemRef
+        .where('type', isEqualTo: 'admin')
+        .get()
+        .then((querySnapshot) async {
+      querySnapshot.docs.forEach((element) {
+        systemRef.doc(element.id).update({'count': FieldValue.increment(1)});
+      });
+    });
+  }
+
+  incrementUser() {
+    systemRef
+        .where('type', isEqualTo: 'user')
+        .get()
+        .then((querySnapshot) async {
+      querySnapshot.docs.forEach((element) {
+        systemRef.doc(element.id).update({'count': FieldValue.increment(1)});
+      });
+    });
+  }
+
+  incrementMess() {
+    systemRef
+        .where('type', isEqualTo: 'mess')
+        .get()
+        .then((querySnapshot) async {
+      querySnapshot.docs.forEach((element) {
+        systemRef.doc(element.id).update({'count': FieldValue.increment(1)});
+      });
+    });
   }
 }
