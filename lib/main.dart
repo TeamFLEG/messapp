@@ -13,6 +13,7 @@ import 'package:messapp/screens/admin/add_transaction.dart';
 import 'package:messapp/screens/edit_profile.dart';
 import 'package:messapp/screens/join_mess_contact.dart';
 import 'package:messapp/screens/join_mess_register_page.dart';
+import 'package:messapp/screens/terms_of_services.dart';
 
 import 'package:messapp/screens/user/mess_menu.dart';
 import 'package:messapp/screens/user/user_payment.dart';
@@ -106,6 +107,7 @@ class MyApp extends StatelessWidget {
         '/generate-uid': (context) => const GenerateUid(),
         '/write-feedbacks': (context) => const WriteFeedbacks(),
         '/edit-food-menu': (context) => const EditFoodMenu(),
+        '/terms-of-services': (context) => const Terms(),
         // '/view-feedbacks': (context) => const ViewFeedbacks(),
       },
       home: const SplashScreen(),

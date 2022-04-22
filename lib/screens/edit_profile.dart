@@ -52,9 +52,8 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     child: const Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                      child: ProfilePic(
-                          picURL:
-                              'https://images.unsplash.com/photo-1536164261511-3a17e671d380?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=630&q=80'),
+                      child: ProfilePic(),
+
                     ),
                   ),
                 ],
