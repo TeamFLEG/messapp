@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/models/admin.dart';
+import 'package:messapp/models/admin_count.dart';
 import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/snack_bar_message.dart';
 
@@ -175,6 +176,9 @@ class _CreateMessState extends State<CreateMess> {
         FirebaseFirestore.instance.collection('admin').doc(loggedInUser.uid);
     final messDoc =
         FirebaseFirestore.instance.collection('mess').doc(loggedInUser.uid);
+    final adminCountDoc = FirebaseFirestore.instance
+        .collection('adminCount')
+        .doc(loggedInUser.uid);
     final admin = Admin(
       id: adminDoc.id,
       messName: messName,
@@ -192,12 +196,15 @@ class _CreateMessState extends State<CreateMess> {
       joinedTS: Timestamp.now(),
       messName: messName,
     );
+    final adminCount = AdminCount(messID: loggedInUser.uid);
     final adminJSON = admin.toJSON();
     final messJSON = mess.toJSON();
+    final adminCountJSON = adminCount.toJSON();
     try {
       await adminDoc.set(adminJSON);
       await messDoc.set(messJSON);
-      navigatorKey.currentState!.pushNamed('/admin-dashboard');
+      await adminCountDoc.set(adminCountJSON);
+      await navigatorKey.currentState!.pushNamed('/admin-dashboard');
     } catch (e) {
       SnackBarMessage.snackBarMessage(content: '$e', context: context);
     }

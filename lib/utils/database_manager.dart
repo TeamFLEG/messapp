@@ -110,20 +110,24 @@ class DatabaseManager {
         .then((querySnapshot) async {
       int perDayCost = await getPerDayCost();
       int effDays = await getEffectiveDays();
-      int userCount = getUserCount();
+      int userCount = getUserCount() == 0 ? 1 : getUserCount();
+      print(perDayCost);
+      print(effDays);
+      print(userCount);
       querySnapshot.docs.forEach((element) {
         var messcut = element['messcut'];
         var result = (perDayCost * (effDays - messcut)) / userCount;
+        print(result);
         userRef.doc(element.id).update({'billAmount': result});
       });
     });
   }
 
   void addMemberToMess(String? uid) async {
-     await userRef
+    await userRef
         .doc(uid)
         .set({
-          'messID': user.uid,
+          'messID': uid,
         }, SetOptions(merge: true))
         .then((value) => print("Member added successfully"))
         .catchError((error) => print("Failed to add user: $error"));
@@ -141,12 +145,16 @@ class DatabaseManager {
   }
 
   incrementUser() {
-    systemRef
-        .where('type', isEqualTo: 'user')
+    FirebaseFirestore.instance
+        .collection('adminCount')
+        .where('type', isEqualTo: user.uid)
         .get()
         .then((querySnapshot) async {
       querySnapshot.docs.forEach((element) {
-        systemRef.doc(element.id).update({'count': FieldValue.increment(1)});
+        FirebaseFirestore.instance
+            .collection('adminCount')
+            .doc(element.id)
+            .update({'users': FieldValue.increment(1)});
       });
     });
   }
