@@ -20,7 +20,11 @@ class MessDetails extends StatelessWidget {
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return const Text("Document does not exist");
+          return const Center(child: Text("You are not in Any of the mess",
+          style: TextStyle(
+            fontFamily: 'Raleway',
+            fontStyle: FontStyle.normal,
+          ),));
         }
 
         if (snapshot.connectionState == ConnectionState.done) {

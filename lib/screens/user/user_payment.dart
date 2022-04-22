@@ -269,9 +269,18 @@ class _UserPaymentState extends State<UserPayment> {
                   ],
                 ),
               ),
-              const PaymentCard(),
-              const PaymentCard(),
-              const PaymentCard(),
+
+              const Center(
+                child: Text("No Payments Yet",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+                ),
+              ),
+              // const PaymentCard(),
+              // const PaymentCard(),
+              // const PaymentCard(),
             ],
           ),
         ),

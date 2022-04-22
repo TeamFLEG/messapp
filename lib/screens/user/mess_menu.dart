@@ -19,6 +19,8 @@ class _MessMenuState extends State<MessMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      // floatingActionButton: FloatingActionButton(onPressed: () { Navigator.pushNamed(context, "/edit-food-menu"); },
+      // child: const Icon(Icons.edit)),
       appBar: const CustomAppBar(head: "Menu"),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -27,15 +29,15 @@ class _MessMenuState extends State<MessMenu> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                child: Text(
-                  'Bakker Mess Service',
-                  style: TextStyle(
-                    fontFamily: 'Raleway',
-                  ),
-                ),
-              ),
+              // const Padding(
+              //   padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+              //   child: Text(
+              //     'Bakker Mess Service',
+              //     style: TextStyle(
+              //       fontFamily: 'Raleway',
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: DefaultTabController(
                   length: 7,

@@ -22,7 +22,7 @@ class _QRGeneratorState extends State<QRGenerator> {
     var userName = user.uid.toString();
 
     return Scaffold(
-      appBar: const CustomAppBar(head: "QR Code Generation"),
+      appBar: const CustomAppBar(head: "Attendance Register"),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
