@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:messapp/main.dart';
 import 'package:messapp/utils/database_manager.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
@@ -58,21 +59,18 @@ class _AddMemberState extends State<AddMember> {
         // ),
         child: ElevatedButton(
           onPressed: () async {
-            print(scannedString!.code.toString());
-            Navigator.pop(context);
-            if(scannedString != null) {
+            if (scannedString != null) {
               DatabaseManager().addMemberToMess(scannedString!.code.toString());
-              print("Inside ${scannedString!.code.toString()}");
+              DatabaseManager().incrementUser();
+              navigatorKey.currentState!.pop();
             }
           },
           child: Text(
-          scannedString != null
-              ? 'Continue'
-              : 'Scanning code!!!',
-          style: const TextStyle(
-            color: Colors.white,
+            scannedString != null ? 'Continue' : 'Scanning code!!!',
+            style: const TextStyle(
+              color: Colors.white,
+            ),
           ),
-        ),
         ),
       );
 
@@ -93,6 +91,5 @@ class _AddMemberState extends State<AddMember> {
 
     controller.scannedDataStream.listen(
         (scannedString) => setState(() => this.scannedString = scannedString));
-
   }
 }
