@@ -179,7 +179,7 @@ class _UserDashboardState extends State<UserDashboard> {
                           cardName: "Feedbacks",
                           cardColor: const Color(0xFF99D5F3),
                           cardAction: () {
-                            Navigator.pushNamed(context, '/feedback');
+                            Navigator.pushNamed(context, '/write-feedbacks');
                           },
                         ),
                       ],

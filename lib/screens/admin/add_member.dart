@@ -51,19 +51,28 @@ class _AddMemberState extends State<AddMember> {
       );
 
   Widget buildResult() => Container(
-        padding: const EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Palette.myMaroon,
-        ),
-        child: Text(
+        // padding: const EdgeInsets.all(12.0),
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.circular(8),
+        //   color: Palette.myMaroon,
+        // ),
+        child: ElevatedButton(
+          onPressed: () async {
+            print(scannedString!.code.toString());
+            Navigator.pop(context);
+            if(scannedString != null) {
+              DatabaseManager().addMemberToMess(scannedString!.code.toString());
+              print("Inside ${scannedString!.code.toString()}");
+            }
+          },
+          child: Text(
           scannedString != null
-              ? 'Result : ${scannedString!.code}'
-              : 'Scan a code',
-          maxLines: 3,
+              ? 'Continue'
+              : 'Scanning code!!!',
           style: const TextStyle(
             color: Colors.white,
           ),
+        ),
         ),
       );
 
