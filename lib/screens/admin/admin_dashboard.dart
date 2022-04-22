@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/screens/dashboard_model.dart';
+import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/content_text.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 
@@ -18,6 +19,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   User user = FirebaseAuth.instance.currentUser!;
+
+  int userCount = DatabaseManager().getAdminUserCount();
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +93,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      ContentText(text: "Members", value: "0"),
+                    children: [
+                      ContentText(
+                        text: "Members",
+                        value: (userCount.toString()),
+                      )
                     ],
                   ),
                 ),

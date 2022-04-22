@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 
@@ -11,7 +12,7 @@ class MessDetails extends StatelessWidget {
     // (ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>);
     CollectionReference messRef = FirebaseFirestore.instance.collection('mess');
     return FutureBuilder<DocumentSnapshot>(
-      future: messRef.doc('1LINNM20oAVsBDHDhwi0lgQadlt1').get(),
+      future: messRef.doc(FirebaseAuth.instance.currentUser!.uid).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {

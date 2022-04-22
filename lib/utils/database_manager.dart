@@ -10,6 +10,10 @@ class DatabaseManager {
   CollectionReference systemRef =
       FirebaseFirestore.instance.collection('system');
 
+
+  CollectionReference adminCountRef =
+      FirebaseFirestore.instance.collection('adminCount');
+
   User user = FirebaseAuth.instance.currentUser!;
 
   Future<List<Object?>> getMC() async {
@@ -35,6 +39,14 @@ class DatabaseManager {
       username = 'Admin';
     }
     return username;
+  }
+
+  getAdminUserCount() {
+    int count = 0;
+    adminCountRef
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) => count = value['users']);
   }
 
   int getUserCount() {
