@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/models/admin.dart';
+import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/snack_bar_message.dart';
 
 import '../models/mess.dart';
@@ -141,6 +142,8 @@ class _CreateMessState extends State<CreateMess> {
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: ElevatedButton(
                   onPressed: () {
+                    DatabaseManager().incrementAdmin();
+                    DatabaseManager().incrementMess();
                     createAdminAndMess(
                       messName: _messNameController.text,
                       fullName: _managerNameController.text,

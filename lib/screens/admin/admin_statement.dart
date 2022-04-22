@@ -175,8 +175,9 @@ class _AdminStatementState extends State<AdminStatement> {
                           const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Generate Bill",
-                          action: () {
-                            DatabaseManager().calculateBill();
+                          action: () async {
+                            print('Generate bill pressed');
+                            DatabaseManager().generateBill();
                           }),
                     ),
                     const Divider(
