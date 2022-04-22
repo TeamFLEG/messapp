@@ -38,6 +38,8 @@ import 'package:messapp/screens/user/qr_scan.dart';
 import 'package:messapp/screens/admin/add_member.dart';
 import 'package:messapp/screens/user/generate_uid.dart';
 
+import 'package:messapp/screens/admin/edit_food_menu.dart';
+
 import 'package:messapp/screens/user/write_feedback.dart';
 // import 'package:messapp/screens/user/view_feedback.dart';
 
@@ -103,6 +105,7 @@ class MyApp extends StatelessWidget {
         '/add-member': (context) => const AddMember(),
         '/generate-uid': (context) => const GenerateUid(),
         '/write-feedbacks': (context) => const WriteFeedbacks(),
+        '/edit-food-menu': (context) => const EditFoodMenu(),
         // '/view-feedbacks': (context) => const ViewFeedbacks(),
       },
       home: const SplashScreen(),

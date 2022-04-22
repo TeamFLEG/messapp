@@ -68,27 +68,33 @@ class _MessMembersState extends State<MessMembers> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const MemberCard(),
-                  const MemberCard(),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: const [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 12),
-                        child: Text(
-                          'New Members',
-                          style: TextStyle(
-                            fontFamily: 'Lexend Deca',
-                            color: Color(0xFF8B97A2),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const MemberCard(),
+                children: const [
+                Text("No new members Yet",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+                  // const MemberCard(),
+                  // const MemberCard(),
+                  // Row(
+                  //   mainAxisSize: MainAxisSize.max,
+                  //   children: const [
+                  //     Padding(
+                  //       padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 12),
+                  //       child: Text(
+                  //         'New Members',
+                  //         style: TextStyle(
+                  //           fontFamily: 'Lexend Deca',
+                  //           color: Color(0xFF8B97A2),
+                  //           fontSize: 14,
+                  //           fontWeight: FontWeight.w500,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const MemberCard(),
                 ],
               ),
             ),

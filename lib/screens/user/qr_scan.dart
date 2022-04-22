@@ -4,6 +4,9 @@ import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/theme/palette.dart';
 import 'dart:io';
 
+import '../../main.dart';
+import '../../widgets/primary_button.dart';
+
 
 class QRScan extends StatefulWidget {
   const QRScan({Key? key}) : super(key: key);
@@ -41,28 +44,29 @@ class _QRScanState extends State<QRScan> {
           body: Stack(
             children: <Widget>[
               buildQrView(context),
-              //   Align(
-              //   alignment: const Alignment(0.0, 0.7),
-              //   child: buildResult(),
-              // ),
+                Align(
+                alignment: const Alignment(0.0, 0.7),
+                child: buildResult(),
+              ),
+              PrimaryButton( action: () => navigatorKey.currentState!.pushNamed('/user-dashboard'), btnName: 'Go To Dashboard'),
             ],
           ),
         ),
       );
 
-  // Widget buildResult() => Container(
-  //       padding: const EdgeInsets.all(12.0),
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(8),
-  //         color: Palette.myMaroon,
-  //       ),
-  //       child: Text(
-  //           barcode != null ? 'Result : ${barcode!.code}' : 'Scan a code',
-  //           maxLines: 3,
-  //       style: const TextStyle(
-  //         color: Colors.white,
-  //       ),),
-  //     );
+  Widget buildResult() => Container(
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Palette.myMaroon,
+        ),
+        child: Text(
+            barcode != null ? 'Attendance Marked for: ${barcode!.code}' : 'Scan a code',
+            maxLines: 3,
+        style: const TextStyle(
+          color: Colors.white,
+        ),),
+      );
 
 
 

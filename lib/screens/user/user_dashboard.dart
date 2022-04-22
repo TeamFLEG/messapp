@@ -92,7 +92,7 @@ class _UserDashboardState extends State<UserDashboard> {
                     children: const [
                       ContentText(text: "Mess Id", value: "10"),
                       ContentText(text: "Mess Cut", value: "5"),
-                      ContentText(text: "Dues", value: "0"),
+                      // ContentText(text: "Dues", value: "0"),
                     ],
                   ),
                 ),
