@@ -34,10 +34,10 @@ class _AdminAttendanceState extends State<AdminAttendance> {
                           Navigator.pushNamed(context, '/qr-generation');
                         },
                         child: const Text(
-                          'Register',
+                          'Generate QR',
                           style: TextStyle(
                             fontFamily: 'Raleway',
-                            color: Palette.myMaroon,
+                            color: Colors.white,
                           ),
                         ),
                       ),

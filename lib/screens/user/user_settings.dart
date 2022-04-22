@@ -88,11 +88,11 @@ class _UserSettingsState extends State<UserSettings> {
               clicked: () {
                 Navigator.pushNamed(context, '/change-pass');
               }),
-          ButtonCard(
-              btnName: "Notification Settings",
-              clicked: () {
-                print("null");
-              }),
+          // ButtonCard(
+          //     btnName: "Notification Settings",
+          //     clicked: () {
+          //       print("null");
+          //     }),
           ButtonCard(
               btnName: "Terms of Services",
               clicked: () {
