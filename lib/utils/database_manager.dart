@@ -119,8 +119,8 @@ class DatabaseManager {
     });
   }
 
-  Future<void> addMemberToMess(String? uid) {
-    return userRef
+  void addMemberToMess(String? uid) async {
+     await userRef
         .doc(uid)
         .set({
           'messID': user.uid,
