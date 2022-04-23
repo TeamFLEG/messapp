@@ -10,7 +10,6 @@ class DatabaseManager {
   CollectionReference systemRef =
       FirebaseFirestore.instance.collection('system');
 
-
   CollectionReference adminCountRef =
       FirebaseFirestore.instance.collection('adminCount');
 
@@ -127,7 +126,8 @@ class DatabaseManager {
       print(effDays);
       print(userCount);
       querySnapshot.docs.forEach((element) {
-        var messcut = element['messcut'];
+        var messcut = 5;
+        print(messcut);
         var result = (perDayCost * (effDays - messcut)) / userCount;
         print(result);
         userRef.doc(element.id).update({'billAmount': result});
@@ -135,11 +135,11 @@ class DatabaseManager {
     });
   }
 
-  void addMemberToMess(String? uid) async {
+  void addMemberToMess(String? userid, String messID) async {
     await userRef
-        .doc(uid)
+        .doc(userid)
         .set({
-          'messID': uid,
+          'messID': messID,
         }, SetOptions(merge: true))
         .then((value) => print("Member added successfully"))
         .catchError((error) => print("Failed to add user: $error"));

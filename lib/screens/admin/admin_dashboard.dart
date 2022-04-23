@@ -20,7 +20,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   User user = FirebaseAuth.instance.currentUser!;
 
-  int userCount = DatabaseManager().getAdminUserCount();
+  int userCount = DatabaseManager().getAdminUserCount() ?? 0;
 
   @override
   Widget build(BuildContext context) {
