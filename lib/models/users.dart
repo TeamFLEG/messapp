@@ -9,6 +9,7 @@ class Users {
   late bool admin;
   late String messID;
   late Timestamp joinedTS;
+  late double billAmount;
 
   Users({
     this.id = "",
@@ -18,6 +19,7 @@ class Users {
     required this.address,
     this.messID = '',
     required this.joinedTS,
+    this.billAmount = 0,
   });
 
   Map<String, dynamic> toJSON() => {
@@ -27,14 +29,16 @@ class Users {
         'phone': phoneNumber,
         'address': address,
         'joinedTS': joinedTS,
+        'billAmount': billAmount,
       };
 
   static Users fromJSON(Map<String, dynamic> json) => Users(
-      id: json['id'],
-      fullName: json['fullName'],
-      email: json['email'],
-      phoneNumber: json['phone'],
-      address: json['address'],
-      messID: json['messID'],
-      joinedTS: json['joinedTS']);
+        id: json['id'],
+        fullName: json['fullName'],
+        email: json['email'],
+        phoneNumber: json['phone'],
+        address: json['address'],
+        messID: json['messID'],
+        joinedTS: json['joinedTS'],
+      );
 }
