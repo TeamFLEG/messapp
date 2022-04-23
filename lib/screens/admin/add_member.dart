@@ -62,8 +62,7 @@ class _AddMemberState extends State<AddMember> {
         child: ElevatedButton(
           onPressed: () async {
             if (scannedString != null) {
-              DatabaseManager().addMemberToMess(scannedString!.code.toString(), adminUID);
-              DatabaseManager().incrementUser();
+              DatabaseManager().addMemberToMess(scannedString!.code.toString(), adminUID, context);
               navigatorKey.currentState!.pop();
             }
           },

@@ -62,10 +62,8 @@ class _MessDetailsState extends State<MessDetails> {
               }
 
               if (snapshot.connectionState == ConnectionState.done) {
-                print("Connection successfull");
                 Map<String, dynamic> data =
                     snapshot.data!.data() as Map<String, dynamic>;
-                print("Data is $data");
                 return MessDetailWidget(
                   messName: data['messName'],
                   owner: data['owner'],

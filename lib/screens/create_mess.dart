@@ -143,8 +143,6 @@ class _CreateMessState extends State<CreateMess> {
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    DatabaseManager().incrementAdmin();
-                    DatabaseManager().incrementMess();
                     createAdminAndMess(
                       messName: _messNameController.text,
                       fullName: _managerNameController.text,
