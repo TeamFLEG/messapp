@@ -20,8 +20,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   User user = FirebaseAuth.instance.currentUser!;
 
-  int userCount = DatabaseManager().getAdminUserCount() ?? 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,18 +86,40 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ContentText(
-                        text: "Members",
-                        value: (userCount.toString()),
-                      )
-                    ],
-                  ),
+                FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('adminCount')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("Something went wrong");
+                    }
+
+                    if (snapshot.hasData && !snapshot.data!.exists) {
+                      return Text("Document does not exist");
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic> data =
+                          snapshot.data!.data() as Map<String, dynamic>;
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ContentText(
+                              text: "Members",
+                              value: data['users'].toString(),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return Text("Loading");
+                  },
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

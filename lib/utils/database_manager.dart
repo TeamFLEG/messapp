@@ -43,13 +43,14 @@ class DatabaseManager {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((value) => count = value['users']);
+    return count;
   }
 
-  int getUserCount() {
+  Future<int> getUserCount() async {
     // Get userdata of specific uid
     late int count = 0;
-    adminCountRef.doc(user.uid).get().then((value) {
-      count = value['count'];
+    await adminCountRef.doc(user.uid).get().then((value) {
+      count = value['users'];
     });
     return count;
   }
@@ -118,9 +119,10 @@ class DatabaseManager {
         .then((querySnapshot) async {
       int perDayCost = await getPerDayCost();
       int effDays = await getEffectiveDays();
-      int userCount = getUserCount() == 0 ? 1 : getUserCount();
+      int userCount = await getUserCount();
       querySnapshot.docs.forEach((element) {
-        var messcut = 5;
+        var messcut = element['messcut'];
+        print(messcut);
         var result = (perDayCost * (effDays - messcut)) / userCount;
         userRef.doc(element.id).update({'billAmount': result});
       });
