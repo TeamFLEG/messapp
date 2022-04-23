@@ -135,7 +135,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             cardName: "Mess Details",
                             cardColor: const Color(0xFFFDCE84),
                             cardAction: () {
-                              Navigator.pushNamed(context, '/mess-details');
+                              Navigator.pushNamed(
+                                  context, '/admin-mess-details');
                             }),
                         DashboardCard(
                             cardIcon: Icons.payment,
