@@ -121,8 +121,8 @@ class _AddTransactionState extends State<AddTransaction> {
                       DateTime? pickedDate = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
-                          firstDate: DateTime(
-                              2000), //DateTime.now() - not to allow to choose before today.
+                          firstDate: DateTime(2000),
+                          //DateTime.now() - not to allow to choose before today.
                           lastDate: DateTime(2101));
 
                       if (pickedDate != null) {
@@ -180,22 +180,22 @@ class _AddTransactionState extends State<AddTransaction> {
     final transactionDoc = FirebaseFirestore.instance
         .collection('transactions')
         .doc(loggedInUser.uid);
-    final transaction = Transactions(
-      messID: loggedInUser.uid,
-      amount: amount,
-      transactionTS: transactionTS,
-      fullName: fullName,
-      paymentDate: paymentDate,
-    );
-    final transactionJSON = transaction.toJSON();
-    try {
-      await transactionDoc.set(transactionJSON);
-      navigatorKey.currentState!.pop();
+    Map<String, dynamic> transaction = {
+      'messID': loggedInUser.uid,
+      'amount': amount,
+      'transactionTS': transactionTS,
+      'fullName': fullName,
+      'paymentDate': paymentDate,
+    };
+    transactionDoc.set(
+        {'$transactionTS': transaction}, SetOptions(merge: true)).then((value) {
       SnackBarMessage.snackBarMessage(
           content: 'Transaction added successfully', context: context);
-    } catch (e) {
-      SnackBarMessage.snackBarMessage(
-          content: "Error occurred. Please try again", context: context);
-    }
+    }).onError(
+      (error, stackTrace) {
+        SnackBarMessage.snackBarMessage(
+            content: 'Error occurred! Please try again.', context: context);
+      },
+    );
   }
 }

@@ -182,31 +182,21 @@ class _AdminStatementState extends State<AdminStatement> {
                     thickness: 2,
                     color: Colors.grey,
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: const [
-                        Text(
-                          'Member Bill',
-                        ),
-                      ],
-                    ),
-                  ),
-                  // ListView(
-                  //   padding: EdgeInsets.zero,
-                  //   primary: false,
-                  //   shrinkWrap: true,
-                  //   scrollDirection: Axis.vertical,
-                  //   children: const [
-                  //     PayCard(name: "Revanth", amt: "1500"),
-                  //     PayCard(name: "Rohith", amt: "1500"),
-                  //     PayCard(name: "Sharun", amt: "1500"),
-                  //     PayCard(name: "Sreehari", amt: "1500"),
-                  //   ],
-                  // ),
                 ],
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Text(
+                  'Member Bill',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -229,12 +219,54 @@ class _AdminStatementState extends State<AdminStatement> {
                             amt: doc['billAmount'].toString());
                       }).toList(),
                     );
+                  } else if (snapshot.hasError) {
+                    return const Text("Something went wrong");
                   } else {
                     // or your loading widget here
-                    return const SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: CircularProgressIndicator());
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Text(
+                  'Transactions',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection('transactions')
+                    .where('messID', isEqualTo: user.uid)
+                    .get(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView(
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((doc) {
+                        return PayCard(
+                            name: doc['fullName'],
+                            amt: doc['amount'].toString());
+                      }).toList(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text("Something went wrong");
+                  } else {
+                    // or your loading widget here
+                    return const CircularProgressIndicator();
                   }
                 },
               ),
@@ -371,7 +403,7 @@ class PayCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
@@ -380,27 +412,25 @@ class PayCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 1,
                   child: Align(
                     alignment: const AlignmentDirectional(0, 0),
                     child: Text(
                       amt,
-                      style: const TextStyle(
-                        fontFamily: 'Open Sans',
-                      ),
+                      textAlign: TextAlign.right,
                     ),
                   ),
                 ),
-                const Expanded(
-                  child: Align(
-                    alignment: AlignmentDirectional(0.9, 0),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Color(0xFF95A1AC),
-                      size: 18,
-                    ),
-                  ),
-                ),
+                // const Expanded(
+                //   child: Align(
+                //     alignment: AlignmentDirectional(0.9, 0),
+                //     child: Icon(
+                //       Icons.arrow_forward_ios,
+                //       color: Color(0xFF95A1AC),
+                //       size: 18,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
