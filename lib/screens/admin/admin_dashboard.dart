@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/screens/dashboard_model.dart';
+import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/content_text.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 
@@ -85,15 +86,40 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      ContentText(text: "Members", value: "0"),
-                    ],
-                  ),
+                FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('adminCount')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("Something went wrong");
+                    }
+
+                    if (snapshot.hasData && !snapshot.data!.exists) {
+                      return Text("Document does not exist");
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic> data =
+                          snapshot.data!.data() as Map<String, dynamic>;
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ContentText(
+                              text: "Members",
+                              value: data['users'].toString(),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return Text("Loading");
+                  },
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -129,7 +155,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             cardName: "Mess Details",
                             cardColor: const Color(0xFFFDCE84),
                             cardAction: () {
-                              Navigator.pushNamed(context, '/mess-details');
+                              Navigator.pushNamed(
+                                  context, '/admin-mess-details');
                             }),
                         DashboardCard(
                             cardIcon: Icons.payment,

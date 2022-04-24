@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/screens/dashboard_model.dart';
@@ -84,17 +85,54 @@ class _UserDashboardState extends State<UserDashboard> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      ContentText(text: "Mess Id", value: "10"),
-                      ContentText(text: "Mess Cut", value: "5"),
-                      // ContentText(text: "Dues", value: "0"),
-                    ],
-                  ),
+                FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('user')
+                      .doc(user.uid)
+                      .get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text("Something went wrong");
+                    }
+
+                    if (snapshot.hasData && !snapshot.data!.exists) {
+                      return const Center(
+                        child: Text(
+                          "Error data cannot be fetched",
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontStyle: FontStyle.normal,
+                          ),
+                        ),
+                      );
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic> data =
+                          snapshot.data!.data() as Map<String, dynamic>;
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ContentText(
+                                text: "Bill Amount",
+                                value: data['billAmount'].toString()),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ContentText(
+                                text: "Mess Cut",
+                                value: data['messcut'].toString()),
+                            // ContentText(text: "Dues", value: "0"),
+                          ],
+                        ),
+                      );
+                    }
+                    return const Text("loading");
+                  },
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -157,7 +195,6 @@ class _UserDashboardState extends State<UserDashboard> {
                             Navigator.pushNamed(context, '/mess-details');
                           },
                         ),
-
                         DashboardCard(
                           cardIcon: Icons.payment,
                           cardName: "Generate QR",

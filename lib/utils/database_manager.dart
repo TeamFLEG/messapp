@@ -7,8 +7,8 @@ class DatabaseManager {
   CollectionReference userRef = FirebaseFirestore.instance.collection('user');
   CollectionReference adminRef = FirebaseFirestore.instance.collection('admin');
   CollectionReference messRef = FirebaseFirestore.instance.collection('mess');
-  CollectionReference systemRef =
-      FirebaseFirestore.instance.collection('system');
+  CollectionReference adminCountRef =
+      FirebaseFirestore.instance.collection('adminCount');
 
   User user = FirebaseAuth.instance.currentUser!;
 
@@ -37,11 +37,20 @@ class DatabaseManager {
     return username;
   }
 
-  int getUserCount() {
+  getAdminUserCount() {
+    int count = 0;
+    adminCountRef
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) => count = value['users']);
+    return count;
+  }
+
+  Future<int> getUserCount() async {
     // Get userdata of specific uid
     late int count = 0;
-    systemRef.doc('userCount').get().then((value) {
-      count = value['count'];
+    await adminCountRef.doc(user.uid).get().then((value) {
+      count = value['users'];
     });
     return count;
   }
@@ -110,63 +119,33 @@ class DatabaseManager {
         .then((querySnapshot) async {
       int perDayCost = await getPerDayCost();
       int effDays = await getEffectiveDays();
-      int userCount = getUserCount() == 0 ? 1 : getUserCount();
-      print(perDayCost);
-      print(effDays);
-      print(userCount);
+      int userCount = await getUserCount();
       querySnapshot.docs.forEach((element) {
         var messcut = element['messcut'];
+        print(messcut);
         var result = (perDayCost * (effDays - messcut)) / userCount;
-        print(result);
         userRef.doc(element.id).update({'billAmount': result});
       });
     });
   }
 
-  void addMemberToMess(String? uid) async {
-    await userRef
-        .doc(uid)
-        .set({
-          'messID': uid,
-        }, SetOptions(merge: true))
-        .then((value) => print("Member added successfully"))
-        .catchError((error) => print("Failed to add user: $error"));
-  }
-
-  incrementAdmin() {
-    systemRef
-        .where('type', isEqualTo: 'admin')
-        .get()
-        .then((querySnapshot) async {
-      querySnapshot.docs.forEach((element) {
-        systemRef.doc(element.id).update({'count': FieldValue.increment(1)});
-      });
+  void addMemberToMess(
+      String? userid, String messID, BuildContext context) async {
+    await userRef.doc(userid).set({
+      'messID': messID,
+    }, SetOptions(merge: true)).then((value) {
+      incrementUser(messID);
+      SnackBarMessage.snackBarMessage(
+          content: 'Member added successfully', context: context);
+    }).catchError((error) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Error occurred. Error message : $error', context: context);
     });
   }
 
-  incrementUser() {
-    FirebaseFirestore.instance
-        .collection('adminCount')
-        .where('type', isEqualTo: user.uid)
-        .get()
-        .then((querySnapshot) async {
-      querySnapshot.docs.forEach((element) {
-        FirebaseFirestore.instance
-            .collection('adminCount')
-            .doc(element.id)
-            .update({'users': FieldValue.increment(1)});
-      });
-    });
-  }
-
-  incrementMess() {
-    systemRef
-        .where('type', isEqualTo: 'mess')
-        .get()
-        .then((querySnapshot) async {
-      querySnapshot.docs.forEach((element) {
-        systemRef.doc(element.id).update({'count': FieldValue.increment(1)});
-      });
+  incrementUser(String messID) {
+    FirebaseFirestore.instance.collection('adminCount').doc(messID).update({
+      'users': FieldValue.increment(1),
     });
   }
 }

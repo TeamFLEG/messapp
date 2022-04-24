@@ -60,20 +60,20 @@ class DashboardCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: Color(0xFF1F688B),
-                    size: 24,
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 10),
+            //   child: Row(
+            //     mainAxisSize: MainAxisSize.max,
+            //     mainAxisAlignment: MainAxisAlignment.end,
+            //     children: const [
+            //       Icon(
+            //         Icons.arrow_forward_ios_rounded,
+            //         color: Color(0xFF1F688B),
+            //         size: 24,
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

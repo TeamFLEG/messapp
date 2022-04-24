@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/utils/database_manager.dart';
@@ -18,6 +19,7 @@ class _AddMemberState extends State<AddMember> {
   QRViewController? controller;
   Barcode? scannedString;
 
+  String adminUID = FirebaseAuth.instance.currentUser!.uid;
   @override
   void dispose() {
     controller?.dispose();
@@ -60,8 +62,7 @@ class _AddMemberState extends State<AddMember> {
         child: ElevatedButton(
           onPressed: () async {
             if (scannedString != null) {
-              DatabaseManager().addMemberToMess(scannedString!.code.toString());
-              DatabaseManager().incrementUser();
+              DatabaseManager().addMemberToMess(scannedString!.code.toString(), adminUID, context);
               navigatorKey.currentState!.pop();
             }
           },

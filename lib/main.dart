@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 //Custom Widgets
 import 'package:messapp/screens/admin/admin_dashboard.dart';
+import 'package:messapp/screens/admin/admin_mess_details.dart';
 import 'package:messapp/screens/admin/mess_members.dart';
 import 'package:messapp/screens/admin/add_transaction.dart';
 import 'package:messapp/screens/edit_profile.dart';
@@ -72,7 +73,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false,
       title: "MessApp",
       theme: ThemeData(primarySwatch: Palette.myMaroon, fontFamily: 'Raleway'),
       navigatorKey: navigatorKey,
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
         '/admin-statement': (context) => const AdminStatement(),
         '/admin-attendance': (context) => const AdminAttendance(),
         '/mess-details': (context) => const MessDetails(),
+        '/admin-mess-details': (context) => const AdminMessDetails(),
         '/change-pass': (context) => const ChangePass(),
         '/add-transaction': (context) => const AddTransaction(),
         '/update-bill-data': (context) => const UpdateBillData(),
