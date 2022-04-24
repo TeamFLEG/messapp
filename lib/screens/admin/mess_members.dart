@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/theme/palette.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MessMembers extends StatefulWidget {
   const MessMembers({Key? key}) : super(key: key);
@@ -18,7 +20,7 @@ class _MessMembersState extends State<MessMembers> {
   //   super.initState();
   //   textController = TextEditingController();
   // }
-
+  User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,42 +65,76 @@ class _MessMembersState extends State<MessMembers> {
             height: 15,
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                Text("No new members Yet",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-                  // const MemberCard(),
-                  // const MemberCard(),
-                  // Row(
-                  //   mainAxisSize: MainAxisSize.max,
-                  //   children: const [
-                  //     Padding(
-                  //       padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 12),
-                  //       child: Text(
-                  //         'New Members',
-                  //         style: TextStyle(
-                  //           fontFamily: 'Lexend Deca',
-                  //           color: Color(0xFF8B97A2),
-                  //           fontSize: 14,
-                  //           fontWeight: FontWeight.w500,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // const MemberCard(),
-                ],
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection('user')
+                    .where('messID', isEqualTo: user.uid)
+                    .get(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView(
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((doc) {
+                        return MemberCard(
+                          cardTitle: doc['fullName'],
+                          cardSubtitle: doc['phone'],
+                          // messID: doc['messID'],
+                        );
+                      }).toList(),
+                    );
+                  } else {
+                    // or your loading widget here
+                    return const SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircularProgressIndicator());
+                  }
+                },
               ),
             ),
           ),
+          // Expanded(
+          //   child: SingleChildScrollView(
+          //     child: Column(
+          //       mainAxisSize: MainAxisSize.min,
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: const [
+          //         Text(
+          //           "No new members Yet",
+          //           style: TextStyle(
+          //             color: Colors.grey,
+          //             fontWeight: FontWeight.bold,
+          //           ),
+          //         ),
+          //         // const MemberCard(),
+          //         // const MemberCard(),
+          //         // Row(
+          //         //   mainAxisSize: MainAxisSize.max,
+          //         //   children: const [
+          //         //     Padding(
+          //         //       padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 12),
+          //         //       child: Text(
+          //         //         'New Members',
+          //         //         style: TextStyle(
+          //         //           fontFamily: 'Lexend Deca',
+          //         //           color: Color(0xFF8B97A2),
+          //         //           fontSize: 14,
+          //         //           fontWeight: FontWeight.w500,
+          //         //         ),
+          //         //       ),
+          //         //     ),
+          //         //   ],
+          //         // ),
+          //         // const MemberCard(),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -106,7 +142,14 @@ class _MessMembersState extends State<MessMembers> {
 }
 
 class MemberCard extends StatelessWidget {
-  const MemberCard({Key? key}) : super(key: key);
+  const MemberCard({
+    Key? key,
+    required this.cardTitle,
+    required this.cardSubtitle,
+  }) : super(key: key);
+
+  final String cardTitle;
+  final int cardSubtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -153,10 +196,10 @@ class MemberCard extends StatelessWidget {
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
-                      children: const [
+                      children: [
                         Text(
-                          'Revanth',
-                          style: TextStyle(
+                          cardTitle,
+                          style: const TextStyle(
                             fontFamily: 'Lexend Deca',
                             color: Color(0xFF15212B),
                             fontSize: 18,
@@ -167,13 +210,13 @@ class MemberCard extends StatelessWidget {
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
-                      children: const [
+                      children:  [
                         Expanded(
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
                             child: Text(
-                              '[Phone number]',
-                              style: TextStyle(
+                              "$cardSubtitle",
+                              style: const TextStyle(
                                 fontFamily: 'Lexend Deca',
                                 color: Colors.grey,
                                 fontSize: 12,
