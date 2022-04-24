@@ -23,119 +23,126 @@ class _MessMembersState extends State<MessMembers> {
   User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(head: "Members"),
-      backgroundColor: const Color(0xFFFFFFFF), //0xFFF1F4F8
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/add-member');
-        },
-        backgroundColor: Palette.myMaroon,
-        elevation: 8,
-        child: const Icon(
-          Icons.person_add_alt_1_outlined,
-          color: Colors.white,
-          size: 28,
+    return RefreshIndicator(
+      onRefresh: () async{
+        setState(() {
+          
+        });
+      },
+      child: Scaffold(
+        appBar: const CustomAppBar(head: "Members"),
+        backgroundColor: const Color(0xFFFFFFFF), //0xFFF1F4F8
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/add-member');
+          },
+          backgroundColor: Palette.myMaroon,
+          elevation: 8,
+          child: const Icon(
+            Icons.person_add_alt_1_outlined,
+            color: Colors.white,
+            size: 28,
+          ),
         ),
-      ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: TextFormField(
-              // controller: _emailController,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search,
-                    color: Color.fromRGBO(53, 53, 53, 1.0)),
-                hintText: "Search Members By Mess Name or ID",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
+        body: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: TextFormField(
+                // controller: _emailController,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search,
+                      color: Color.fromRGBO(53, 53, 53, 1.0)),
+                  hintText: "Search Members By Mess Name or ID",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
                 ),
-                filled: true,
-                fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: FutureBuilder<QuerySnapshot>(
-                future: FirebaseFirestore.instance
-                    .collection('user')
-                    .where('messID', isEqualTo: user.uid)
-                    .get(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView(
-                      shrinkWrap: true,
-                      children: snapshot.data!.docs.map((doc) {
-                        return MemberCard(
-                          cardTitle: doc['fullName'],
-                          cardSubtitle: doc['phone'],
-                          // messID: doc['messID'],
-                        );
-                      }).toList(),
-                    );
-                  } else {
-                    // or your loading widget here
-                    return const SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: CircularProgressIndicator());
-                  }
-                },
+            const SizedBox(
+              height: 15,
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: FutureBuilder<QuerySnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('user')
+                      .where('messID', isEqualTo: user.uid)
+                      .get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView(
+                        shrinkWrap: true,
+                        children: snapshot.data!.docs.map((doc) {
+                          return MemberCard(
+                            cardTitle: doc['fullName'],
+                            cardSubtitle: doc['phone'],
+                            // messID: doc['messID'],
+                          );
+                        }).toList(),
+                      );
+                    } else {
+                      // or your loading widget here
+                      return const SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator());
+                    }
+                  },
+                ),
               ),
             ),
-          ),
-          // Expanded(
-          //   child: SingleChildScrollView(
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: const [
-          //         Text(
-          //           "No new members Yet",
-          //           style: TextStyle(
-          //             color: Colors.grey,
-          //             fontWeight: FontWeight.bold,
-          //           ),
-          //         ),
-          //         // const MemberCard(),
-          //         // const MemberCard(),
-          //         // Row(
-          //         //   mainAxisSize: MainAxisSize.max,
-          //         //   children: const [
-          //         //     Padding(
-          //         //       padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 12),
-          //         //       child: Text(
-          //         //         'New Members',
-          //         //         style: TextStyle(
-          //         //           fontFamily: 'Lexend Deca',
-          //         //           color: Color(0xFF8B97A2),
-          //         //           fontSize: 14,
-          //         //           fontWeight: FontWeight.w500,
-          //         //         ),
-          //         //       ),
-          //         //     ),
-          //         //   ],
-          //         // ),
-          //         // const MemberCard(),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-        ],
+            // Expanded(
+            //   child: SingleChildScrollView(
+            //     child: Column(
+            //       mainAxisSize: MainAxisSize.min,
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       children: const [
+            //         Text(
+            //           "No new members Yet",
+            //           style: TextStyle(
+            //             color: Colors.grey,
+            //             fontWeight: FontWeight.bold,
+            //           ),
+            //         ),
+            //         // const MemberCard(),
+            //         // const MemberCard(),
+            //         // Row(
+            //         //   mainAxisSize: MainAxisSize.max,
+            //         //   children: const [
+            //         //     Padding(
+            //         //       padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 12),
+            //         //       child: Text(
+            //         //         'New Members',
+            //         //         style: TextStyle(
+            //         //           fontFamily: 'Lexend Deca',
+            //         //           color: Color(0xFF8B97A2),
+            //         //           fontSize: 14,
+            //         //           fontWeight: FontWeight.w500,
+            //         //         ),
+            //         //       ),
+            //         //     ),
+            //         //   ],
+            //         // ),
+            //         // const MemberCard(),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
