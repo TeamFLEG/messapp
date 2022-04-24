@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../theme/palette.dart';
 import '../../widgets/custom_appbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MessMenu extends StatefulWidget {
   const MessMenu({Key? key}) : super(key: key);
@@ -12,6 +14,8 @@ class MessMenu extends StatefulWidget {
 
 class _MessMenuState extends State<MessMenu> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  User user = FirebaseAuth.instance.currentUser!;
 
   // static const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -40,11 +44,11 @@ class _MessMenuState extends State<MessMenu> {
               // ),
               Expanded(
                 child: DefaultTabController(
-                  length: 7,
+                  length: 2,
                   initialIndex: 0,
                   child: Column(
-                    children: const [
-                      TabBar(
+                    children: [
+                      const TabBar(
                         isScrollable: true,
                         labelColor: Palette.myMaroon,
                         // labelStyle: FlutterFlowTheme.of(context).bodyText1,
@@ -54,58 +58,84 @@ class _MessMenuState extends State<MessMenu> {
                             text: 'Sun',
                           ),
                           Tab(
-                            text: 'Mon',
-                          ),
-                          Tab(
-                            text: 'Tue',
-                          ),
-                          Tab(
-                            text: 'Wed',
-                          ),
-                          Tab(
-                            text: 'Thu',
-                          ),
-                          Tab(
-                            text: 'Fri',
-                          ),
-                          Tab(
-                            text: 'Sat',
-                          ),
+                             text: 'Mon',
+                           ),
+                          // Tab(
+                          //   text: 'Tue',
+                          // ),
+                          // Tab(
+                          //   text: 'Wed',
+                          // ),
+                          // Tab(
+                          //   text: 'Thu',
+                          // ),
+                          // Tab(
+                          //   text: 'Fri',
+                          // ),
+                          // Tab(
+                          //   text: 'Sat',
+                          // ),
                         ],
                       ),
                       Expanded(
-                        child: TabBarView(
-                          children: [
-                            MenuSection(
-                                mrng: "Bread & Jam",
-                                noon: "Sadhya",
-                                night: "Kanji"),
-                            MenuSection(
-                                mrng: "Idly & Sambar",
-                                noon: "Rice & Fish",
-                                night: "Chicken Biriyani"),
-                            MenuSection(
-                                mrng: "Puttu & Kadala",
-                                noon: "Rice & Chicken",
-                                night: "Poori & Bhaaji"),
-                            MenuSection(
-                                mrng: "Dosa & Sambar",
-                                noon: "Rice & Egg",
-                                night: "Idiyappam & Kadala"),
-                            MenuSection(
-                                mrng: "Poori Masala",
-                                noon: "Rice & Fish",
-                                night: "Chicken Biriyani"),
-                            MenuSection(
-                                mrng: "Idly & Sambar",
-                                noon: "Rice & Egg",
-                                night: "Noolputtu"),
-                            MenuSection(
-                                mrng: "Idly & Sambar",
-                                noon: "Rice & Fish",
-                                night: "Puttu & Fish"),
-                          ],
+                        child: FutureBuilder<QuerySnapshot>(
+                          future: FirebaseFirestore.instance
+                              .collection('meal')
+                              .get(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasData) {
+                              print(snapshot.data!.docs);
+                              return TabBarView(
+                                children: snapshot.data!.docs.map((doc) {
+                                  return MenuSection(
+                                      mrng: doc['breakfast'],
+                                      noon: doc['lunch'],
+                                      night: doc['dinner']);
+                                }).toList(),
+                              );
+                            } else {
+                              // or your loading widget here
+                              return const SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator());
+                            }
+                          },
                         ),
+
+                        // TabBarView(
+                        //   children: [
+                        //     // MenuSection(
+                        //     //     mrng: "Bread & Jam",
+                        //     //     noon: "Sadhya",
+                        //     //     night: "Kanji"),
+                        //     MenuSection(
+                        //         mrng: "Idly & Sambar",
+                        //         noon: "Rice & Fish",
+                        //         night: "Chicken Biriyani"),
+                        //     MenuSection(
+                        //         mrng: "Puttu & Kadala",
+                        //         noon: "Rice & Chicken",
+                        //         night: "Poori & Bhaaji"),
+                        //     MenuSection(
+                        //         mrng: "Dosa & Sambar",
+                        //         noon: "Rice & Egg",
+                        //         night: "Idiyappam & Kadala"),
+                        //     MenuSection(
+                        //         mrng: "Poori Masala",
+                        //         noon: "Rice & Fish",
+                        //         night: "Chicken Biriyani"),
+                        //     MenuSection(
+                        //         mrng: "Idly & Sambar",
+                        //         noon: "Rice & Egg",
+                        //         night: "Noolputtu"),
+                        //     MenuSection(
+                        //         mrng: "Idly & Sambar",
+                        //         noon: "Rice & Fish",
+                        //         night: "Puttu & Fish"),
+                        //   ],
+                        // ),
                       ),
                     ],
                   ),
