@@ -28,8 +28,9 @@ class _UserMessCutState extends State<UserMessCut> {
         .catchError((error) => print("Failed to add mess cut: $error"));
   }
 
+  DateTime lastDayCurrentMonth = DateTime.utc(DateTime.now().year,DateTime.now().month,DateTime.now().day+10);
   DateTimeRange dateRange =
-      DateTimeRange(start: DateTime(2022, 4, 1), end: DateTime(2022, 5, 1));
+      DateTimeRange(start: DateTime.now(), end: DateTime(2022, 4, 29));
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class _UserMessCutState extends State<UserMessCut> {
                         Text('To'),
                         ElevatedButton(
                           onPressed: pickDateRange,
-                          child: Text(DateFormat('dd/MM/yyyy').format(end)),
+                          child: Text(DateFormat('dd/MM/yyyy').format(lastDayCurrentMonth)),
                         ),
                       ],
                     ),
