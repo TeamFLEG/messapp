@@ -179,7 +179,7 @@ class _AddTransactionState extends State<AddTransaction> {
     final loggedInUser = FirebaseAuth.instance.currentUser!;
     final transactionDoc = FirebaseFirestore.instance
         .collection('transactions')
-        .doc(loggedInUser.uid);
+        .doc(transactionTS.toString());
     Map<String, dynamic> transaction = {
       'messID': loggedInUser.uid,
       'amount': amount,
@@ -187,8 +187,7 @@ class _AddTransactionState extends State<AddTransaction> {
       'fullName': fullName,
       'paymentDate': paymentDate,
     };
-    transactionDoc.set(
-        {'$transactionTS': transaction}, SetOptions(merge: true)).then((value) {
+    transactionDoc.set(transaction).then((value) {
       SnackBarMessage.snackBarMessage(
           content: 'Transaction added successfully', context: context);
     }).onError(

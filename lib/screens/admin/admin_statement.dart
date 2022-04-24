@@ -36,10 +36,8 @@ class _AdminStatementState extends State<AdminStatement> {
         FirebaseFirestore.instance.collection('admin');
     User user = FirebaseAuth.instance.currentUser!;
     return RefreshIndicator(
-      onRefresh: () async{
-        setState(() {
-          
-        });
+      onRefresh: () async {
+        setState(() {});
       },
       child: Scaffold(
         // backgroundColor: Colors.white,
@@ -61,17 +59,17 @@ class _AdminStatementState extends State<AdminStatement> {
                         if (snapshot.hasError) {
                           return Text("Something went wrong");
                         }
-    
+
                         if (snapshot.hasData && !snapshot.data!.exists) {
                           return Text("Document does not exist");
                         }
-    
+
                         if (snapshot.connectionState == ConnectionState.done) {
                           Map<String, dynamic> data =
                               snapshot.data!.data() as Map<String, dynamic>;
                           return Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 24, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -88,9 +86,8 @@ class _AdminStatementState extends State<AdminStatement> {
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0, 8, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 8, 0, 0),
                                         child: Text(
                                           "${data['effectiveDays']}",
                                           style: const TextStyle(
@@ -123,9 +120,8 @@ class _AdminStatementState extends State<AdminStatement> {
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0, 8, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 8, 0, 0),
                                         child: Text(
                                           "₹${data['expense']}",
                                           style: const TextStyle(
@@ -143,13 +139,14 @@ class _AdminStatementState extends State<AdminStatement> {
                             ),
                           );
                         }
-    
+
                         return const CircularProgressIndicator();
                       },
                     ),
-    
+
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Update data",
                           action: () {
@@ -158,7 +155,8 @@ class _AdminStatementState extends State<AdminStatement> {
                           }),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Add Transaction",
                           action: () {
@@ -175,7 +173,8 @@ class _AdminStatementState extends State<AdminStatement> {
                     //       }),
                     // ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Generate Bill",
                           action: () async {
@@ -236,7 +235,8 @@ class _AdminStatementState extends State<AdminStatement> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: const [
@@ -260,16 +260,19 @@ class _AdminStatementState extends State<AdminStatement> {
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasData) {
+                      var data = snapshot.data!.docs;
+                      print('It has data ${data.length}');
                       return ListView(
                         shrinkWrap: true,
                         children: snapshot.data!.docs.map((doc) {
+                          print(doc['fullName']);
                           return PayCard(
                               name: doc['fullName'],
                               amt: doc['amount'].toString());
                         }).toList(),
                       );
                     } else if (snapshot.hasError) {
-                      return const Text("Something went wrong");
+                      return Text("Something went  ${snapshot.error}");
                     } else {
                       // or your loading widget here
                       return const CircularProgressIndicator();
