@@ -12,6 +12,15 @@ class DatabaseManager {
 
   User user = FirebaseAuth.instance.currentUser!;
 
+  Future<bool> checkIfAdmin(id) async {
+    final admin = await adminRef.doc(id).get();
+    if (admin.exists) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<List<Object?>> getMC() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
