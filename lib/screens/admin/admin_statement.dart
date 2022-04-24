@@ -188,7 +188,7 @@ class _AdminStatementState extends State<AdminStatement> {
                       mainAxisSize: MainAxisSize.max,
                       children: const [
                         Text(
-                          'Member Bill Amounts',
+                          'Member Bill',
                         ),
                       ],
                     ),

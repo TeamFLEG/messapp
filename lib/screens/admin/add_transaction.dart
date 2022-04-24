@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:messapp/theme/palette.dart';
+import 'package:intl/intl.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
-
+import 'package:messapp/widgets/snack_bar_message.dart';
+import 'package:messapp/models/transaction.dart';
+import '../../main.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key}) : super(key: key);
@@ -11,17 +15,20 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _textController1;
   late TextEditingController _textController2;
   late TextEditingController _textController3;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String dateinput = '';
 
   @override
   void initState() {
     super.initState();
-     _textController1 = TextEditingController();
-     _textController2 = TextEditingController();
-     _textController3 = TextEditingController();
+    _textController1 = TextEditingController();
+    _textController2 = TextEditingController();
+    _textController3 = TextEditingController();
+    dateinput = "";
   }
 
   @override
@@ -31,262 +38,164 @@ class _AddTransactionState extends State<AddTransaction> {
       appBar: const CustomAppBar(head: "Add Transaction"),
       backgroundColor: const Color(0xFFF7F7F8),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                           controller: _textController1,
-                          obscureText: false,
-                          decoration: const InputDecoration(
-                            labelText: '         ₹Amount',
-                            labelStyle: TextStyle(
-                              fontFamily: 'DM Sans',
-                              color: Color(0xFF82878C),
-                              fontSize: 42,
-                            ),
-                            hintStyle: TextStyle(
-                              fontFamily: 'DM Sans',
-                              color: Color(0xFF8B97A2),
-                              fontSize: 42,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius:  BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                          ),
-                          style: const TextStyle(
-                            fontFamily: 'DM Sans',
-                            color: Color(0xFF4B39EF),
-                            fontSize: 42,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Manual Transaction Entry",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30.0,
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 70,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(24, 16, 24, 8),
-                          child: TextFormField(
-                             controller: _textController2,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'Name',
-                              labelStyle: const TextStyle(
-                                 fontFamily: 'Lexend Deca',
-                                 color: Color(0xFF8B97A2),
-                                 fontSize: 14,
-                                 fontWeight: FontWeight.normal,
-                              ),
-                              // labelStyle: FlutterFlowTheme.of(context)
-                              //     .bodyText2
-                              //     .override(
-                              //       fontFamily: 'Lexend Deca',
-                              //       color: Color(0xFF8B97A2),
-                              //       fontSize: 14,
-                              //       fontWeight: FontWeight.normal,
-                              //     ),
-                              // hintStyle: FlutterFlowTheme.of(context)
-                              //     .bodyText2
-                              //     .override(
-                              //       fontFamily: 'Lexend Deca',
-                              //       color: Color(0xFF8B97A2),
-                              //       fontSize: 14,
-                              //       fontWeight: FontWeight.normal,
-                              //     ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDCE0E4),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDCE0E4),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            style:
-                            const TextStyle(
-                                 fontFamily: 'Lexend Deca',
-                                 color: Color(0xFF0F181F),
-                                 fontSize: 14,
-                                 fontWeight: FontWeight.normal,
-                              ),
-                                // FlutterFlowTheme.of(context).bodyText2.override(
-                                //       fontFamily: 'Lexend Deca',
-                                //       color: Color(0xFF0F181F),
-                                //       fontSize: 14,
-                                //       fontWeight: FontWeight.normal,
-                                //     ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Complete the details to continue",
+                  style: TextStyle(
+                    fontSize: 15.0,
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
+                const SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  controller: _textController1,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: "Amount",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(24, 0, 24, 24),
-                          child: TextFormField(
-                            controller: _textController3,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'Date',
-                              labelStyle: const TextStyle(
-                                 fontFamily: 'Lexend Deca',
-                                 color: Color(0xFF8B97A2),
-                                 fontSize: 14,
-                                 fontWeight: FontWeight.normal,
-                              ),
-                              // hintStyle: FlutterFlowTheme.of(context)
-                              //     .bodyText2
-                              //     .override(
-                              //       fontFamily: 'Lexend Deca',
-                              //       color: Color(0xFF8B97A2),
-                              //       fontSize: 14,
-                              //       fontWeight: FontWeight.normal,
-                              //     ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDCE0E4),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDCE0E4),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            style: const TextStyle(
-                                 fontFamily: 'Lexend Deca',
-                                 color: Color(0xFF0F181F),
-                                 fontSize: 14,
-                                 fontWeight: FontWeight.normal,
-                              ),
-                                // FlutterFlowTheme.of(context).bodyText2.override(
-                                //       fontFamily: 'Lexend Deca',
-                                //       color: Color(0xFF0F181F),
-                                //       fontSize: 14,
-                                //       fontWeight: FontWeight.normal,
-                                //     ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Amount is required';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextField(
+                  controller: _textController2,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "Full Name",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: const Color.fromRGBO(239, 239, 239, 1.0),
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+                const SizedBox(
+                  height: 15,
+                ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: TextField(
+                    controller:
+                        _textController3, //editing controller of this TextField
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.calendar_today), //icon of text field
+                        labelText: "Payment Date" //label text of field
+                        ),
+                    readOnly:
+                        true, //set it true, so that user will not able to edit text
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(
+                              2000), //DateTime.now() - not to allow to choose before today.
+                          lastDate: DateTime(2101));
+
+                      if (pickedDate != null) {
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+
+                        setState(() {
+                          _textController3.text =
+                              formattedDate; //set output date to TextField value.
+                        });
+                      } else {
+                        SnackBarMessage.snackBarMessage(
+                            content: 'Date is not selected', context: context);
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: ElevatedButton(
-          onPressed: () => print('Button pressed ...'),
-          child: const Text('Create Transaction'),
-           
-        ),
-                  // child: FFButtonWidget(
-                  //   onPressed: () {
-                  //     print('Button pressed ...');
-                  //   },
-                  //   text: 'Create Transaction',
-                  //   options: FFButtonOptions(
-                  //     width: 230,
-                  //     height: 50,
-                  //     color: FlutterFlowTheme.of(context).primaryColor,
-                  //     textStyle:
-                  //         FlutterFlowTheme.of(context).subtitle2.override(
-                  //               fontFamily: 'Lexend Deca',
-                  //               color: Colors.white,
-                  //               fontSize: 16,
-                  //               fontWeight: FontWeight.w500,
-                  //             ),
-                  //     elevation: 2,
-                  //     borderSide: BorderSide(
-                  //       color: Colors.transparent,
-                  //       width: 1,
-                  //     ),
-                  //     borderRadius: 8,
-                  //   ),
-                  // ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        createTransaction(
+                          amount: double.parse(_textController1.text),
+                          fullName: _textController2.text,
+                          messID: FirebaseAuth.instance.currentUser!.uid,
+                          transactionTS: Timestamp.now(),
+                          paymentDate: _textController3.text,
+                        );
+                      }
+                    },
+                    child: const Text("Complete Process"),
+                  ),
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
+  }
+
+  Future createTransaction({
+    required String messID,
+    required double amount,
+    required String fullName,
+    required Timestamp transactionTS,
+    String paymentDate = '',
+  }) async {
+    // Referencing to the document
+    final loggedInUser = FirebaseAuth.instance.currentUser!;
+    final transactionDoc = FirebaseFirestore.instance
+        .collection('transactions')
+        .doc(loggedInUser.uid);
+    final transaction = Transactions(
+      messID: loggedInUser.uid,
+      amount: amount,
+      transactionTS: transactionTS,
+      fullName: fullName,
+      paymentDate: paymentDate,
+    );
+    final transactionJSON = transaction.toJSON();
+    try {
+      await transactionDoc.set(transactionJSON);
+      navigatorKey.currentState!.pop();
+      SnackBarMessage.snackBarMessage(
+          content: 'Transaction added successfully', context: context);
+    } catch (e) {
+      SnackBarMessage.snackBarMessage(
+          content: "Error occurred. Please try again", context: context);
+    }
   }
 }
