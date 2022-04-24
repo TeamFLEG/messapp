@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
 import '../../theme/palette.dart';
 import '../../widgets/custom_appbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../main.dart';
 
 class MessMenu extends StatefulWidget {
   const MessMenu({Key? key}) : super(key: key);
@@ -23,9 +24,15 @@ class _MessMenuState extends State<MessMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+
       // floatingActionButton: FloatingActionButton(onPressed: () { Navigator.pushNamed(context, "/edit-food-menu"); },
       // child: const Icon(Icons.edit)),
       appBar: const CustomAppBar(head: "Menu"),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            navigatorKey.currentState!.popAndPushNamed('/edit-food-menu');
+          },
+          child: const Icon(Icons.edit)),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: GestureDetector(
@@ -204,15 +211,6 @@ class MenuCard extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-                            GestureDetector(
-                                child: const Icon(
-                                  Icons.edit_outlined,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/edit-food-menu');
-                                }),
                           ],
                         ),
                       ),
