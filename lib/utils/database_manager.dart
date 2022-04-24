@@ -80,6 +80,22 @@ class DatabaseManager {
     return pdc;
   }
 
+  Future<int> getEstFees(BuildContext context) async {
+    var est = 0;
+    try {
+      await adminRef
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get()
+          .then((value) {
+        est = value['establishmentFees'];
+      });
+    } catch (e) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Error occurred!', context: context);
+    }
+    return est;
+  }
+
   Future<int> getEffectiveDays(BuildContext context) async {
     var efd = 0;
     try {
@@ -96,11 +112,12 @@ class DatabaseManager {
     return efd;
   }
 
-  Future<void> addBillDetails(int ed, int expense, BuildContext context) {
+  Future<void> addBillDetails(
+      int ed, int expense, int pdc, BuildContext context) {
     return adminRef.doc(user.uid).set({
       'effectiveDays': ed,
-      'expense': expense,
-      'perDayCost': (expense / ed).ceil(),
+      'establishmentFees': expense,
+      'perDayCost': pdc,
     }, SetOptions(merge: true)).then((value) {
       SnackBarMessage.snackBarMessage(
           content: 'Bill added successfully', context: context);
@@ -133,9 +150,12 @@ class DatabaseManager {
       int perDayCost = await getPerDayCost(context);
       int effDays = await getEffectiveDays(context);
       int userCount = await getUserCount();
+      int establishmentFees = await getEstFees(context);
       querySnapshot.docs.forEach((element) {
         var messcut = element['messcut'];
-        var result = (perDayCost * (effDays - messcut)) / userCount;
+        var result = (perDayCost * (effDays - messcut)) +
+            (establishmentFees / userCount);
+        print(result);
         userRef.doc(element.id).update({'billAmount': result});
       });
     });

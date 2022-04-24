@@ -113,14 +113,14 @@ class _AdminStatementState extends State<AdminStatement> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Text(
-                                          'Expense',
+                                          'Establishment Fees',
                                         ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional
                                             .fromSTEB(0, 8, 0, 0),
                                         child: Text(
-                                          "₹${data['expense']}",
+                                          "₹${data['establishmentFees']}",
                                           style: const TextStyle(
                                             fontFamily: 'Open Sans',
                                             color: Palette.myMaroon,
@@ -292,12 +292,14 @@ class _UpdateBillDataState extends State<UpdateBillData> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _edController;
   late TextEditingController _expenseController;
+  late TextEditingController _pdcController;
 
   @override
   void initState() {
     super.initState();
     _edController = TextEditingController();
     _expenseController = TextEditingController();
+    _pdcController = TextEditingController();
   }
 
   @override
@@ -333,7 +335,22 @@ class _UpdateBillDataState extends State<UpdateBillData> {
                       controller: _expenseController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                        labelText: "Add Expense",
+                        labelText: "Add Establishment Expense",
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (String? value) {
+                        if (value != null && int.parse(value) > 0) {
+                          return 'Value must be greater than 0';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _pdcController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "Enter per day cost",
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? value) {
@@ -349,6 +366,7 @@ class _UpdateBillDataState extends State<UpdateBillData> {
                         DatabaseManager().addBillDetails(
                           int.parse(_edController.text),
                           int.parse(_expenseController.text),
+                          int.parse(_pdcController.text),
                           context,
                         );
                         navigatorKey.currentState!.pop();
