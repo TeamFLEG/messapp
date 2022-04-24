@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
-import 'package:messapp/theme/palette.dart';
 
 class AdminAttendance extends StatefulWidget {
   const AdminAttendance({Key? key}) : super(key: key);

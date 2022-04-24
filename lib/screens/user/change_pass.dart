@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/main.dart';
 import 'package:messapp/utils/authentication.dart';
@@ -27,7 +26,6 @@ class _ChangePassState extends State<ChangePass> {
 
   @override
   Widget build(BuildContext context) {
-    User user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: const CustomAppBar(head: "Change Password"),
       body: Form(

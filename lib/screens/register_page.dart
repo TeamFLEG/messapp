@@ -1,8 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:messapp/main.dart';
 import 'package:messapp/utils/authentication.dart';
 import 'package:messapp/widgets/main_heading.dart';
+import 'package:messapp/widgets/snack_bar_message.dart';
 import '../widgets/google_sign_in_button.dart';
 
 class RegisterPage extends StatefulWidget {

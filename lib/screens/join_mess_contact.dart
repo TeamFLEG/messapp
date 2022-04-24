@@ -38,7 +38,6 @@ class JoinMessContact extends StatelessWidget {
         return const Text("loading");
       },
     );
-    ;
   }
 }
 
@@ -68,7 +67,7 @@ class MessContact extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                   height: 240,
                   child: Stack(
                     alignment: const AlignmentDirectional(-0.95, -0.7),
@@ -142,13 +141,13 @@ class MessContact extends StatelessWidget {
                         'Mess Manager',
                         style: TextStyle(
                           fontFamily: 'Lexend Deca',
-                          color: const Color(0xFF95A1AC),
+                          color: Color(0xFF95A1AC),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                         child: Text(
                           owner,
                           textAlign: TextAlign.start,

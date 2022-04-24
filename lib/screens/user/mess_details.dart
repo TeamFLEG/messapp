@@ -163,7 +163,7 @@ class MessDetailWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 240,
                 child: Stack(
                   alignment: const AlignmentDirectional(-0.95, -0.7),
@@ -249,7 +249,7 @@ class MessDetailWidget extends StatelessWidget {
                         textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontFamily: 'Lexend Deca',
-                          color: const Color(0xFF090F13),
+                          color: Color(0xFF090F13),
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
@@ -332,7 +332,7 @@ class MessDetailWidget extends StatelessWidget {
                           textAlign: TextAlign.start,
                           style: const TextStyle(
                             fontFamily: 'Lexend Deca',
-                            color: const Color(0xFF090F13),
+                            color: Color(0xFF090F13),
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),

@@ -1,3 +1,5 @@
+import 'package:messapp/utils/database_manager.dart';
+
 import '../main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/snack_bar_message.dart';
@@ -10,7 +12,8 @@ class Authentication {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      FirebaseAuth.instance.currentUser!.updateDisplayName(name);
+      User user = FirebaseAuth.instance.currentUser!;
+      user.updateDisplayName(name);
       navigatorKey.currentState!.pushNamed('/mess-select');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -39,9 +42,13 @@ class Authentication {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      print(userCredential);
-      // TODO: Route based on user role (admin and customer)
-      navigatorKey.currentState!.pushNamed('/admin-dashboard');
+      User? user = userCredential.user!;
+      bool isAdmin = await DatabaseManager().checkIfAdmin(user.uid);
+      if (isAdmin) {
+        navigatorKey.currentState!.pushNamed('/admin-dashboard');
+      } else {
+        navigatorKey.currentState!.pushNamed('/user-dashboard');
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         SnackBarMessage.snackBarMessage(
@@ -78,7 +85,6 @@ class Authentication {
     final bool status;
     try {
       status = await isGoogleSignedIn;
-      print(status);
       if (status) {
         await _googleSignIn.disconnect();
       }
@@ -147,10 +153,12 @@ class Authentication {
   static Future changePassword(String newPassword, BuildContext context) async {
     try {
       FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
-    } on FirebaseAuthException catch(e) {
-      SnackBarMessage.snackBarMessage(content: 'Error occurred with error message $e', context: context);
-    } catch(e) {
-      SnackBarMessage.snackBarMessage(content: 'Error occurred with error message $e', context: context);
+    } on FirebaseAuthException catch (e) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Error occurred with error message $e', context: context);
+    } catch (e) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Error occurred with error message $e', context: context);
     }
   }
 

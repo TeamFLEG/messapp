@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/screens/dashboard_model.dart';
-import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/content_text.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 
@@ -101,11 +100,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     builder: (BuildContext context,
                         AsyncSnapshot<DocumentSnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        return Text("Something went wrong");
+                        return const Text("Something went wrong");
                       }
     
                       if (snapshot.hasData && !snapshot.data!.exists) {
-                        return Text("Document does not exist");
+                        return const Text("Document does not exist");
                       }
     
                       if (snapshot.connectionState == ConnectionState.done) {
@@ -125,7 +124,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           ),
                         );
                       }
-                      return Text("Loading");
+                      return const Text("Loading");
                     },
                   ),
                   Column(

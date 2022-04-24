@@ -6,9 +6,7 @@ import 'package:messapp/theme/palette.dart';
 import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/widgets/primary_button.dart';
-import 'package:messapp/screens/admin/add_transaction.dart';
 
-import '../../utils/authentication.dart';
 import '../../utils/database_manager.dart';
 
 class AdminStatement extends StatefulWidget {
@@ -24,7 +22,6 @@ class _AdminStatementState extends State<AdminStatement> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     effectiveDays = 0;
     expense = 0;
@@ -36,10 +33,8 @@ class _AdminStatementState extends State<AdminStatement> {
         FirebaseFirestore.instance.collection('admin');
     User user = FirebaseAuth.instance.currentUser!;
     return RefreshIndicator(
-      onRefresh: () async{
-        setState(() {
-          
-        });
+      onRefresh: () async {
+        setState(() {});
       },
       child: Scaffold(
         // backgroundColor: Colors.white,
@@ -59,19 +54,19 @@ class _AdminStatementState extends State<AdminStatement> {
                       builder: (BuildContext context,
                           AsyncSnapshot<DocumentSnapshot> snapshot) {
                         if (snapshot.hasError) {
-                          return Text("Something went wrong");
+                          return const Text("Something went wrong");
                         }
-    
+
                         if (snapshot.hasData && !snapshot.data!.exists) {
-                          return Text("Document does not exist");
+                          return const Text("Document does not exist");
                         }
-    
+
                         if (snapshot.connectionState == ConnectionState.done) {
                           Map<String, dynamic> data =
                               snapshot.data!.data() as Map<String, dynamic>;
                           return Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 24, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -88,9 +83,8 @@ class _AdminStatementState extends State<AdminStatement> {
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0, 8, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 8, 0, 0),
                                         child: Text(
                                           "${data['effectiveDays']}",
                                           style: const TextStyle(
@@ -119,15 +113,14 @@ class _AdminStatementState extends State<AdminStatement> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Text(
-                                          'Expense',
+                                          'Establishment Fees',
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0, 8, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 8, 0, 0),
                                         child: Text(
-                                          "₹${data['expense']}",
+                                          "₹${data['establishmentFees']}",
                                           style: const TextStyle(
                                             fontFamily: 'Open Sans',
                                             color: Palette.myMaroon,
@@ -143,13 +136,14 @@ class _AdminStatementState extends State<AdminStatement> {
                             ),
                           );
                         }
-    
+
                         return const CircularProgressIndicator();
                       },
                     ),
-    
+
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Update data",
                           action: () {
@@ -158,7 +152,8 @@ class _AdminStatementState extends State<AdminStatement> {
                           }),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Add Transaction",
                           action: () {
@@ -175,12 +170,12 @@ class _AdminStatementState extends State<AdminStatement> {
                     //       }),
                     // ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
                       child: PrimaryButton(
                           btnName: "Generate Bill",
                           action: () async {
-                            print('Generate bill pressed');
-                            DatabaseManager().generateBill();
+                            DatabaseManager().generateBill(context);
                           }),
                     ),
                     const Divider(
@@ -236,7 +231,8 @@ class _AdminStatementState extends State<AdminStatement> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: const [
@@ -269,7 +265,7 @@ class _AdminStatementState extends State<AdminStatement> {
                         }).toList(),
                       );
                     } else if (snapshot.hasError) {
-                      return const Text("Something went wrong");
+                      return Text("Something went  ${snapshot.error}");
                     } else {
                       // or your loading widget here
                       return const CircularProgressIndicator();
@@ -296,12 +292,14 @@ class _UpdateBillDataState extends State<UpdateBillData> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _edController;
   late TextEditingController _expenseController;
+  late TextEditingController _pdcController;
 
   @override
   void initState() {
     super.initState();
     _edController = TextEditingController();
     _expenseController = TextEditingController();
+    _pdcController = TextEditingController();
   }
 
   @override
@@ -337,7 +335,22 @@ class _UpdateBillDataState extends State<UpdateBillData> {
                       controller: _expenseController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                        labelText: "Add Expense",
+                        labelText: "Add Establishment Expense",
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (String? value) {
+                        if (value != null && int.parse(value) > 0) {
+                          return 'Value must be greater than 0';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _pdcController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "Enter per day cost",
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? value) {
@@ -351,8 +364,11 @@ class _UpdateBillDataState extends State<UpdateBillData> {
                     ElevatedButton(
                       onPressed: () {
                         DatabaseManager().addBillDetails(
-                            int.parse(_edController.text),
-                            int.parse(_expenseController.text));
+                          int.parse(_edController.text),
+                          int.parse(_expenseController.text),
+                          int.parse(_pdcController.text),
+                          context,
+                        );
                         navigatorKey.currentState!.pop();
                       },
                       child: const Text("Update Data"),
