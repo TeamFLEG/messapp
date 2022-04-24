@@ -35,219 +35,244 @@ class _AdminStatementState extends State<AdminStatement> {
     CollectionReference adminRef =
         FirebaseFirestore.instance.collection('admin');
     User user = FirebaseAuth.instance.currentUser!;
-    return RefreshIndicator(
-      onRefresh: () async{
-        setState(() {
-          
-        });
-      },
-      child: Scaffold(
-        // backgroundColor: Colors.white,
-        appBar: const CustomAppBar(head: "Your Statement"),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(16, 24, 16, 16),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FutureBuilder<DocumentSnapshot>(
-                      future: adminRef.doc(user.uid).get(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<DocumentSnapshot> snapshot) {
-                        if (snapshot.hasError) {
-                          return Text("Something went wrong");
-                        }
-    
-                        if (snapshot.hasData && !snapshot.data!.exists) {
-                          return Text("Document does not exist");
-                        }
-    
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          Map<String, dynamic> data =
-                              snapshot.data!.data() as Map<String, dynamic>;
-                          return Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 4, 0, 0),
-                                        child: Text(
-                                          'No. of working days',
+    return Scaffold(
+      // backgroundColor: Colors.white,
+      appBar: const CustomAppBar(head: "Your Statement"),
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 24, 16, 16),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FutureBuilder<DocumentSnapshot>(
+                    future: adminRef.doc(user.uid).get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text("Something went wrong");
+                      }
+
+                      if (snapshot.hasData && !snapshot.data!.exists) {
+                        return Text("Document does not exist");
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        Map<String, dynamic> data =
+                            snapshot.data!.data() as Map<String, dynamic>;
+                        return Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 4, 0, 0),
+                                      child: Text(
+                                        'No. of working days',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 8, 0, 0),
+                                      child: Text(
+                                        "${data['effectiveDays']}",
+                                        style: const TextStyle(
+                                          fontFamily: 'Open Sans',
+                                          color: Palette.myMaroon,
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0, 8, 0, 0),
-                                        child: Text(
-                                          "${data['effectiveDays']}",
-                                          style: const TextStyle(
-                                            fontFamily: 'Open Sans',
-                                            color: Palette.myMaroon,
-                                            fontSize: 32,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  width: 2,
-                                  height: 100,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.grey,
-                                  ),
+                              ),
+                              Container(
+                                width: 2,
+                                height: 100,
+                                decoration: const BoxDecoration(
+                                  color: Colors.grey,
                                 ),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 4, 0, 0),
-                                        child: Text(
-                                          'Expense',
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 4, 0, 0),
+                                      child: Text(
+                                        'Expense',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 8, 0, 0),
+                                      child: Text(
+                                        "₹${data['expense']}",
+                                        style: const TextStyle(
+                                          fontFamily: 'Open Sans',
+                                          color: Palette.myMaroon,
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0, 8, 0, 0),
-                                        child: Text(
-                                          "₹${data['expense']}",
-                                          style: const TextStyle(
-                                            fontFamily: 'Open Sans',
-                                            color: Palette.myMaroon,
-                                            fontSize: 32,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        }
-    
-                        return const CircularProgressIndicator();
-                      },
-                    ),
-    
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
-                      child: PrimaryButton(
-                          btnName: "Update data",
-                          action: () {
-                            navigatorKey.currentState!
-                                .pushNamed('/update-bill-data');
-                          }),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
-                      child: PrimaryButton(
-                          btnName: "Add Transaction",
-                          action: () {
-                            Navigator.pushNamed(context, '/add-transaction');
-                          }),
-                    ),
-                    // Padding(
-                    //   padding:
-                    //       const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
-                    //   child: PrimaryButton(
-                    //       btnName: "Show all Transactions",
-                    //       action: () {
-                    //         print("button pressed....");
-                    //       }),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
-                      child: PrimaryButton(
-                          btnName: "Generate Bill",
-                          action: () async {
-                            print('Generate bill pressed');
-                            DatabaseManager().generateBill();
-                          }),
-                    ),
-                    const Divider(
-                      height: 24,
-                      thickness: 2,
-                      color: Colors.grey,
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: const [
-                          Text(
-                            'Member Bill',
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    // ListView(
-                    //   padding: EdgeInsets.zero,
-                    //   primary: false,
-                    //   shrinkWrap: true,
-                    //   scrollDirection: Axis.vertical,
-                    //   children: const [
-                    //     PayCard(name: "Revanth", amt: "1500"),
-                    //     PayCard(name: "Rohith", amt: "1500"),
-                    //     PayCard(name: "Sharun", amt: "1500"),
-                    //     PayCard(name: "Sreehari", amt: "1500"),
-                    //   ],
-                    // ),
-                  ],
-                ),
+                        );
+                      }
+
+                      return const CircularProgressIndicator();
+                    },
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                    child: PrimaryButton(
+                        btnName: "Update data",
+                        action: () {
+                          navigatorKey.currentState!
+                              .pushNamed('/update-bill-data');
+                        }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                    child: PrimaryButton(
+                        btnName: "Add Transaction",
+                        action: () {
+                          Navigator.pushNamed(context, '/add-transaction');
+                        }),
+                  ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                  //   child: PrimaryButton(
+                  //       btnName: "Show all Transactions",
+                  //       action: () {
+                  //         print("button pressed....");
+                  //       }),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 12),
+                    child: PrimaryButton(
+                        btnName: "Generate Bill",
+                        action: () async {
+                          print('Generate bill pressed');
+                          DatabaseManager().generateBill();
+                        }),
+                  ),
+                  const Divider(
+                    height: 24,
+                    thickness: 2,
+                    color: Colors.grey,
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: FutureBuilder<QuerySnapshot>(
-                  future: FirebaseFirestore.instance
-                      .collection('user')
-                      .where('messID', isEqualTo: user.uid)
-                      .get(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView(
-                        shrinkWrap: true,
-                        children: snapshot.data!.docs.map((doc) {
-                          return PayCard(
-                              name: doc['fullName'],
-                              amt: doc['billAmount'].toString());
-                        }).toList(),
-                      );
-                    } else {
-                      // or your loading widget here
-                      return const SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: CircularProgressIndicator());
-                    }
-                  },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Text(
+                  'Member Bill',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  textAlign: TextAlign.center,
                 ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection('user')
+                    .where('messID', isEqualTo: user.uid)
+                    .get(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView(
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((doc) {
+                        return PayCard(
+                            name: doc['fullName'],
+                            amt: doc['billAmount'].toString());
+                      }).toList(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text("Something went wrong");
+                  } else {
+                    // or your loading widget here
+                    return const CircularProgressIndicator();
+                  }
+                },
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Text(
+                  'Transactions',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection('transactions')
+                    .where('messID', isEqualTo: user.uid)
+                    .get(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView(
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((doc) {
+                        return PayCard(
+                            name: doc['fullName'],
+                            amt: doc['amount'].toString());
+                      }).toList(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text("Something went wrong");
+                  } else {
+                    // or your loading widget here
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -378,7 +403,7 @@ class PayCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: Text(
@@ -387,27 +412,25 @@ class PayCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 1,
                   child: Align(
                     alignment: const AlignmentDirectional(0, 0),
                     child: Text(
                       amt,
-                      style: const TextStyle(
-                        fontFamily: 'Open Sans',
-                      ),
+                      textAlign: TextAlign.right,
                     ),
                   ),
                 ),
-                const Expanded(
-                  child: Align(
-                    alignment: AlignmentDirectional(0.9, 0),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Color(0xFF95A1AC),
-                      size: 18,
-                    ),
-                  ),
-                ),
+                // const Expanded(
+                //   child: Align(
+                //     alignment: AlignmentDirectional(0.9, 0),
+                //     child: Icon(
+                //       Icons.arrow_forward_ios,
+                //       color: Color(0xFF95A1AC),
+                //       size: 18,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
