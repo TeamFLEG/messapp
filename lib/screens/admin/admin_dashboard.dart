@@ -153,13 +153,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                             cardAction: () {
                               Navigator.pushNamed(context, '/mess-members');
                             }),
-                        DashboardCard(
-                            cardIcon: Icons.payment,
-                            cardName: "View Feedbacks",
-                            cardColor: const Color(0xFF99D5F3),
-                            cardAction: () {
-                              Navigator.pushNamed(context, '/view-feedbacks');
-                            }),
+                        // DashboardCard(
+                        //     cardIcon: Icons.payment,
+                        //     cardName: "View Feedbacks",
+                        //     cardColor: const Color(0xFF99D5F3),
+                        //     cardAction: () {
+                        //       Navigator.pushNamed(context, '/view-feedbacks');
+                        //     }),
                       ],
                     ),
                   ],
