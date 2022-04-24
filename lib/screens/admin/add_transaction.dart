@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/widgets/snack_bar_message.dart';
-import 'package:messapp/models/transaction.dart';
-import '../../main.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key}) : super(key: key);
@@ -46,7 +44,7 @@ class _AddTransactionState extends State<AddTransaction> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 const Text(

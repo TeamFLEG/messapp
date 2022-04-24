@@ -6,9 +6,7 @@ import 'package:messapp/theme/palette.dart';
 import 'package:messapp/utils/database_manager.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/widgets/primary_button.dart';
-import 'package:messapp/screens/admin/add_transaction.dart';
 
-import '../../utils/authentication.dart';
 import '../../utils/database_manager.dart';
 
 class AdminStatement extends StatefulWidget {
@@ -24,7 +22,6 @@ class _AdminStatementState extends State<AdminStatement> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     effectiveDays = 0;
     expense = 0;
@@ -57,11 +54,11 @@ class _AdminStatementState extends State<AdminStatement> {
                       builder: (BuildContext context,
                           AsyncSnapshot<DocumentSnapshot> snapshot) {
                         if (snapshot.hasError) {
-                          return Text("Something went wrong");
+                          return const Text("Something went wrong");
                         }
 
                         if (snapshot.hasData && !snapshot.data!.exists) {
-                          return Text("Document does not exist");
+                          return const Text("Document does not exist");
                         }
 
                         if (snapshot.connectionState == ConnectionState.done) {
@@ -178,8 +175,7 @@ class _AdminStatementState extends State<AdminStatement> {
                       child: PrimaryButton(
                           btnName: "Generate Bill",
                           action: () async {
-                            print('Generate bill pressed');
-                            DatabaseManager().generateBill();
+                            DatabaseManager().generateBill(context);
                           }),
                     ),
                     const Divider(
@@ -260,12 +256,9 @@ class _AdminStatementState extends State<AdminStatement> {
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasData) {
-                      var data = snapshot.data!.docs;
-                      print('It has data ${data.length}');
                       return ListView(
                         shrinkWrap: true,
                         children: snapshot.data!.docs.map((doc) {
-                          print(doc['fullName']);
                           return PayCard(
                               name: doc['fullName'],
                               amt: doc['amount'].toString());
@@ -354,8 +347,10 @@ class _UpdateBillDataState extends State<UpdateBillData> {
                     ElevatedButton(
                       onPressed: () {
                         DatabaseManager().addBillDetails(
-                            int.parse(_edController.text),
-                            int.parse(_expenseController.text));
+                          int.parse(_edController.text),
+                          int.parse(_expenseController.text),
+                          context,
+                        );
                         navigatorKey.currentState!.pop();
                       },
                       child: const Text("Update Data"),

@@ -7,6 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
+  // Email Verification
+  static Future<bool> verifyEmail() async {
+    try {
+      await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   // Email Authentication
   static void registerUser(name, email, password, BuildContext context) async {
     try {
@@ -14,17 +24,7 @@ class Authentication {
           .createUserWithEmailAndPassword(email: email, password: password);
       User user = FirebaseAuth.instance.currentUser!;
       user.updateDisplayName(name);
-      if (user != null && !user.emailVerified) {
-        await user.sendEmailVerification();
-      }
-      if (user.emailVerified) {
-        navigatorKey.currentState!.pushNamed('/mess-select');
-      } else {
-        SnackBarMessage.snackBarMessage(
-          content: 'Please verify your email address',
-          context: context,
-        );
-      }
+      navigatorKey.currentState!.pushNamed('/mess-select');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(

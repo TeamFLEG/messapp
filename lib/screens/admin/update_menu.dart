@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../widgets/custom_appbar.dart';
 import 'package:messapp/widgets/primary_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:messapp/widgets/snack_bar_message.dart';
 
 class UpdateMenu extends StatefulWidget {
-  UpdateMenu({Key? key, required this.day_, required this.period_})
+  const UpdateMenu({Key? key, required this.day_, required this.period_})
       : super(key: key);
 
   final String day_;
@@ -19,11 +19,13 @@ class _UpdateMenuState extends State<UpdateMenu> {
   final TextEditingController foodItem_ = TextEditingController();
 
   Future<void> updateUser(day, period, foodItem) {
-    return meal
-        .doc('$day')
-        .update({'$period': '$foodItem'})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+    return meal.doc('$day').update({'$period': '$foodItem'}).then((value) {
+      SnackBarMessage.snackBarMessage(
+          content: "User added successfully", context: context);
+    }).catchError((error) {
+      SnackBarMessage.snackBarMessage(
+          content: "Error: $error", context: context);
+    });
   }
 
   @override

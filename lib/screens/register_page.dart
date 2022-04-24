@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/utils/authentication.dart';
 import 'package:messapp/widgets/main_heading.dart';
+import 'package:messapp/widgets/snack_bar_message.dart';
 import '../widgets/google_sign_in_button.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -149,11 +150,20 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              Authentication.registerUser(
-                                  _nameController.text,
-                                  _emailController.text,
-                                  _passwordController.text,
-                                  context);
+                              bool isEmailVerified =
+                                  await Authentication.verifyEmail();
+                              if (isEmailVerified) {
+                                Authentication.registerUser(
+                                    _nameController.text,
+                                    _emailController.text,
+                                    _passwordController.text,
+                                    context);
+                              } else {
+                                SnackBarMessage.snackBarMessage(
+                                    content:
+                                        'Please verify your email and try again',
+                                    context: context);
+                              }
                             }
                           },
                           child: const Text("SignUp"),

@@ -64,7 +64,7 @@ class DatabaseManager {
     return count;
   }
 
-  Future<int> getPerDayCost() async {
+  Future<int> getPerDayCost(BuildContext context) async {
     var pdc = 0;
     try {
       await adminRef
@@ -74,12 +74,13 @@ class DatabaseManager {
         pdc = value['perDayCost'];
       });
     } catch (e) {
-      print(e);
+      SnackBarMessage.snackBarMessage(
+          content: 'Error occurred!', context: context);
     }
     return pdc;
   }
 
-  Future<int> getEffectiveDays() async {
+  Future<int> getEffectiveDays(BuildContext context) async {
     var efd = 0;
     try {
       await adminRef
@@ -89,21 +90,24 @@ class DatabaseManager {
         efd = value['effectiveDays'];
       });
     } catch (e) {
-      print(e);
+      SnackBarMessage.snackBarMessage(
+          content: 'Error occurred! Try again later', context: context);
     }
     return efd;
   }
 
-  Future<void> addBillDetails(int ed, int expense) {
-    return adminRef
-        .doc(user.uid)
-        .set({
-          'effectiveDays': ed,
-          'expense': expense,
-          'perDayCost': (expense / ed).ceil(),
-        }, SetOptions(merge: true))
-        .then((value) => print("Bill details Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+  Future<void> addBillDetails(int ed, int expense, BuildContext context) {
+    return adminRef.doc(user.uid).set({
+      'effectiveDays': ed,
+      'expense': expense,
+      'perDayCost': (expense / ed).ceil(),
+    }, SetOptions(merge: true)).then((value) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Bill added successfully', context: context);
+    }).catchError((error) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Error occurred! Try again later', context: context);
+    });
   }
 
   Future<void> updateProfileDataAdmin(
@@ -121,17 +125,16 @@ class DatabaseManager {
             content: 'Failed to add user: $error', context: context));
   }
 
-  generateBill() {
+  generateBill(BuildContext context) {
     userRef
         .where('messID', isEqualTo: user.uid)
         .get()
         .then((querySnapshot) async {
-      int perDayCost = await getPerDayCost();
-      int effDays = await getEffectiveDays();
+      int perDayCost = await getPerDayCost(context);
+      int effDays = await getEffectiveDays(context);
       int userCount = await getUserCount();
       querySnapshot.docs.forEach((element) {
         var messcut = element['messcut'];
-        print(messcut);
         var result = (perDayCost * (effDays - messcut)) / userCount;
         userRef.doc(element.id).update({'billAmount': result});
       });

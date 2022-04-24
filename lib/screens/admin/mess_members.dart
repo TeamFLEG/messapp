@@ -220,7 +220,7 @@ class MemberCard extends StatelessWidget {
                       children:  [
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
                             child: Text(
                               "$cardSubtitle",
                               style: const TextStyle(

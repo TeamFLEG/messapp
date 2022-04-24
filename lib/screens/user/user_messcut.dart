@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messapp/widgets/primary_button.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
+import 'package:messapp/widgets/snack_bar_message.dart';
 import '../../theme/palette.dart';
 import 'package:intl/intl.dart';
 
@@ -19,16 +20,19 @@ class _UserMessCutState extends State<UserMessCut> {
 
   Future<void> addUserMessCut(num messCut) {
     // Call the user's CollectionReference to add a new user
-    return user
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({
-          'messcut': messCut,
-        }, SetOptions(merge: true))
-        .then((value) => print("Mess cut Added"))
-        .catchError((error) => print("Failed to add mess cut: $error"));
+    return user.doc(FirebaseAuth.instance.currentUser!.uid).set({
+      'messcut': messCut,
+    }, SetOptions(merge: true)).then((value) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Mess cut added', context: context);
+    }).catchError((error) {
+      SnackBarMessage.snackBarMessage(
+          content: 'Error: $error', context: context);
+    });
   }
 
-  DateTime lastDayCurrentMonth = DateTime.utc(DateTime.now().year,DateTime.now().month,DateTime.now().day+10);
+  DateTime lastDayCurrentMonth = DateTime.utc(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day + 10);
   DateTimeRange dateRange =
       DateTimeRange(start: DateTime.now(), end: DateTime(2022, 4, 29));
 
@@ -70,7 +74,7 @@ class _UserMessCutState extends State<UserMessCut> {
                         color: Palette.myMaroon,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Row(
@@ -80,19 +84,20 @@ class _UserMessCutState extends State<UserMessCut> {
                           onPressed: pickDateRange,
                           child: Text(DateFormat('dd/MM/yyyy').format(start)),
                         ),
-                        Text('To'),
+                        const Text('To'),
                         ElevatedButton(
                           onPressed: pickDateRange,
-                          child: Text(DateFormat('dd/MM/yyyy').format(lastDayCurrentMonth)),
+                          child: Text(DateFormat('dd/MM/yyyy')
+                              .format(lastDayCurrentMonth)),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Text(
                       'Mess Cut: ${difference.inDays} days',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontFamily: 'Raleway',
                       ),
