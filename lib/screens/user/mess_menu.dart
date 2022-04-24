@@ -58,8 +58,8 @@ class _MessMenuState extends State<MessMenu> {
                             text: 'Sun',
                           ),
                           Tab(
-                             text: 'Mon',
-                           ),
+                            text: 'Mon',
+                          ),
                           // Tab(
                           //   text: 'Tue',
                           // ),
@@ -85,7 +85,6 @@ class _MessMenuState extends State<MessMenu> {
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (snapshot.hasData) {
-                              print(snapshot.data!.docs);
                               return TabBarView(
                                 children: snapshot.data!.docs.map((doc) {
                                   return MenuSection(
@@ -103,39 +102,6 @@ class _MessMenuState extends State<MessMenu> {
                             }
                           },
                         ),
-
-                        // TabBarView(
-                        //   children: [
-                        //     // MenuSection(
-                        //     //     mrng: "Bread & Jam",
-                        //     //     noon: "Sadhya",
-                        //     //     night: "Kanji"),
-                        //     MenuSection(
-                        //         mrng: "Idly & Sambar",
-                        //         noon: "Rice & Fish",
-                        //         night: "Chicken Biriyani"),
-                        //     MenuSection(
-                        //         mrng: "Puttu & Kadala",
-                        //         noon: "Rice & Chicken",
-                        //         night: "Poori & Bhaaji"),
-                        //     MenuSection(
-                        //         mrng: "Dosa & Sambar",
-                        //         noon: "Rice & Egg",
-                        //         night: "Idiyappam & Kadala"),
-                        //     MenuSection(
-                        //         mrng: "Poori Masala",
-                        //         noon: "Rice & Fish",
-                        //         night: "Chicken Biriyani"),
-                        //     MenuSection(
-                        //         mrng: "Idly & Sambar",
-                        //         noon: "Rice & Egg",
-                        //         night: "Noolputtu"),
-                        //     MenuSection(
-                        //         mrng: "Idly & Sambar",
-                        //         noon: "Rice & Fish",
-                        //         night: "Puttu & Fish"),
-                        //   ],
-                        // ),
                       ),
                     ],
                   ),
@@ -238,11 +204,15 @@ class MenuCard extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-                            const Icon(
-                              Icons.edit_outlined,
-                              color: Colors.white,
-                              size: 24,
-                            ),
+                            GestureDetector(
+                                child: const Icon(
+                                  Icons.edit_outlined,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/edit-food-menu');
+                                }),
                           ],
                         ),
                       ),
