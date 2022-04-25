@@ -35,15 +35,17 @@ import 'package:messapp/screens/admin/admin_statement.dart';
 import 'package:messapp/screens/admin/admin_attendance.dart';
 import 'package:messapp/screens/user/mess_details.dart';
 import 'package:messapp/screens/user/change_pass.dart';
-import 'package:messapp/screens/admin/qr_generation.dart';
-import 'package:messapp/screens/user/qr_scan.dart';
+// import 'package:messapp/screens/admin/qr_generation.dart';
+// import 'package:messapp/screens/user/qr_scan.dart';
 import 'package:messapp/screens/admin/add_member.dart';
 import 'package:messapp/screens/user/generate_uid.dart';
 
 import 'package:messapp/screens/admin/edit_food_menu.dart';
+import 'package:messapp/screens/admin/admin_showqr.dart';
+import 'package:messapp/screens/user/user_scan.dart';
 
 import 'package:messapp/screens/user/write_feedback.dart';
-// import 'package:messapp/screens/user/view_feedback.dart';
+import 'package:messapp/screens/admin/view_feedback.dart';
 
 import 'firebase_options.dart';
 
@@ -101,16 +103,15 @@ class MyApp extends StatelessWidget {
         '/change-pass': (context) => const ChangePass(),
         '/add-transaction': (context) => const AddTransaction(),
         '/update-bill-data': (context) => const UpdateBillData(),
-        '/qr-generation': (context) => const QRGenerator(),
-        '/qr-scan': (context) => const QRScan(),
+        '/admin-showqr': (context) => const QRGenerator(),
+        '/user-qrscan': (context) => const QRScan(),
         '/join-mess-contact': (context) => const JoinMessContact(),
-        '/view-feedbacks': (context) => const FeedbackPage(),
         '/add-member': (context) => const AddMember(),
         '/generate-uid': (context) => const GenerateUid(),
         '/write-feedbacks': (context) => const WriteFeedbacks(),
         '/edit-food-menu': (context) => const EditFoodMenu(),
         '/terms-of-services': (context) => const Terms(),
-        // '/view-feedbacks': (context) => const ViewFeedbacks(),
+        '/view-feedbacks': (context) => const ViewFeedBacks(),
       },
       home: const SplashScreen(),
     );

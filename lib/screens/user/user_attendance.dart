@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 import 'package:messapp/widgets/primary_button.dart';
 
+import '../../main.dart';
+
 class UserAttendance extends StatelessWidget {
   const UserAttendance({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class UserAttendance extends StatelessWidget {
         PrimaryButton(
           btnName: "Scan QR code",
           action: () {
-            Navigator.pushNamed(context, '/qr-scan');
+            navigatorKey.currentState!.pushNamed('/user-qrscan');
           },
         ),
       ]),

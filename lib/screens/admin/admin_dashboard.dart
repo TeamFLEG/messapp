@@ -5,7 +5,6 @@ import 'package:messapp/screens/dashboard_model.dart';
 import 'package:messapp/widgets/content_text.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 
-
 import '../../widgets/profile_pic.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -23,10 +22,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async{
-        setState(() {
-          
-        });
+      onRefresh: () async {
+        setState(() {});
       },
       child: Scaffold(
         key: scaffoldKey,
@@ -102,11 +99,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       if (snapshot.hasError) {
                         return const Text("Something went wrong");
                       }
-    
+
                       if (snapshot.hasData && !snapshot.data!.exists) {
                         return const Text("Document does not exist");
                       }
-    
+
                       if (snapshot.connectionState == ConnectionState.done) {
                         Map<String, dynamic> data =
                             snapshot.data!.data() as Map<String, dynamic>;
@@ -169,7 +166,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               cardName: "Attendance",
                               cardColor: const Color(0xFF99D5F3),
                               cardAction: () {
-                                Navigator.pushNamed(context, '/admin-attendance');
+                                Navigator.pushNamed(
+                                    context, '/admin-attendance');
                               })
                         ],
                       ),
@@ -186,13 +184,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               cardAction: () {
                                 Navigator.pushNamed(context, '/mess-members');
                               }),
-                          // DashboardCard(
-                          //     cardIcon: Icons.payment,
-                          //     cardName: "View Feedbacks",
-                          //     cardColor: const Color(0xFF99D5F3),
-                          //     cardAction: () {
-                          //       Navigator.pushNamed(context, '/view-feedbacks');
-                          //     }),
+                          DashboardCard(
+                              cardIcon: Icons.payment,
+                              cardName: "View Feedbacks",
+                              cardColor: const Color(0xFF99D5F3),
+                              cardAction: () {
+                                Navigator.pushNamed(context, '/view-feedbacks');
+                              }),
                         ],
                       ),
                     ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:messapp/widgets/custom_appbar.dart';
 
+import '../../main.dart';
+
 class AdminAttendance extends StatefulWidget {
   const AdminAttendance({Key? key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class _AdminAttendanceState extends State<AdminAttendance> {
                           const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/qr-generation');
+                          navigatorKey.currentState!.pushNamed('/admin-showqr');
                         },
                         child: const Text(
                           'Generate QR',
@@ -41,7 +43,6 @@ class _AdminAttendanceState extends State<AdminAttendance> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
