@@ -1,16 +1,3 @@
-# messapp
-
-Complete Mess Management App
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="center"><img src="https://raw.githubusercontent.com/TeamFLEG/messapp/master/assets/messapp_logo-removebg-preview.png" alt="MessApp" width="500" height="500"></p>
+<h1 align="center">MessApp</h1>
+<p align='justify'>The product is an android application used to manage daily mess attendance and streamline rebate and menu selection processes. The system's objective is to provide a user-friendly daily attendance system that is easy to operate, maintain and query. Our primary focus is to develop a paperless system that provides the management with a way to facilitate the smooth functioning of the mess system. In many organizations, entire mess management and billing calculations are done manually. It is very time-consuming and increases the chances of performing calculation mistakes. It would be possible to do the same work within a short period without using much effort and workforce if there existed software for the same. Thus, a smoother and faster method is needed, resulting in the need for an application.</p>
